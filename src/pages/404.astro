@@ -1,0 +1,12 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Button from '../components/Button.astro';
+---
+<Base title="Página no encontrada" description="La página que buscás no existe." noindex>
+  <section class="container not-found">
+    <SectionTitle as="h1" title="No encontré esta página" eyebrow="Error 404" />
+    <p>El enlace puede estar roto o la página cambió de lugar.</p>
+    <Button href="/">Volver al inicio</Button>
+  </section>
+</Base>

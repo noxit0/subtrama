@@ -1,0 +1,38 @@
+---
+import { sitio } from '../data/sitio';
+import { servicios } from '../data/servicios';
+const year = new Date().getFullYear();
+const contacto = [
+  sitio.email && { label: sitio.email, href: `mailto:${sitio.email}` },
+  sitio.whatsapp && { label: 'WhatsApp', href: sitio.whatsapp },
+  sitio.instagram && { label: 'Instagram', href: sitio.instagram },
+].filter(Boolean) as { label: string; href: string }[];
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <img src="/logos/subtrama-principal-positivo.svg" alt="Subtrama, espacio de marketing digital" width="220" />
+    </div>
+    <nav aria-label="Servicios" class="footer-col">
+      <span class="st-eyebrow">Servicios</span>
+      <ul>
+        {servicios.map((s) => <li><a href={`/servicios/${s.slug}/`}>{s.titulo}</a></li>)}
+      </ul>
+    </nav>
+    <nav aria-label="Sitio" class="footer-col">
+      <span class="st-eyebrow">Sitio</span>
+      <ul>
+        <li><a href="/nosotros/">Nosotros</a></li>
+        <li><a href="/contacto/">Contacto</a></li>
+      </ul>
+      {contacto.length > 0 && (
+        <ul class="footer-contact">
+          {contacto.map((c) => <li><a href={c.href}>{c.label}</a></li>)}
+        </ul>
+      )}
+    </nav>
+  </div>
+  <div class="container footer-legal">
+    <small>© {year} Subtrama. Espacio de marketing digital.</small>
+  </div>
+</footer>

@@ -1,0 +1,17 @@
+---
+interface Props {
+  number?: number;
+  title: string;
+  eyebrow?: string;
+  align?: 'left' | 'right';
+  as?: 'h1' | 'h2' | 'h3';
+}
+const { number, title, eyebrow, align = 'left', as: Tag = 'h2' } = Astro.props;
+---
+<div class={`st-sectitle st-sectitle-${align}`}>
+  {number != null && <span class="st-sectitle-num" aria-hidden="true">{number}.</span>}
+  <div class="st-sectitle-words">
+    {eyebrow && <span class="st-eyebrow">{eyebrow}</span>}
+    <Tag class="st-sectitle-title">{title}</Tag>
+  </div>
+</div>

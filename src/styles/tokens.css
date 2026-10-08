@@ -1,0 +1,125 @@
+/* Subtrama tokens — generado desde tokens.json */
+@font-face{font-family:"Anton";src:url("/fonts/Anton-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("/fonts/Montserrat-Variable.woff2") format("woff2");font-weight:100 900;font-style:normal;font-display:swap}
+@font-face{font-family:"Montserrat";src:url("/fonts/Montserrat-Italic-Variable.woff2") format("woff2");font-weight:100 900;font-style:italic;font-display:swap}
+:root, [data-theme="light"] {
+  --bg: #FFF5E9;
+  --surface: #FFFFFF;
+  --surface-alt: #EBE4D8;
+  --border: #D5D0C8;
+  --text: #272524;
+  --text-muted: #67635C;
+  --text-inverse: #FFF5E9;
+  --brand: #77897F;
+  --brand-strong: #48574E;
+  --accent: #CC8D73;
+  --accent-strong: #8E5A44;
+  --accent-display: #B0765E;
+  --accent-2: #F8B271;
+  --highlight: #EEA915;
+  --highlight-text: #6D4B03;
+  --on-brand: #FFF5E9;
+  --on-accent: #272524;
+  --focus: #48574E;
+  --salvia-50: #F3F8F5;
+  --salvia-100: #E6EDE9;
+  --salvia-200: #D0DAD5;
+  --salvia-300: #B4C1BA;
+  --salvia-400: #9AA9A0;
+  --salvia-500: #77897F;
+  --salvia-600: #5D6D64;
+  --salvia-700: #48574E;
+  --salvia-800: #334139;
+  --salvia-900: #1E2A23;
+  --terracota-50: #FEF4F1;
+  --terracota-100: #FFE5DA;
+  --terracota-200: #F7CDBC;
+  --terracota-300: #E6B09A;
+  --terracota-400: #CC8D73;
+  --terracota-500: #B0765E;
+  --terracota-600: #8E5A44;
+  --terracota-700: #744531;
+  --terracota-800: #5A301E;
+  --terracota-900: #3F1A0A;
+  --durazno-50: #FEF5ED;
+  --durazno-100: #FFE6D1;
+  --durazno-200: #FACEA7;
+  --durazno-300: #F8B271;
+  --durazno-400: #D59559;
+  --durazno-500: #B17840;
+  --durazno-600: #8F5C28;
+  --durazno-700: #754613;
+  --durazno-800: #5B3200;
+  --durazno-900: #3A1F01;
+  --mostaza-50: #FFF5E7;
+  --mostaza-100: #FFE8C4;
+  --mostaza-200: #FBD08C;
+  --mostaza-300: #EEA915;
+  --mostaza-400: #D79704;
+  --mostaza-500: #AF7B06;
+  --mostaza-600: #8A6001;
+  --mostaza-700: #6D4B03;
+  --mostaza-800: #523700;
+  --mostaza-900: #352200;
+  --neutro-50: #FFF5E9;
+  --neutro-100: #F4EDE2;
+  --neutro-200: #EBE4D8;
+  --neutro-300: #D5D0C8;
+  --neutro-400: #AFAAA2;
+  --neutro-500: #8A867E;
+  --neutro-600: #67635C;
+  --neutro-700: #4B4741;
+  --neutro-800: #33302A;
+  --neutro-900: #272524;
+  --neutro-950: #1C1A18;
+}
+[data-theme="dark"] {
+  --bg: #1C1A18;
+  --surface: #272524;
+  --surface-alt: #33302A;
+  --border: #4B4741;
+  --text: #F4EDE2;
+  --text-muted: #AFAAA2;
+  --text-inverse: #272524;
+  --brand: #9AA9A0;
+  --brand-strong: #B4C1BA;
+  --accent-strong: #E6B09A;
+  --accent-display: #CC8D73;
+  --highlight-text: #FBD08C;
+  --on-brand: #1C1A18;
+  --focus: #B4C1BA;
+  color-scheme: dark;
+}
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --margin-social: 72px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-pill: 999px;
+  --stroke-circle: 2px;
+  --stroke-bar: 16px;
+  --stroke-hairline: 1px;
+  --font-display: Anton, "League Gothic", "Arial Narrow", sans-serif;
+  --font-sans: Montserrat, system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+.display-xl{font-family:var(--font-display);font-size:76px;line-height:72px;font-weight:400;text-transform:uppercase}
+.display-lg{font-family:var(--font-display);font-size:61px;line-height:58px;font-weight:400;text-transform:uppercase}
+.display-md{font-family:var(--font-display);font-size:49px;line-height:48px;font-weight:400;text-transform:uppercase}
+.heading-lg{font-family:var(--font-sans);font-size:31px;line-height:38px;font-weight:700}
+.heading-md{font-family:var(--font-sans);font-size:25px;line-height:32px;font-weight:700}
+.heading-sm{font-family:var(--font-sans);font-size:20px;line-height:28px;font-weight:600}
+.body-lg{font-family:var(--font-sans);font-size:18px;line-height:28px;font-weight:400}
+.body{font-family:var(--font-sans);font-size:16px;line-height:26px;font-weight:400}
+.body-strong{font-family:var(--font-sans);font-size:16px;line-height:26px;font-weight:700}
+.label{font-family:var(--font-sans);font-size:12px;line-height:16px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase}
+.caption{font-family:var(--font-sans);font-size:12px;line-height:18px;font-weight:400}

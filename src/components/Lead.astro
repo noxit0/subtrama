@@ -1,0 +1,8 @@
+---
+interface Props {
+  lead: string;
+}
+const { lead } = Astro.props;
+const hasText = Astro.slots.has('default');
+---
+<p class="st-lead"><strong>{lead}</strong>{hasText && ' '}<slot /></p>
