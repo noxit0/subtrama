@@ -1,0 +1,7 @@
+---
+interface Props {
+  tone?: 'accent' | 'accent-2' | 'highlight' | 'brand' | 'surface';
+}
+const { tone = 'accent' } = Astro.props;
+---
+<span class={`st-pill st-pill-${tone}`}><slot /></span>

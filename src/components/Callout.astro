@@ -1,0 +1,10 @@
+---
+interface Props {
+  label?: string;
+}
+const { label = 'Nota' } = Astro.props;
+---
+<aside class="st-callout">
+  <span class="st-eyebrow">{label}</span>
+  <div class="st-callout-body"><slot /></div>
+</aside>

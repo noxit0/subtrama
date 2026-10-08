@@ -1,0 +1,17 @@
+---
+interface Props {
+  title?: string;
+  tone?: 'accent' | 'accent-2' | 'highlight' | 'accent-strong' | 'brand' | 'surface';
+  number?: number;
+  class?: string;
+}
+const { title, tone = 'accent', number, class: className } = Astro.props;
+const classes = ['st-card', `st-card-${tone}`, title && 'st-card-titled', number != null && 'st-card-numbered', className]
+  .filter(Boolean)
+  .join(' ');
+---
+<section class={classes}>
+  {title && <h3 class="st-card-title">{title}</h3>}
+  <div class="st-card-body"><slot /></div>
+  {number != null && <span class="st-card-num">{number}</span>}
+</section>

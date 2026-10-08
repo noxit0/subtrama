@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Card from '../components/Card.astro';
+import Lead from '../components/Lead.astro';
+import Button from '../components/Button.astro';
+---
+<Base
+  title="Nosotros"
+  description="Subtrama es un espacio de marketing digital que gestiona redes y estrategia de contenido para marcas de autor, talleres y estudios."
+>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle as="h1" title="Nosotros" eyebrow="Quién soy" />
+        <p>
+          Subtrama es un espacio de marketing digital que gestiona redes y estrategia de contenido para marcas de autor, talleres y estudios. La trama invisible que conecta tu historia con el mundo digital.
+        </p>
+      </div>
+      <div class="grid-cards">
+        <Card title="Concreta" tone="accent-2">
+          <Lead lead="Diagnostico con datos.">Nombro el problema en lugar de rodearlo.</Lead>
+        </Card>
+        <Card title="Transparente" tone="accent-2">
+          <Lead lead="Explico el porqué de cada recomendación.">Vos decidís qué hacer con ella.</Lead>
+        </Card>
+        <Card title="Con alcance claro" tone="accent-2">
+          <Lead lead="Defino qué hago y qué no.">Para que las expectativas estén alineadas desde el inicio.</Lead>
+        </Card>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="cta-band">
+        <h2>Conozcámonos</h2>
+        <p>Una primera reunión alcanza para ver si trabajar juntos tiene sentido.</p>
+        <Button href="/contacto/" variant="accent" size="lg">Agendar reunión</Button>
+      </div>
+    </div>
+  </section>
+</Base>

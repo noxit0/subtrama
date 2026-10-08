@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Button from '../components/Button.astro';
+import Callout from '../components/Callout.astro';
+import { sitio } from '../data/sitio';
+import { servicios } from '../data/servicios';
+
+const canales = [
+  sitio.email && { label: 'Correo', valor: sitio.email, href: `mailto:${sitio.email}` },
+  sitio.whatsapp && { label: 'WhatsApp', valor: 'Escribir por WhatsApp', href: sitio.whatsapp },
+  sitio.instagram && { label: 'Instagram', valor: 'Ver el perfil', href: sitio.instagram },
+].filter(Boolean) as { label: string; valor: string; href: string }[];
+---
+<Base title="Contacto" description="Contame qué hacés y dónde estás hoy. Agendá una reunión con Subtrama.">
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle as="h1" title="Contacto" eyebrow="Agendar reunión" />
+        <p>Contame qué hacés y dónde estás hoy. Te respondo para coordinar una primera reunión.</p>
+      </div>
+      <div class="contact-grid">
+        <form class="form" method="post" action="#" aria-describedby="form-estado">
+          <div class="field">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" name="nombre" type="text" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="email">Correo</label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="marca">Marca o proyecto</label>
+            <input id="marca" name="marca" type="text" autocomplete="organization" />
+          </div>
+          <div class="field">
+            <label for="servicio">Servicio de interés</label>
+            <select id="servicio" name="servicio">
+              <option value="">Todavía no lo sé</option>
+              {servicios.map((s) => <option value={s.slug}>{s.titulo}</option>)}
+            </select>
+          </div>
+          <div class="field">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+          </div>
+          <div>
+            <Button type="submit" size="lg" disabled>Enviar consulta</Button>
+          </div>
+          <p id="form-estado" class="field-hint">El envío del formulario se habilita en la próxima etapa del sitio.</p>
+        </form>
+        <div>
+          {canales.length > 0 ? (
+            <Callout label="Otros canales">
+              <ul class="contact-list">
+                {canales.map((c) => <li><strong>{c.label}:</strong> <a href={c.href}>{c.valor}</a></li>)}
+              </ul>
+            </Callout>
+          ) : (
+            <Callout label="Otros canales">
+              <p>Los canales de contacto directo se publican junto con el formulario.</p>
+            </Callout>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,55 @@
+---
+import Base from '../../layouts/Base.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import FeatureList from '../../components/FeatureList.astro';
+import Callout from '../../components/Callout.astro';
+import Button from '../../components/Button.astro';
+import { servicios } from '../../data/servicios';
+
+export function getStaticPaths() {
+  return servicios.map((servicio, i) => ({
+    params: { slug: servicio.slug },
+    props: {
+      servicio,
+      numero: i + 1,
+      anterior: servicios[i - 1],
+      siguiente: servicios[i + 1],
+    },
+  }));
+}
+
+const { servicio, numero, anterior, siguiente } = Astro.props;
+---
+<Base title={servicio.titulo} description={servicio.resumen}>
+  <section class="section">
+    <div class="container">
+      <p class="breadcrumb"><a href="/servicios/">Servicios</a></p>
+      <div class="section-head">
+        <SectionTitle as="h1" number={numero} title={servicio.titulo} />
+        <p class="servicio-intro">{servicio.intro}</p>
+      </div>
+      <div class="servicio-layout">
+        <div>
+          <span class="st-eyebrow" style="margin-bottom:var(--space-3)">Qué incluye</span>
+          <FeatureList items={servicio.incluye} />
+        </div>
+        <Callout label="Qué recibís">
+          <p>{servicio.entrega}</p>
+        </Callout>
+      </div>
+      <div class="servicio-nav">
+        {anterior ? <Button href={`/servicios/${anterior.slug}/`} variant="secondary">← {anterior.titulo}</Button> : <span />}
+        {siguiente ? <Button href={`/servicios/${siguiente.slug}/`} variant="secondary">{siguiente.titulo} →</Button> : <span />}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="cta-band">
+        <h2>Hablemos de tu marca</h2>
+        <p>Contame qué hacés y qué necesitás. Armamos el plan a partir de ahí.</p>
+        <Button href="/contacto/" variant="accent" size="lg">Agendar reunión</Button>
+      </div>
+    </div>
+  </section>
+</Base>

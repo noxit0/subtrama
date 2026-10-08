@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import Card from '../../components/Card.astro';
+import SectionTitle from '../../components/SectionTitle.astro';
+import Button from '../../components/Button.astro';
+import { servicios } from '../../data/servicios';
+---
+<Base
+  title="Servicios"
+  description="Análisis situacional, reestructuración, creación y edición de contenido, programación mensual, publicación e informes bimestrales."
+>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle as="h1" title="Servicios" eyebrow="Qué hago" />
+        <p>Cada servicio resuelve una parte del trabajo en redes. Se combinan según lo que tu marca necesite hoy.</p>
+      </div>
+      <div class="grid-cards">
+        {servicios.map((s, i) => (
+          <a class="card-link" href={`/servicios/${s.slug}/`}>
+            <Card title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
+              <h3 class="card-service">{s.titulo}</h3>
+              <p>{s.resumen}</p>
+              <span class="card-more">Ver detalle</span>
+            </Card>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="cta-band">
+        <h2>¿Por dónde empezar?</h2>
+        <p>Si no sabés qué servicio necesitás, empezamos por el análisis situacional.</p>
+        <Button href="/contacto/" variant="accent" size="lg">Agendar reunión</Button>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,15 +1,87 @@
 ---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import Card from '../components/Card.astro';
+import Lead from '../components/Lead.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Callout from '../components/Callout.astro';
+import { servicios } from '../data/servicios';
 ---
+<Base
+  title="Subtrama | Espacio de marketing digital"
+  description="Gestiono redes y estrategia de contenido para marcas de autor, talleres y estudios. Mientras vos creás tu mundo, yo lo cuento en redes."
+>
+  <section class="hero">
+    <div class="container hero-inner">
+      <span class="st-eyebrow">Espacio de marketing digital</span>
+      <h1 class="display">Mientras vos creás tu mundo, yo lo cuento en redes.</h1>
+      <p class="hero-lead">
+        Soy Subtrama, la trama invisible que conecta tu historia con el mundo digital. Pienso creativamente y actúo con estrategia y organización.
+      </p>
+      <div class="hero-actions">
+        <Button href="/contacto/" size="lg">Agendar reunión</Button>
+        <Button href="/servicios/" size="lg" variant="secondary">Ver servicios</Button>
+      </div>
+    </div>
+  </section>
 
-<html lang="es">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>Subtrama</title>
-  </head>
-  <body>
-    <h1>Subtrama</h1>
-  </body>
-</html>
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle title="Para quién trabajo" />
+        <p>
+          Gestiono redes y estrategia de contenido para marcas de autor, talleres y estudios: proyectos con oficio, historia y una firma detrás que merecen ser contados con criterio.
+        </p>
+      </div>
+      <div class="grid-cards">
+        <Card title="Diagnóstico" tone="surface">
+          <Lead lead="Empiezo por los datos.">Nombro el problema antes de proponer una solución.</Lead>
+        </Card>
+        <Card title="Explicación" tone="surface">
+          <Lead lead="Cada recomendación tiene su porqué.">La decisión final siempre es tuya.</Lead>
+        </Card>
+        <Card title="Alcance" tone="surface">
+          <Lead lead="Lo que hago queda claro desde el principio.">Sin promesas difusas ni letra chica.</Lead>
+        </Card>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle title="Servicios" />
+        <p>Siete servicios que se combinan según el punto de partida de cada marca.</p>
+      </div>
+      <div class="grid-cards">
+        {servicios.map((s, i) => (
+          <a class="card-link" href={`/servicios/${s.slug}/`}>
+            <Card title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
+              <h3 class="card-service">{s.titulo}</h3>
+              <p>{s.resumen}</p>
+              <span class="card-more">Ver detalle</span>
+            </Card>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <Callout label="Cómo se trabaja">
+        <p>Cada mes se programa, se publica y se mide. Cada dos meses te entrego un informe y lo repasamos juntos.</p>
+      </Callout>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cta-band">
+        <h2>Hablemos de tu marca</h2>
+        <p>Contame qué hacés y dónde estás hoy. Empezamos por entender el punto de partida.</p>
+        <Button href="/contacto/" variant="accent" size="lg">Agendar reunión</Button>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,16 @@
+---
+interface Item {
+  lead?: string;
+  text?: string;
+}
+interface Props {
+  items: Item[];
+  tone?: 'accent-2' | 'surface';
+}
+const { items, tone = 'accent-2' } = Astro.props;
+---
+<ul class={`st-features st-features-${tone}`}>
+  {items.map((it) => (
+    <li>{it.lead && <strong>{it.lead}</strong>}{it.lead && it.text ? ' ' : ''}{it.text}</li>
+  ))}
+</ul>
