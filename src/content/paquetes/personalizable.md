@@ -3,7 +3,7 @@ nombre: "Personalizable"
 orden: 4
 tipo: "personalizable"
 destacado: false
-resumen: "Armás el plan a medida: elegís los servicios y las cantidades, y cada uno tiene su precio."
+resumen: "Armás el plan a medida: elegís servicios y cantidades, y cada uno tiene su precio."
 para_quien: "Marcas con necesidades puntuales o con un volumen distinto al de los paquetes cerrados."
 incluye:
   - lead: "Servicios a elección."

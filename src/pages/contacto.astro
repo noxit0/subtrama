@@ -13,12 +13,12 @@ const canales = [
   sitio.instagram && { label: 'Instagram', valor: 'Ver el perfil', href: sitio.instagram },
 ].filter(Boolean) as { label: string; valor: string; href: string }[];
 ---
-<Base title="Contacto" description="Contame qué hacés y dónde estás hoy. Agendá una reunión con Subtrama.">
+<Base title="Contacto" description="Contanos qué hacés y dónde estás hoy. Agendá una reunión con Subtrama.">
   <section class="section">
     <div class="container">
       <div class="section-head">
         <SectionTitle as="h1" title="Contacto" eyebrow="Agendar reunión" />
-        <p>Contame qué hacés y dónde estás hoy. Te respondo para coordinar una primera reunión.</p>
+        <p>Contanos qué hacés y dónde estás hoy. Te respondemos para coordinar una primera reunión.</p>
       </div>
       <div class="contact-grid">
         <form class="form" method="post" action="#" aria-describedby="form-estado">
@@ -48,7 +48,7 @@ const canales = [
           <div>
             <Button type="submit" size="lg" disabled>Enviar consulta</Button>
           </div>
-          <p id="form-estado" class="field-hint">El envío del formulario se habilita en la próxima etapa del sitio.</p>
+          <p id="form-estado" class="field-hint">Por ahora, escribinos por WhatsApp o por correo. El formulario se habilita pronto.</p>
         </form>
         <div>
           {canales.length > 0 ? (
