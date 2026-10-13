@@ -14,9 +14,12 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 
 ## Estructura
 
-- src/pages/: páginas del sitio (rutas por archivo).
+- src/pages/: páginas del sitio (rutas por archivo): inicio, nosotros, contacto, 404 y servicios (índice y [slug]).
+- src/components/: componentes .astro portados del sistema de diseño de marca.
+- src/layouts/Base.astro: layout base (metadatos, Open Graph, canonical).
+- src/data/: contenido editable (sitio.ts: contacto; servicios.ts: catálogo de servicios).
+- src/styles/: tokens.css, global.css y components.css.
 - public/: archivos estáticos servidos tal cual (favicon, robots.txt, _redirects).
-- legacy/: sitio HTML anterior (mock up). Solo referencia de estilo y contenido. No se publica ni se modifica; se eliminará cuando exista el diseño nuevo.
 - astro.config.mjs: configuración de Astro (site: https://subtrama.com.ar).
 - dist/, node_modules/ y .astro/: generados e ignorados por Git. No editar.
 
@@ -37,6 +40,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - No incluir node_modules/, dist/ ni .astro/ en cambios. No instalar dependencias sin informar el motivo.
 - Los comandos de terminal para el mantenedor deben ser compatibles con Windows. En PowerShell, usar curl.exe en lugar de curl.
 - Los archivos usan fin de línea LF (ver .gitattributes).
+- Voz de marca: primera persona, voseo rioplatense, sin emojis.
 
 ## Convenciones de contenido y código
 
@@ -55,12 +59,21 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Acceso a /admin funcional (cuando exista el CMS).
 - Redirecciones 301 en public/_redirects, si cambian URL.
 
+## Estado
+
+- Sitio público publicado en https://subtrama.com.ar: 12 páginas (inicio, servicios con 7 páginas de detalle, nosotros, contacto, 404).
+- Auditoría del 2026-10-13: build correcto, sitemap, robots.txt y Open Graph presentes; Lighthouse: rendimiento 99-100, accesibilidad 100, mejores prácticas 100 y SEO 100 (medición local, 5 páginas).
+
 ## Pendientes conocidos
 
-- Decap CMS y proxy OAuth (Cloudflare Worker).
-- Diseño nuevo del sitio, secciones y contenido, por definir.
-- Correo corporativo del dominio: por definir. La zona DNS no tiene registros de correo.
-- Funciones dinámicas (formulario de contacto, analítica, búsqueda): por definir.
+- Texto del sitio en borrador, a revisar por el mantenedor.
+- Formulario de contacto sin envío (Turnstile y Resend o Brevo).
+- Instagram: URL pendiente en src/data/sitio.ts.
+- Páginas legales: requieren revisión legal.
+- Correo corporativo (Google Workspace): sin contratar; la zona DNS no tiene registros de correo. Actualizar sitio.ts.
+- Analítica y búsqueda: por definir.
+- Decap CMS y proxy OAuth (Cloudflare Worker): diferido.
+- Portal de clientes: requiere backend; sin decidir.
 
 ## Registro
 

@@ -18,7 +18,7 @@ import { servicios } from '../../data/servicios';
       <div class="grid-cards">
         {servicios.map((s, i) => (
           <a class="card-link" href={`/servicios/${s.slug}/`}>
-            <Card title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
+            <Card as="h2" title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
               <h3 class="card-service">{s.titulo}</h3>
               <p>{s.resumen}</p>
               <span class="card-more">Ver detalle</span>
