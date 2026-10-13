@@ -50,3 +50,10 @@ export async function getAdicionales() {
 
 const nf = new Intl.NumberFormat('es-AR');
 export const formatoPrecio = (n: number) => '$' + nf.format(n);
+
+export type SeccionInicio = 'para-quien' | 'paquetes' | 'marcas' | 'como-se-trabaja';
+
+export async function getSeccionesInicio(): Promise<SeccionInicio[]> {
+  const [e] = await getCollection('inicio');
+  return e.data.secciones.map((s) => s.tipo);
+}

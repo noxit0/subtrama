@@ -1,0 +1,135 @@
+---
+// Animación decorativa de inicio: un teléfono con una publicación que recibe un "me gusta",
+// un nuevo seguidor y una notificación de alcance. Solo CSS, sin imágenes ni JavaScript.
+---
+<div class="hv" aria-hidden="true">
+  <div class="hv-blob hv-blob-1"></div>
+  <div class="hv-blob hv-blob-2"></div>
+  <div class="hv-phone">
+    <div class="hv-screen">
+      <div class="hv-notch"></div>
+
+      <div class="hv-head">
+        <span class="hv-avatar"></span>
+        <span class="hv-name">tu_marca</span>
+        <span class="hv-follow">
+          <span class="hv-follow-a">Seguir</span>
+          <span class="hv-follow-b">Siguiendo</span>
+        </span>
+      </div>
+
+      <svg class="hv-post" viewBox="0 0 244 244" focusable="false">
+        <rect width="244" height="244" fill="#77897F" />
+        <circle cx="170" cy="78" r="38" fill="#F8B271" />
+        <path d="M-10 150 Q 40 110 92 150 T 196 150 T 300 150" fill="none" stroke="#FFF5E9" stroke-width="9" stroke-linecap="round" />
+        <path d="M-10 182 Q 40 142 92 182 T 196 182 T 300 182" fill="none" stroke="#CC8D73" stroke-width="9" stroke-linecap="round" />
+        <path d="M-10 214 Q 40 174 92 214 T 196 214 T 300 214" fill="none" stroke="#FFF5E9" stroke-width="9" stroke-linecap="round" />
+      </svg>
+
+      <div class="hv-actions">
+        <span class="hv-heart">
+          <svg class="hv-heart-off" viewBox="0 0 24 24" focusable="false"><path d="M12 20.5s-7.5-4.8-9.6-9.5A5.4 5.4 0 0 1 12 6.4a5.4 5.4 0 0 1 9.6 4.6C19.5 15.7 12 20.5 12 20.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" /></svg>
+          <svg class="hv-heart-on" viewBox="0 0 24 24" focusable="false"><path d="M12 20.5s-7.5-4.8-9.6-9.5A5.4 5.4 0 0 1 12 6.4a5.4 5.4 0 0 1 9.6 4.6C19.5 15.7 12 20.5 12 20.5z" fill="#CC4B3C" stroke="#CC4B3C" stroke-width="1.8" stroke-linejoin="round" /></svg>
+        </span>
+        <svg class="hv-ico" viewBox="0 0 24 24" focusable="false"><path d="M21 11.5a8.4 8.4 0 0 1-12.2 7.5L3 20.5l1.6-5.5A8.5 8.5 0 1 1 21 11.5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" /></svg>
+        <svg class="hv-ico" viewBox="0 0 24 24" focusable="false"><path d="M21 3 3 10.5l7 2.5 2.5 7z M10 13l11-10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" /></svg>
+      </div>
+
+      <div class="hv-likes">
+        <span class="hv-likes-a">248 me gusta</span>
+        <span class="hv-likes-b">249 me gusta</span>
+      </div>
+      <div class="hv-lines"><span></span><span></span></div>
+
+      <div class="hv-bar"><span></span><span></span><span></span><span></span></div>
+
+      <div class="hv-notif">
+        <span class="hv-notif-dot"></span>
+        <span class="hv-notif-text">Tu publicación está llegando a más cuentas</span>
+      </div>
+
+      <span class="hv-cursor"></span>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hv{position:relative;display:grid;place-items:center;min-height:540px;--t:4.5s}
+  .hv-blob{position:absolute;border-radius:50%;z-index:0}
+  .hv-blob-1{width:320px;height:320px;background:var(--terracota-100);top:30px;right:6%}
+  .hv-blob-2{width:180px;height:180px;background:var(--salvia-200);bottom:20px;left:8%}
+  .hv-phone{position:relative;z-index:1;width:264px;height:540px;padding:10px;border-radius:40px;background:#1E2A23;box-shadow:0 24px 48px rgba(30,42,35,.28)}
+  .hv-screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:30px;background:#FFFFFF;color:#272524}
+  .hv-notch{position:absolute;top:8px;left:50%;width:70px;height:18px;margin-left:-35px;border-radius:12px;background:#1E2A23;z-index:2}
+
+  .hv-head{position:absolute;top:34px;left:0;right:0;height:30px;display:flex;align-items:center;gap:8px;padding-inline:14px}
+  .hv-avatar{width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#CC8D73,#F8B271)}
+  .hv-name{font-size:12px;font-weight:700;flex:1}
+  .hv-follow{position:relative;width:72px;height:24px;font-size:11px;font-weight:700}
+  .hv-follow-a,.hv-follow-b{position:absolute;inset:0;display:grid;place-items:center;border-radius:8px}
+  .hv-follow-a{background:#48574E;color:#FFF5E9;animation:hv-follow-a var(--t) infinite}
+  .hv-follow-b{background:#EBE4D8;color:#272524;animation:hv-follow-b var(--t) infinite}
+
+  .hv-post{position:absolute;top:78px;left:0;width:100%;height:244px;display:block}
+
+  .hv-actions{position:absolute;top:330px;left:0;right:0;height:28px;display:flex;align-items:center;gap:14px;padding-inline:14px}
+  .hv-ico,.hv-heart,.hv-heart svg{width:24px;height:24px;display:block}
+  .hv-heart{position:relative}
+  .hv-heart svg{position:absolute;inset:0}
+  .hv-heart-off{animation:hv-off var(--t) infinite}
+  .hv-heart-on{opacity:0;animation:hv-heart-on var(--t) infinite}
+
+  .hv-likes{position:absolute;top:364px;left:14px;height:16px;font-size:11px;font-weight:700;width:120px}
+  .hv-likes span{position:absolute;inset:0}
+  .hv-likes-a{animation:hv-off var(--t) infinite}
+  .hv-likes-b{opacity:0;animation:hv-on var(--t) infinite}
+  .hv-lines{position:absolute;top:388px;left:14px;right:14px;display:grid;gap:8px}
+  .hv-lines span{display:block;height:8px;border-radius:4px;background:#EBE4D8}
+  .hv-lines span:last-child{width:60%}
+
+  .hv-bar{position:absolute;bottom:0;left:0;right:0;height:46px;border-top:1px solid #EBE4D8;display:flex;justify-content:space-around;align-items:center}
+  .hv-bar span{width:20px;height:20px;border-radius:6px;background:#D5D0C8}
+  .hv-bar span:first-child{background:#77897F}
+
+  .hv-notif{position:absolute;top:8px;left:10px;right:10px;z-index:3;display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:16px;background:#48574E;color:#FFF5E9;font-size:11px;line-height:15px;font-weight:600;box-shadow:0 8px 18px rgba(30,42,35,.3);opacity:0;animation:hv-notif var(--t) infinite}
+  .hv-notif-dot{flex:none;width:26px;height:26px;border-radius:8px;background:#F8B271}
+
+  .hv-cursor{position:absolute;top:0;left:0;z-index:4;width:30px;height:30px;border-radius:50%;background:rgba(204,141,115,.45);border:2px solid #CC8D73;opacity:0;animation:hv-cursor var(--t) infinite}
+
+  @keyframes hv-cursor{
+    0%,4%{opacity:0;transform:translate(155px,415px) scale(1);box-shadow:0 0 0 0 rgba(204,141,115,0)}
+    10%{opacity:1;transform:translate(155px,415px) scale(1)}
+    24%{opacity:1;transform:translate(11px,329px) scale(1);box-shadow:0 0 0 0 rgba(204,141,115,.55)}
+    27%{transform:translate(11px,329px) scale(.82)}
+    32%{transform:translate(11px,329px) scale(1);box-shadow:0 0 0 16px rgba(204,141,115,0)}
+    38%{opacity:1;transform:translate(11px,329px) scale(1)}
+    52%{transform:translate(181px,33px) scale(1);box-shadow:0 0 0 0 rgba(204,141,115,.55)}
+    55%{transform:translate(181px,33px) scale(.82)}
+    60%{transform:translate(181px,33px) scale(1);box-shadow:0 0 0 16px rgba(204,141,115,0)}
+    66%,100%{opacity:0;transform:translate(181px,33px) scale(1)}
+  }
+  @keyframes hv-heart-on{
+    0%,25%{opacity:0;transform:scale(.6)}
+    28%{opacity:1;transform:scale(1.35)}
+    33%{opacity:1;transform:scale(1)}
+    94%{opacity:1;transform:scale(1)}
+    100%{opacity:0;transform:scale(.6)}
+  }
+  @keyframes hv-off{0%,26%{opacity:1}27%,95%{opacity:0}100%{opacity:1}}
+  @keyframes hv-on{0%,26%{opacity:0}27%,95%{opacity:1}100%{opacity:0}}
+  @keyframes hv-follow-a{0%,52%{opacity:1}53%,95%{opacity:0}100%{opacity:1}}
+  @keyframes hv-follow-b{0%,52%{opacity:0}53%,95%{opacity:1}100%{opacity:0}}
+  @keyframes hv-notif{
+    0%,60%{opacity:0;transform:translateY(-70px)}
+    68%{opacity:1;transform:translateY(0)}
+    90%{opacity:1;transform:translateY(0)}
+    96%,100%{opacity:0;transform:translateY(-70px)}
+  }
+
+  @media (max-width:899px){.hv{min-height:0;padding-block:var(--space-4)}}
+  @media (prefers-reduced-motion:reduce){
+    .hv *{animation:none !important}
+    .hv-heart-off,.hv-likes-a,.hv-follow-a,.hv-cursor{opacity:0}
+    .hv-heart-on,.hv-likes-b,.hv-follow-b,.hv-notif{opacity:1;transform:none}
+  }
+</style>
