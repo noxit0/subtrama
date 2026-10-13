@@ -1,6 +1,7 @@
 ---
 import { sitio } from '../data/sitio';
-import { servicios } from '../data/servicios';
+import { getServicios } from '../lib/servicios';
+const servicios = await getServicios();
 const year = new Date().getFullYear();
 const contacto = [
   sitio.email && { label: sitio.email, href: `mailto:${sitio.email}` },

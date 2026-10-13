@@ -4,7 +4,8 @@ import SectionTitle from '../components/SectionTitle.astro';
 import Button from '../components/Button.astro';
 import Callout from '../components/Callout.astro';
 import { sitio } from '../data/sitio';
-import { servicios } from '../data/servicios';
+import { getServicios } from '../lib/servicios';
+const servicios = await getServicios();
 
 const canales = [
   sitio.email && { label: 'Correo', valor: sitio.email, href: `mailto:${sitio.email}` },
