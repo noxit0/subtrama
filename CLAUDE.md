@@ -9,15 +9,17 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Hosting y CDN: Cloudflare Pages. Despliegue automático desde GitHub.
 - DNS: Cloudflare. Dominio: subtrama.com.ar. www redirige al apex con 301.
 - Repositorio: noxit0/subtrama (público, cuenta personal). Rama de producción: main.
-- CMS previsto: Decap CMS en /admin (pendiente de definir; alternativa: Sveltia CMS).
+- CMS: Sveltia CMS en /admin (backend GitHub, login con token, flujo editorial con pull requests). Configuración en public/admin/config.yml.
 - Sistema operativo del mantenedor: Windows. Node.js 22.12 o superior.
 
 ## Estructura
 
-- src/pages/: páginas del sitio (rutas por archivo): inicio, nosotros, contacto, 404 y servicios (índice y [slug]).
+- src/pages/: páginas del sitio (rutas por archivo): inicio, nosotros, contacto, 404 servicios (índice con comparación de paquetes y [slug]) y paquetes ([slug]).
 - src/components/: componentes .astro portados del sistema de diseño de marca.
 - src/layouts/Base.astro: layout base (metadatos, Open Graph, canonical).
-- src/data/: contenido editable (sitio.ts: contacto; servicios.ts: catálogo de servicios).
+- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON, logos en public/media/marcas) y ajustes (condiciones.json, adicionales.json). Esquemas en src/content.config.ts.
+- src/lib/: lectura del contenido (contenido.ts, servicios.ts) y formato de precios.
+- src/data/: datos fijos (sitio.ts: contacto).
 - src/styles/: tokens.css, global.css y components.css.
 - public/: archivos estáticos servidos tal cual (favicon, robots.txt, _redirects).
 - astro.config.mjs: configuración de Astro (site: https://subtrama.com.ar).
@@ -61,7 +63,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 
 ## Estado
 
-- Sitio público publicado en https://subtrama.com.ar: 12 páginas (inicio, servicios con 7 páginas de detalle, nosotros, contacto, 404).
+- Sitio público en https://subtrama.com.ar. Rama paquetes-y-marcas: 16 páginas (inicio, servicios con 7 de detalle, 4 de paquetes, nosotros, contacto, 404). Precios en src/content/paquetes; vigencia en src/content/ajustes/condiciones.json.
 - Auditoría del 2026-10-13: build correcto, sitemap, robots.txt y Open Graph presentes; Lighthouse: rendimiento 99-100, accesibilidad 100, mejores prácticas 100 y SEO 100 (medición local, 5 páginas).
 
 ## Pendientes conocidos
@@ -72,7 +74,8 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Páginas legales: requieren revisión legal.
 - Correo corporativo (Google Workspace): sin contratar; la zona DNS no tiene registros de correo. Actualizar sitio.ts.
 - Analítica y búsqueda: por definir.
-- Decap CMS y proxy OAuth (Cloudflare Worker): diferido.
+- Probar /admin con las colecciones paquetes, marcas y ajustes; logo de Balcarce; precios de cobertura de evento y pieza con urgencia.
+- Guía de tono y reescritura de textos (paso 5). No nombrar métodos de terceros.
 - Portal de clientes: requiere backend; sin decidir.
 
 ## Registro

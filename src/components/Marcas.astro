@@ -1,0 +1,33 @@
+---
+import { getMarcas } from '../lib/contenido';
+const marcas = await getMarcas();
+---
+<ul class="marcas" aria-label="Marcas con las que trabajo">
+  {marcas.map((m) => {
+    const contenido = (
+      <>
+        <span class="marca-logo">
+          {m.logo ? (
+            <img src={m.logo} alt={`Logo de ${m.nombre}`} loading="lazy" decoding="async" />
+          ) : (
+            <span class="marca-nombre">{m.nombre}</span>
+          )}
+        </span>
+        <span class="marca-rubro">{m.rubro}</span>
+      </>
+    );
+    return <li class="marca">{m.url ? <a href={m.url} rel="noopener">{contenido}</a> : contenido}</li>;
+  })}
+</ul>
+
+<style>
+  .marcas{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:var(--space-6) var(--space-5)}
+  .marca{display:grid;justify-items:center;text-align:center}
+  .marca a{display:grid;gap:var(--space-2);justify-items:center;color:inherit;text-decoration:none}
+  .marca>:not(a){display:grid}
+  .marca{gap:var(--space-2)}
+  .marca-logo{display:flex;align-items:center;justify-content:center;height:80px;width:100%}
+  .marca-logo img{max-height:80px;max-width:min(100%,240px);width:auto;height:auto;object-fit:contain}
+  .marca-nombre{font-family:var(--font-display);font-size:30px;line-height:34px;text-transform:uppercase;color:var(--brand-strong)}
+  .marca-rubro{font-size:14px;line-height:20px;color:var(--text-muted)}
+</style>

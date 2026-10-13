@@ -43,3 +43,115 @@ collections:
         fields:
           - { name: lead, label: Título del ítem, widget: string }
           - { name: text, label: Detalle, widget: string }
+
+  - name: paquetes
+    label: Paquetes
+    label_singular: Paquete
+    description: Paquetes comerciales. El precio se muestra en la web, en la comparación y en cada página de paquete.
+    folder: src/content/paquetes
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    slug: "{{slug}}"
+    identifier_field: nombre
+    summary: "{{fields.orden}}. {{nombre}}"
+    sortable_fields: [orden, nombre]
+    fields:
+      - { name: nombre, label: Nombre, widget: string }
+      - { name: orden, label: Orden, widget: number, value_type: int, min: 1, step: 1 }
+      - name: tipo
+        label: Tipo
+        widget: select
+        options:
+          - { label: Cerrado (precio único), value: cerrado }
+          - { label: Personalizable (precio por servicio), value: personalizable }
+      - { name: destacado, label: Destacado, widget: boolean, default: false, required: false }
+      - { name: precio, label: Precio mensual (ARS, sin IVA), widget: number, value_type: int, min: 0, required: false, hint: "Solo para paquetes cerrados. Dejar vacío en el personalizable" }
+      - { name: resumen, label: Resumen, widget: text }
+      - { name: para_quien, label: Para quién es, widget: text }
+      - name: detalle
+        label: Detalle para la tabla comparativa
+        widget: object
+        required: false
+        hint: "Solo paquetes cerrados"
+        fields:
+          - { name: piezas, label: Piezas de feed, widget: string }
+          - { name: historias, label: Historias, widget: string }
+          - { name: jornada, label: Jornada de registro, widget: string }
+          - { name: informe, label: Informe y reunión, widget: string }
+          - { name: calendarizacion, label: Calendarización, widget: string }
+          - { name: colaboraciones, label: Colaboraciones, widget: string }
+      - name: incluye
+        label: Qué incluye
+        label_singular: Ítem
+        widget: list
+        summary: "{{fields.lead}}"
+        fields:
+          - { name: lead, label: Título del ítem, widget: string }
+          - { name: text, label: Detalle, widget: string }
+      - name: precios_unitarios
+        label: Precios por servicio (personalizable)
+        label_singular: Servicio
+        widget: list
+        required: false
+        summary: "{{fields.servicio}}"
+        fields:
+          - { name: servicio, label: Servicio, widget: string }
+          - { name: unidad, label: Unidad, widget: string }
+          - { name: incluye, label: Qué incluye, widget: text }
+          - { name: precio, label: Precio (ARS, sin IVA), widget: number, value_type: int, min: 0, required: false, hint: "Vacío muestra A consultar" }
+
+  - name: marcas
+    label: Marcas
+    label_singular: Marca
+    description: Marcas que se muestran en el inicio. Sin logo, se muestra el nombre en texto.
+    folder: src/content/marcas
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    identifier_field: nombre
+    summary: "{{fields.orden}}. {{nombre}}"
+    sortable_fields: [orden, nombre]
+    media_folder: public/media/marcas
+    public_folder: /media/marcas
+    fields:
+      - { name: nombre, label: Nombre, widget: string }
+      - { name: rubro, label: Rubro, widget: string }
+      - { name: orden, label: Orden, widget: number, value_type: int, min: 1, step: 1 }
+      - { name: visible, label: Mostrar en la web, widget: boolean, default: true }
+      - { name: logo, label: Logo, widget: image, required: false, hint: "PNG con fondo transparente, máximo 640 x 320 px" }
+      - { name: url, label: Enlace (opcional), widget: string, required: false }
+
+  - name: ajustes
+    label: Precios y condiciones
+    files:
+      - name: condiciones
+        label: Condiciones comerciales
+        file: src/content/ajustes/condiciones.json
+        format: json
+        fields:
+          - { name: vigencia_desde, label: Precios vigentes desde, widget: string, hint: "Ejemplo: 13 de octubre de 2026" }
+          - { name: nota_impuestos, label: Nota de impuestos, widget: string }
+          - { name: plazo_minimo, label: Plazo mínimo de contratación, widget: string }
+          - { name: ajuste, label: Ajuste de precios, widget: text }
+          - name: condiciones
+            label: Condiciones
+            label_singular: Condición
+            widget: list
+            summary: "{{fields.texto}}"
+            fields:
+              - { name: texto, label: Texto, widget: text }
+      - name: adicionales
+        label: Adicionales
+        file: src/content/ajustes/adicionales.json
+        format: json
+        fields:
+          - name: items
+            label: Adicionales
+            label_singular: Adicional
+            widget: list
+            summary: "{{fields.nombre}}"
+            fields:
+              - { name: nombre, label: Nombre, widget: string }
+              - { name: precio, label: Precio (ARS, sin IVA), widget: number, value_type: int, min: 0, required: false, hint: "Vacío muestra A consultar" }

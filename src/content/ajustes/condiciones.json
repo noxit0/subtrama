@@ -1,0 +1,17 @@
+{
+  "vigencia_desde": "13 de octubre de 2026",
+  "nota_impuestos": "Precios sin IVA.",
+  "plazo_minimo": "3 meses",
+  "ajuste": "Ajuste trimestral según la variación acumulada del IPC del INDEC de los tres meses anteriores.",
+  "condiciones": [
+    {
+      "texto": "El calendario se entrega con 15 días de anticipación y tenés 72 horas para aprobarlo o pedir cambios. Vencido el plazo sin respuesta, se considera aprobado."
+    },
+    {
+      "texto": "La jornada de registro se coordina en la segunda quincena. Una cancelación con menos de 48 horas se computa como realizada."
+    },
+    {
+      "texto": "Lo que se solicite fuera del calendario aprobado se cotiza como adicional."
+    }
+  ]
+}

@@ -4,8 +4,8 @@ import SectionTitle from '../components/SectionTitle.astro';
 import Button from '../components/Button.astro';
 import Callout from '../components/Callout.astro';
 import { sitio } from '../data/sitio';
-import { getServicios } from '../lib/servicios';
-const servicios = await getServicios();
+import { getPaquetes } from '../lib/contenido';
+const paquetes = await getPaquetes();
 
 const canales = [
   sitio.email && { label: 'Correo', valor: sitio.email, href: `mailto:${sitio.email}` },
@@ -35,10 +35,10 @@ const canales = [
             <input id="marca" name="marca" type="text" autocomplete="organization" />
           </div>
           <div class="field">
-            <label for="servicio">Servicio de interés</label>
-            <select id="servicio" name="servicio">
+            <label for="paquete">Paquete de interés</label>
+            <select id="paquete" name="paquete">
               <option value="">Todavía no lo sé</option>
-              {servicios.map((s) => <option value={s.slug}>{s.titulo}</option>)}
+              {paquetes.map((p) => <option value={p.slug}>{p.nombre}</option>)}
             </select>
           </div>
           <div class="field">
@@ -66,4 +66,11 @@ const canales = [
       </div>
     </div>
   </section>
+  <script is:inline>
+    (function () {
+      var q = new URLSearchParams(location.search).get('paquete');
+      var s = document.getElementById('paquete');
+      if (q && s) s.value = q;
+    })();
+  </script>
 </Base>

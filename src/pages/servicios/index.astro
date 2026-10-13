@@ -4,23 +4,82 @@ import Card from '../../components/Card.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Button from '../../components/Button.astro';
 import { getServicios } from '../../lib/servicios';
+import { getPaquetes, getCondiciones, formatoPrecio } from '../../lib/contenido';
 const servicios = await getServicios();
+const paquetes = await getPaquetes();
+const cerrados = paquetes.filter((p) => p.tipo === 'cerrado' && p.detalle);
+const cond = await getCondiciones();
+const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[] = [
+  { label: 'Precio mensual', valor: (p) => (p.precio != null ? formatoPrecio(p.precio) : 'A consultar') },
+  { label: 'Piezas de feed', valor: (p) => p.detalle!.piezas },
+  { label: 'Historias', valor: (p) => p.detalle!.historias },
+  { label: 'Jornada de registro', valor: (p) => p.detalle!.jornada },
+  { label: 'Informe y reunión', valor: (p) => p.detalle!.informe },
+  { label: 'Calendarización', valor: (p) => p.detalle!.calendarizacion },
+  { label: 'Colaboraciones', valor: (p) => p.detalle!.colaboraciones },
+];
 ---
 <Base
   title="Servicios"
-  description="Análisis situacional, reestructuración, creación y edición de contenido, programación mensual, publicación e informes bimestrales."
+  description="Paquetes Base, Intermedio, Completo y Personalizable para gestionar redes y contenido, con el detalle de cada servicio y su precio."
 >
   <section class="section">
     <div class="container">
       <div class="section-head">
         <SectionTitle as="h1" title="Servicios" eyebrow="Qué hago" />
-        <p>Cada servicio resuelve una parte del trabajo en redes. Se combinan según lo que tu marca necesite hoy.</p>
+        <p>Los servicios se contratan en paquetes. Elegí el que se ajuste a tu marca o armá uno a tu medida.</p>
+      </div>
+      <div class="grid-cards">
+        {paquetes.map((p, i) => (
+          <a class="card-link" href={`/paquetes/${p.slug}/`}>
+            <Card as="h2" title={p.nombre} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
+              <p class="card-service">{p.precio != null ? `${formatoPrecio(p.precio)} por mes` : 'A medida'}</p>
+              <p>{p.resumen}</p>
+              <span class="card-more">Ver detalle</span>
+            </Card>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle title="Comparación de paquetes" />
+        <p>{cond.nota_impuestos} Vigentes desde el {cond.vigencia_desde}. Plazo mínimo de contratación: {cond.plazo_minimo}.</p>
+      </div>
+      <div class="st-table-wrap">
+        <table class="st-table">
+          <caption>Paquetes cerrados</caption>
+          <thead>
+            <tr>
+              <th scope="col">Concepto</th>
+              {cerrados.map((p) => <th scope="col"><a href={`/paquetes/${p.slug}/`}>{p.nombre}</a></th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {filas.map((f) => (
+              <tr><th scope="row">{f.label}</th>{cerrados.map((p) => <td>{f.valor(p)}</td>)}</tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="tabla-nota">{cond.ajuste}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle title="Qué incluyen los servicios" />
+        <p>Cada paquete combina estos servicios. Acá está el detalle de cada uno.</p>
       </div>
       <div class="grid-cards">
         {servicios.map((s, i) => (
           <a class="card-link" href={`/servicios/${s.slug}/`}>
-            <Card as="h2" title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
-              <h3 class="card-service">{s.titulo}</h3>
+            <Card title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
+              <p class="card-service">{s.titulo}</p>
               <p>{s.resumen}</p>
               <span class="card-more">Ver detalle</span>
             </Card>
@@ -29,11 +88,12 @@ const servicios = await getServicios();
       </div>
     </div>
   </section>
+
   <section class="section">
     <div class="container">
       <div class="cta-band">
         <h2>¿Por dónde empezar?</h2>
-        <p>Si no sabés qué servicio necesitás, empezamos por el análisis situacional.</p>
+        <p>Todos los paquetes arrancan con el análisis situacional y el mes 0. Contame de tu marca y te digo cuál conviene.</p>
         <Button href="/contacto/" variant="accent" size="lg">Agendar reunión</Button>
       </div>
     </div>

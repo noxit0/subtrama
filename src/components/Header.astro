@@ -1,12 +1,17 @@
 ---
 import Button from './Button.astro';
+import { getPaquetes } from '../lib/contenido';
+const paquetes = await getPaquetes();
 const path = Astro.url.pathname;
 const links = [
-  { href: '/servicios/', label: 'Servicios' },
+  { href: '/servicios/', label: 'Servicios', sub: true },
   { href: '/nosotros/', label: 'Nosotros' },
   { href: '/contacto/', label: 'Contacto' },
 ];
-const isActive = (href: string) => path.startsWith(href);
+const isActive = (href: string) =>
+  href === '/servicios/'
+    ? path.startsWith('/servicios/') || path.startsWith('/paquetes/')
+    : path.startsWith(href);
 ---
 <header class="site-header">
   <div class="container header-inner">
@@ -18,7 +23,17 @@ const isActive = (href: string) => path.startsWith(href);
       <nav class="main-nav" aria-label="Navegación principal">
         <ul>
           {links.map((l) => (
-            <li><a href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a></li>
+            <li class={l.sub ? 'has-sub' : undefined}>
+              <a href={l.href} aria-current={isActive(l.href) ? 'page' : undefined}>{l.label}</a>
+              {l.sub && (
+                <ul class="submenu" aria-label="Paquetes">
+                  {paquetes.map((p) => (
+                    <li><a href={`/paquetes/${p.slug}/`} aria-current={path === `/paquetes/${p.slug}/` ? 'page' : undefined}>{p.nombre}</a></li>
+                  ))}
+                  <li class="submenu-all"><a href="/servicios/">Todos los servicios</a></li>
+                </ul>
+              )}
+            </li>
           ))}
           <li class="nav-cta"><Button href="/contacto/">Agendar reunión</Button></li>
         </ul>
