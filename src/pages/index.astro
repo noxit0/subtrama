@@ -5,10 +5,12 @@ import Card from '../components/Card.astro';
 import Lead from '../components/Lead.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import Callout from '../components/Callout.astro';
-import { getPaquetes, getCondiciones, formatoPrecio } from '../lib/contenido';
+import { getPaquetes, getCondiciones, getSeccionesInicio, formatoPrecio } from '../lib/contenido';
 import Marcas from '../components/Marcas.astro';
+import HeroVisual from '../components/HeroVisual.astro';
 const paquetes = await getPaquetes();
 const cond = await getCondiciones();
+const secciones = await getSeccionesInicio();
 ---
 <Base
   title="Subtrama | Espacio de marketing digital"
@@ -16,78 +18,90 @@ const cond = await getCondiciones();
 >
   <section class="hero">
     <div class="container hero-inner">
-      <span class="st-eyebrow">Espacio de marketing digital</span>
-      <h1 class="display">Vos creás tu mundo. Nosotros lo contamos en redes.</h1>
-      <p class="hero-lead">
-        Somos Subtrama. Ordenamos tu contenido y lo publicamos con estrategia, para que tu marca se cuente sola.
-      </p>
-      <div class="hero-actions">
-        <Button href="/contacto/" size="lg">Agendar reunión</Button>
-        <Button href="/servicios/" size="lg" variant="secondary">Ver servicios</Button>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <SectionTitle title="Para quién trabajamos" />
-        <p>
-          Trabajamos con marcas que tienen oficio e historia: talleres, estudios y proyectos de autor. Las ayudamos a mostrarlo con constancia y criterio.
+      <div class="hero-copy">
+        <span class="st-eyebrow">Espacio de marketing digital</span>
+        <h1 class="display">Vos creás tu mundo. Nosotros lo contamos en redes.</h1>
+        <p class="hero-lead">
+          Somos Subtrama. Ordenamos tu contenido y lo publicamos con estrategia, para que tu marca se cuente sola.
         </p>
+        <div class="hero-actions">
+          <Button href="/contacto/" size="lg">Agendar reunión</Button>
+          <Button href="/servicios/" size="lg" variant="secondary">Ver servicios</Button>
+        </div>
       </div>
-      <div class="grid-cards">
-        <Card title="Diagnóstico" tone="surface">
-          <Lead lead="Empezamos por los datos.">Nombramos el problema antes de proponer una solución.</Lead>
-        </Card>
-        <Card title="Explicación" tone="surface">
-          <Lead lead="Cada recomendación tiene su porqué.">La decisión final es tuya.</Lead>
-        </Card>
-        <Card title="Alcance" tone="surface">
-          <Lead lead="Lo que hacemos queda claro desde el principio.">Sin promesas difusas ni letra chica.</Lead>
-        </Card>
-      </div>
+      <HeroVisual />
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="section-head">
-        <SectionTitle title="Paquetes" />
-        <p>Tres paquetes cerrados y uno a medida. Elegí según cuánto contenido necesitás publicar por mes.</p>
-      </div>
-      <div class="grid-cards">
-        {paquetes.map((p, i) => (
-          <a class="card-link" href={`/paquetes/${p.slug}/`}>
-            <Card title={p.nombre} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
-              <h3 class="card-service">{p.precio != null ? `${formatoPrecio(p.precio)} por mes` : 'A medida'}</h3>
-              <p>{p.resumen}</p>
-              <span class="card-more">Ver detalle</span>
-            </Card>
-          </a>
-        ))}
-      </div>
-      <p class="tabla-nota">{cond.nota_impuestos} Vigentes desde el {cond.vigencia_desde}. <a href="/servicios/">Ver la comparación y los servicios</a>.</p>
-    </div>
-  </section>
-
-  <section class="section section-alt">
-    <div class="container">
-      <div class="section-head">
-        <SectionTitle title="Marcas con las que trabajamos" />
-        <p>Proyectos con oficio e historia que ya cuentan su mundo en redes con nosotros.</p>
-      </div>
-      <Marcas />
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <Callout label="Cómo se trabaja">
-        <p>Cada mes acordamos el calendario, publicamos y medimos. El informe y la reunión de seguimiento llegan con la frecuencia de tu paquete.</p>
-      </Callout>
-    </div>
-  </section>
+  {secciones.map((tipo, i) => (
+    <section class={`section${i % 2 === 0 ? ' section-alt' : ''}`}>
+      {tipo === 'para-quien' && (
+        <Fragment>
+          <div class="container">
+            <div class="section-head">
+              <SectionTitle title="Para quién trabajamos" />
+              <p>
+                Trabajamos con marcas que tienen oficio e historia: talleres, estudios y proyectos de autor. Las ayudamos a mostrarlo con constancia y criterio.
+              </p>
+            </div>
+            <div class="grid-cards">
+              <Card title="Diagnóstico" tone="surface">
+                <Lead lead="Empezamos por los datos.">Nombramos el problema antes de proponer una solución.</Lead>
+              </Card>
+              <Card title="Explicación" tone="surface">
+                <Lead lead="Cada recomendación tiene su porqué.">La decisión final es tuya.</Lead>
+              </Card>
+              <Card title="Alcance" tone="surface">
+                <Lead lead="Lo que hacemos queda claro desde el principio.">Sin promesas difusas ni letra chica.</Lead>
+              </Card>
+            </div>
+          </div>
+        </Fragment>
+      )}
+      {tipo === 'paquetes' && (
+        <Fragment>
+          <div class="container">
+            <div class="section-head">
+              <SectionTitle title="Paquetes" />
+              <p>Tres paquetes cerrados y uno a medida. Elegí según cuánto contenido necesitás publicar por mes.</p>
+            </div>
+            <div class="grid-cards">
+              {paquetes.map((p, i) => (
+                <a class="card-link" href={`/paquetes/${p.slug}/`}>
+                  <Card title={p.nombre} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
+                    <h3 class="card-service">{p.precio != null ? `${formatoPrecio(p.precio)} por mes` : 'A medida'}</h3>
+                    <p>{p.resumen}</p>
+                    <span class="card-more">Ver detalle</span>
+                  </Card>
+                </a>
+              ))}
+            </div>
+            <p class="tabla-nota">{cond.nota_impuestos} Vigentes desde el {cond.vigencia_desde}. <a href="/servicios/">Ver la comparación y los servicios</a>.</p>
+          </div>
+        </Fragment>
+      )}
+      {tipo === 'marcas' && (
+        <Fragment>
+          <div class="container">
+            <div class="section-head">
+              <SectionTitle title="Marcas con las que trabajamos" />
+              <p>Proyectos con oficio e historia que ya cuentan su mundo en redes con nosotros.</p>
+            </div>
+            <Marcas />
+          </div>
+        </Fragment>
+      )}
+      {tipo === 'como-se-trabaja' && (
+        <Fragment>
+          <div class="container">
+            <Callout label="Cómo se trabaja">
+              <p>Cada mes acordamos el calendario, publicamos y medimos. El informe y la reunión de seguimiento llegan con la frecuencia de tu paquete.</p>
+            </Callout>
+          </div>
+        </Fragment>
+      )}
+    </section>
+  ))}
 
   <section class="section">
     <div class="container">

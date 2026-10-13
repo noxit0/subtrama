@@ -17,7 +17,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - src/pages/: páginas del sitio (rutas por archivo): inicio, nosotros, contacto, 404 servicios (índice con comparación de paquetes y [slug]) y paquetes ([slug]).
 - src/components/: componentes .astro portados del sistema de diseño de marca.
 - src/layouts/Base.astro: layout base (metadatos, Open Graph, canonical).
-- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON, logos en public/media/marcas) y ajustes (condiciones.json, adicionales.json). Esquemas en src/content.config.ts.
+- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON, logos en public/media/marcas) y ajustes (condiciones.json, adicionales.json, inicio.json con el orden de las secciones de la página de inicio). Esquemas en src/content.config.ts.
 - src/lib/: lectura del contenido (contenido.ts, servicios.ts) y formato de precios.
 - src/data/: datos fijos (sitio.ts: contacto).
 - src/styles/: tokens.css, global.css y components.css.

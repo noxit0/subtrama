@@ -126,6 +126,26 @@ collections:
   - name: ajustes
     label: Precios y condiciones
     files:
+      - name: inicio
+        label: Página de inicio (orden de secciones)
+        file: src/content/ajustes/inicio.json
+        format: json
+        fields:
+          - name: secciones
+            label: Secciones, en orden de aparición
+            label_singular: Sección
+            widget: list
+            hint: "Arrastrá para cambiar el orden. Quitá una sección para ocultarla. La portada y el cierre son fijos."
+            summary: "{{fields.tipo}}"
+            fields:
+              - name: tipo
+                label: Sección
+                widget: select
+                options:
+                  - { label: Para quién trabajamos, value: para-quien }
+                  - { label: Paquetes, value: paquetes }
+                  - { label: Marcas con las que trabajamos, value: marcas }
+                  - { label: Cómo se trabaja, value: como-se-trabaja }
       - name: condiciones
         label: Condiciones comerciales
         file: src/content/ajustes/condiciones.json

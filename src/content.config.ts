@@ -79,4 +79,11 @@ const adicionales = defineCollection({
   }),
 });
 
-export const collections = { servicios, paquetes, marcas, condiciones, adicionales };
+const inicio = defineCollection({
+  loader: glob({ pattern: 'inicio.json', base: './src/content/ajustes' }),
+  schema: z.object({
+    secciones: z.array(z.object({ tipo: z.enum(['para-quien', 'paquetes', 'marcas', 'como-se-trabaja']) })),
+  }),
+});
+
+export const collections = { servicios, paquetes, marcas, condiciones, adicionales, inicio };
