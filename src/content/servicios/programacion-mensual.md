@@ -3,7 +3,7 @@ titulo: "Programación mensual"
 etiqueta: "Calendario"
 orden: 5
 resumen: "Un calendario anticipado que aprobás antes de publicar."
-intro: "Organizo el mes con anticipación: qué se publica, cuándo y en qué formato. Vos lo revisás y lo aprobás antes de que salga."
+intro: "Organizamos el mes con anticipación: qué se publica, cuándo y en qué formato. Vos lo revisás y lo aprobás antes de que salga."
 entrega: "Un calendario mensual claro, aprobado antes de la primera publicación."
 incluye:
   - lead: "Calendario del mes."

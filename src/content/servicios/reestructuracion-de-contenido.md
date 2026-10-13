@@ -3,7 +3,7 @@ titulo: "Reestructuración de contenido"
 etiqueta: "Estructura"
 orden: 2
 resumen: "Ordenar lo que ya publicás para que cuente una sola historia."
-intro: "Muchas marcas ya tienen material y presencia, pero dispersos. Reordeno lo existente en pilares de contenido claros y en un perfil que resuelva por sí mismo las dudas de quien llega."
+intro: "Muchas marcas ya tienen material y presencia, pero dispersos. Reordenamos lo existente en pilares de contenido claros y en un perfil que resuelva las dudas de quien llega."
 entrega: "Un esquema de contenido y de perfil listo para ejecutar."
 incluye:
   - lead: "Pilares de contenido."

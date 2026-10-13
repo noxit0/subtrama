@@ -3,7 +3,7 @@ titulo: "Informes bimestrales"
 etiqueta: "Informes"
 orden: 7
 resumen: "Qué pasó con tu contenido y qué hacemos con eso."
-intro: "Cada dos meses reviso los números con vos. No me interesa mostrar todo: me interesa mostrar lo que ordena qué producir después."
+intro: "Cada dos meses repasamos los números con vos. No mostramos todo: mostramos lo que ordena qué producir después."
 entrega: "Un informe cada dos meses y una reunión para repasarlo."
 incluye:
   - lead: "Indicadores que importan."

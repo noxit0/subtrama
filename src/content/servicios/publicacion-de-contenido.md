@@ -3,7 +3,7 @@ titulo: "Publicación de contenido"
 etiqueta: "Publicación"
 orden: 6
 resumen: "Constancia en las fechas acordadas."
-intro: "Publico lo aprobado en las fechas del calendario. Sostener el canal activo semana a semana da presencia y credibilidad."
+intro: "Publicamos lo aprobado en las fechas del calendario. Sostener el canal activo semana a semana da presencia y credibilidad."
 entrega: "Contenido publicado según el calendario aprobado."
 incluye:
   - lead: "Publicación."

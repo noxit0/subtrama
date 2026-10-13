@@ -4,7 +4,7 @@ orden: 3
 tipo: "cerrado"
 destacado: false
 precio: 500000
-resumen: "El mayor volumen de contenido, colaboraciones e informe y reunión todos los meses."
+resumen: "El mayor volumen de contenido, con colaboraciones e informe y reunión todos los meses."
 para_quien: "Marcas que quieren una presencia sostenida y un seguimiento mensual de lo que funciona."
 detalle:
   piezas: "8 por mes (4 reels o videos y 4 estáticas)"

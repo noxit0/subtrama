@@ -42,7 +42,7 @@ const precio = (n?: number) => (n != null ? formatoPrecio(n) : 'A consultar');
         </div>
         {personalizable ? (
           <Callout label="Cómo funciona">
-            <p>Elegís los servicios de la lista, definimos las cantidades y el valor surge de sumar cada uno.</p>
+            <p>Elegís los servicios de la lista, definimos las cantidades juntos y el valor surge de sumar cada uno.</p>
           </Callout>
         ) : (
           <PriceCard plan={paquete.nombre} precio={paquete.precio != null ? formatoPrecio(paquete.precio) : undefined}>
@@ -116,7 +116,7 @@ const precio = (n?: number) => (n != null ? formatoPrecio(n) : 'A consultar');
     <div class="container">
       <div class="cta-band">
         <h2>Hablemos de tu marca</h2>
-        <p>Contame qué hacés y qué necesitás. Armamos el plan a partir de ahí.</p>
+        <p>Contanos qué hacés y qué necesitás. Armamos el plan a partir de ahí.</p>
         <Button href={`/contacto/?paquete=${paquete.slug}`} variant="accent" size="lg">Agendar reunión</Button>
       </div>
     </div>

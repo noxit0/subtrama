@@ -4,7 +4,7 @@ orden: 2
 tipo: "cerrado"
 destacado: false
 precio: 390000
-resumen: "Más volumen de piezas e historias, con informe y reunión cada dos meses."
+resumen: "Más piezas e historias por mes, con informe y reunión cada dos meses."
 para_quien: "Marcas que ya publican y quieren más constancia y un seguimiento más cercano de los resultados."
 detalle:
   piezas: "6 por mes (3 reels o videos y 3 estáticas)"

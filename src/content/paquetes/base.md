@@ -4,7 +4,7 @@ orden: 1
 tipo: "cerrado"
 destacado: false
 precio: 320000
-resumen: "Presencia constante con lo esencial: contenido planificado, una jornada de registro por mes e informe trimestral."
+resumen: "Presencia constante con lo esencial: contenido planificado, una jornada de registro por mes e informe cada tres meses."
 para_quien: "Marcas que empiezan a ordenar su comunicación o que necesitan sostener presencia con un volumen acotado."
 detalle:
   piezas: "4 por mes (2 reels o videos y 2 estáticas)"

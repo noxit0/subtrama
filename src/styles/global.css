@@ -122,7 +122,8 @@ h1,h2,h3,p,ul{margin:0}
 .footer-col a{color:var(--text);text-decoration:none}
 .footer-col a:hover{text-decoration:underline}
 .footer-contact{margin-top:var(--space-3)}
-.footer-legal{padding-block:var(--space-6) var(--space-5);color:var(--text-muted)}
+.footer-legal{padding-block:var(--space-6) var(--space-5);color:var(--text-muted);display:flex;flex-wrap:wrap;gap:var(--space-3) var(--space-5);justify-content:space-between}
+.footer-acceso{font-size:14px;color:var(--text-muted)}
 
 /* 404 */
 .not-found{display:grid;gap:var(--space-5);justify-items:start;padding-block:var(--space-9)}
