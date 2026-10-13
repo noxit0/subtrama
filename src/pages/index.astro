@@ -5,8 +5,10 @@ import Card from '../components/Card.astro';
 import Lead from '../components/Lead.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import Callout from '../components/Callout.astro';
-import { getServicios } from '../lib/servicios';
-const servicios = await getServicios();
+import { getPaquetes, getCondiciones, formatoPrecio } from '../lib/contenido';
+import Marcas from '../components/Marcas.astro';
+const paquetes = await getPaquetes();
+const cond = await getCondiciones();
 ---
 <Base
   title="Subtrama | Espacio de marketing digital"
@@ -51,27 +53,38 @@ const servicios = await getServicios();
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <SectionTitle title="Servicios" />
-        <p>Siete servicios que se combinan según el punto de partida de cada marca.</p>
+        <SectionTitle title="Paquetes" />
+        <p>Cuatro formas de trabajar juntos. Tres paquetes cerrados y uno que se arma a medida.</p>
       </div>
       <div class="grid-cards">
-        {servicios.map((s, i) => (
-          <a class="card-link" href={`/servicios/${s.slug}/`}>
-            <Card title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
-              <h3 class="card-service">{s.titulo}</h3>
-              <p>{s.resumen}</p>
+        {paquetes.map((p, i) => (
+          <a class="card-link" href={`/paquetes/${p.slug}/`}>
+            <Card title={p.nombre} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
+              <h3 class="card-service">{p.precio != null ? `${formatoPrecio(p.precio)} por mes` : 'A medida'}</h3>
+              <p>{p.resumen}</p>
               <span class="card-more">Ver detalle</span>
             </Card>
           </a>
         ))}
       </div>
+      <p class="tabla-nota">{cond.nota_impuestos} Vigentes desde el {cond.vigencia_desde}. <a href="/servicios/">Ver la comparación y los servicios</a>.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle title="Marcas con las que trabajo" />
+        <p>Proyectos con oficio e historia que ya cuentan su mundo en redes.</p>
+      </div>
+      <Marcas />
     </div>
   </section>
 
   <section class="section">
     <div class="container">
       <Callout label="Cómo se trabaja">
-        <p>Cada mes se programa, se publica y se mide. Cada dos meses te entrego un informe y lo repasamos juntos.</p>
+        <p>Cada mes se programa, se publica y se mide. El informe y la reunión de seguimiento se repiten con la frecuencia de cada paquete.</p>
       </Callout>
     </div>
   </section>

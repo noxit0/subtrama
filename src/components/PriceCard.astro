@@ -1,0 +1,27 @@
+---
+interface Props {
+  plan: string;
+  desc?: string;
+  precio?: string;
+  periodo?: string;
+  featured?: boolean;
+}
+const { plan, desc, precio, periodo = 'por mes', featured = false } = Astro.props;
+---
+<article class={`st-price${featured ? ' st-price-featured' : ''}`}>
+  <div class="st-price-head">
+    <p class="st-price-plan">{plan}</p>
+    {desc && <p class="st-price-desc">{desc}</p>}
+    <p class="st-price-amount">
+      {precio ? (
+        <>
+          <span class="st-price-value">{precio}</span>
+          <span class="st-price-period">{periodo}</span>
+        </>
+      ) : (
+        <span class="st-price-value">A consultar</span>
+      )}
+    </p>
+  </div>
+  <slot />
+</article>

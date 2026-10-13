@@ -1,7 +1,9 @@
 ---
 import { sitio } from '../data/sitio';
 import { getServicios } from '../lib/servicios';
+import { getPaquetes } from '../lib/contenido';
 const servicios = await getServicios();
+const paquetes = await getPaquetes();
 const year = new Date().getFullYear();
 const contacto = [
   sitio.email && { label: sitio.email, href: `mailto:${sitio.email}` },
@@ -14,8 +16,12 @@ const contacto = [
     <div class="footer-brand">
       <img src="/logos/subtrama-principal-positivo.svg" alt="Subtrama, espacio de marketing digital" width="220" />
     </div>
-    <nav aria-label="Servicios" class="footer-col">
-      <span class="st-eyebrow">Servicios</span>
+    <nav aria-label="Paquetes y servicios" class="footer-col">
+      <span class="st-eyebrow">Paquetes</span>
+      <ul>
+        {paquetes.map((p) => <li><a href={`/paquetes/${p.slug}/`}>{p.nombre}</a></li>)}
+      </ul>
+      <span class="st-eyebrow footer-eyebrow-2">Servicios</span>
       <ul>
         {servicios.map((s) => <li><a href={`/servicios/${s.slug}/`}>{s.titulo}</a></li>)}
       </ul>
