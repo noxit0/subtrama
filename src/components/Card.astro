@@ -4,14 +4,15 @@ interface Props {
   tone?: 'accent' | 'accent-2' | 'highlight' | 'accent-strong' | 'brand' | 'surface';
   number?: number;
   class?: string;
+  as?: 'h2' | 'h3';
 }
-const { title, tone = 'accent', number, class: className } = Astro.props;
+const { title, tone = 'accent', number, class: className, as: Heading = 'h3' } = Astro.props;
 const classes = ['st-card', `st-card-${tone}`, title && 'st-card-titled', number != null && 'st-card-numbered', className]
   .filter(Boolean)
   .join(' ');
 ---
 <section class={classes}>
-  {title && <h3 class="st-card-title">{title}</h3>}
+  {title && <Heading class="st-card-title">{title}</Heading>}
   <div class="st-card-body"><slot /></div>
   {number != null && <span class="st-card-num">{number}</span>}
 </section>
