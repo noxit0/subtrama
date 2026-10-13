@@ -1,0 +1,45 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms@0.237.0/schema/sveltia-cms.json
+# Panel de contenido de Subtrama (Sveltia CMS).
+# Backend GitHub. Inicio de sesión con token personal (Contents y Pull requests, lectura y escritura).
+# Cada guardado se publica mediante flujo editorial: crea un pull request para revisar y fusionar.
+backend:
+  name: github
+  repo: noxit0/subtrama
+  branch: main
+
+publish_mode: editorial_workflow
+
+# Carpeta de medios. public/ se sirve en la raíz del sitio, por eso la URL pública es /media.
+media_folder: public/media
+public_folder: /media
+
+locale: es
+
+collections:
+  - name: servicios
+    label: Servicios
+    label_singular: Servicio
+    description: Contenido de cada servicio. El orden controla la posición en el sitio.
+    folder: src/content/servicios
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    slug: "{{slug}}"
+    identifier_field: titulo
+    summary: "{{fields.orden}}. {{titulo}}"
+    sortable_fields: [orden, titulo]
+    fields:
+      - { name: titulo, label: Título, widget: string }
+      - { name: etiqueta, label: Etiqueta, widget: string, hint: "Nombre corto que aparece en las tarjetas" }
+      - { name: orden, label: Orden, widget: number, value_type: int, min: 1, step: 1 }
+      - { name: resumen, label: Resumen, widget: string, hint: "Una línea que describe el servicio" }
+      - { name: intro, label: Introducción, widget: text }
+      - { name: entrega, label: Qué recibís, widget: text }
+      - name: incluye
+        label: Qué incluye
+        label_singular: Ítem
+        widget: list
+        summary: "{{fields.lead}}"
+        fields:
+          - { name: lead, label: Título del ítem, widget: string }
+          - { name: text, label: Detalle, widget: string }
