@@ -3,9 +3,10 @@ import Base from '../layouts/Base.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import Button from '../components/Button.astro';
 import Callout from '../components/Callout.astro';
-import { sitio } from '../data/sitio';
+import { sitio, formulario } from '../data/sitio';
 import { getPaquetes } from '../lib/contenido';
 const paquetes = await getPaquetes();
+const activo = formulario.activo && formulario.turnstileSiteKey !== '';
 
 const canales = [
   sitio.email && { label: 'Correo', valor: sitio.email, href: `mailto:${sitio.email}` },
@@ -21,7 +22,7 @@ const canales = [
         <p>Contanos qué hacés y dónde estás hoy. Te respondemos para coordinar una primera reunión.</p>
       </div>
       <div class="contact-grid">
-        <form class="form" method="post" action="#" aria-describedby="form-estado">
+        <form class="form" id="form-contacto" method="post" action="/api/contacto" aria-describedby="form-estado" novalidate>
           <div class="field">
             <label for="nombre">Nombre</label>
             <input id="nombre" name="nombre" type="text" autocomplete="name" required />
@@ -43,12 +44,25 @@ const canales = [
           </div>
           <div class="field">
             <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" name="mensaje" required></textarea>
+            <textarea id="mensaje" name="mensaje" required minlength="10" maxlength="3000"></textarea>
           </div>
+          <div class="field-trampa" aria-hidden="true">
+            <label for="sitio_web">No completar este campo</label>
+            <input id="sitio_web" name="sitio_web" type="text" tabindex="-1" autocomplete="off" />
+          </div>
+          <div class="field-check">
+            <input id="consentimiento" name="consentimiento" type="checkbox" required />
+            <label for="consentimiento">Acepto el tratamiento de mis datos para responder esta consulta, según la <a href="/privacidad/">política de privacidad</a>.</label>
+          </div>
+          {activo && <div class="cf-turnstile" data-sitekey={formulario.turnstileSiteKey} data-language="es"></div>}
           <div>
-            <Button type="submit" size="lg" disabled>Enviar consulta</Button>
+            <Button type="submit" size="lg" disabled={!activo}>Enviar consulta</Button>
           </div>
-          <p id="form-estado" class="field-hint">Por ahora, escribinos por WhatsApp o por correo. El formulario se habilita pronto.</p>
+          <p id="form-estado" class="field-hint" role="status" aria-live="polite">
+            {activo
+              ? 'Respondemos en días hábiles.'
+              : 'Por ahora, escribinos por WhatsApp o por correo. El formulario se habilita pronto.'}
+          </p>
         </form>
         <div>
           {canales.length > 0 ? (
@@ -73,4 +87,40 @@ const canales = [
       if (q && s) s.value = q;
     })();
   </script>
+  {activo && <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>}
+  {activo && (
+    <script is:inline>
+      (function () {
+        var form = document.getElementById('form-contacto');
+        var estado = document.getElementById('form-estado');
+        if (!form || !estado) return;
+        var boton = form.querySelector('button[type="submit"]');
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!form.checkValidity()) {
+            form.reportValidity();
+            return;
+          }
+          boton.disabled = true;
+          estado.textContent = 'Enviando…';
+          fetch(form.action, { method: 'POST', body: new FormData(form) })
+            .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+            .then(function (res) {
+              if (res.ok) {
+                form.reset();
+                estado.textContent = 'Recibimos tu consulta. Te respondemos en días hábiles.';
+              } else {
+                estado.textContent = res.error || 'No pudimos enviar la consulta. Escribinos por WhatsApp o por correo.';
+                boton.disabled = false;
+              }
+              if (window.turnstile) window.turnstile.reset();
+            })
+            .catch(function () {
+              estado.textContent = 'No pudimos enviar la consulta. Escribinos por WhatsApp o por correo.';
+              boton.disabled = false;
+            });
+        });
+      })();
+    </script>
+  )}
 </Base>

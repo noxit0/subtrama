@@ -110,6 +110,9 @@ h1,h2,h3,p,ul{margin:0}
 .field input,.field textarea,.field select{font:inherit;color:var(--text);background:var(--surface);border:1px solid var(--text-muted);border-radius:var(--radius-md);padding:var(--space-3) var(--space-4)}
 .field textarea{min-height:160px;resize:vertical}
 .field-hint{font-size:14px;color:var(--text-muted)}
+.field-trampa{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.field-check{display:flex;gap:var(--space-3);align-items:flex-start;font-size:14px}
+.field-check input{margin-top:4px;flex:none}
 .contact-grid{display:grid;gap:var(--space-7);grid-template-columns:minmax(0,3fr) minmax(0,2fr);align-items:start}
 @media (max-width:820px){.contact-grid{grid-template-columns:1fr}}
 .contact-list{list-style:none;padding:0;display:grid;gap:var(--space-3)}

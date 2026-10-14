@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import { sitio } from '../data/sitio';
+---
+<Base
+  title="Política de privacidad"
+  description="Cómo tratamos los datos personales que nos enviás a través del formulario de contacto de Subtrama."
+>
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <SectionTitle as="h1" title="Política de privacidad" eyebrow="Datos personales" />
+        <p>Última actualización: 14 de octubre de 2026.</p>
+      </div>
+      <h2>Responsable del tratamiento</h2>
+      <p>
+        El responsable de los datos personales recabados en este sitio es Subtrama,
+        con domicilio en Olavarría, provincia de Buenos Aires, Argentina. Podés contactarnos en
+        <a href={`mailto:${sitio.email}`}>{sitio.email}</a>.
+      </p>
+
+      <h2>Qué datos recabamos</h2>
+      <p>A través del formulario de contacto recibimos los datos que completás: nombre, correo electrónico, marca o proyecto (opcional), paquete de interés (opcional) y el contenido del mensaje.</p>
+
+      <p>
+        Son obligatorios el nombre, el correo electrónico y el mensaje. La marca o proyecto y el paquete de interés son opcionales.
+        Si no completás los datos obligatorios, o si son inexactos, no podemos responder tu consulta.
+      </p>
+
+      <h2>Para qué los usamos</h2>
+      <p>Usamos estos datos únicamente para responder tu consulta y coordinar una primera reunión. No los usamos para enviarte publicidad ni los cedemos a terceros con fines comerciales.</p>
+
+      <h2>Base del tratamiento</h2>
+      <p>El tratamiento se basa en tu consentimiento, que otorgás al marcar la casilla del formulario antes de enviarlo.</p>
+
+      <h2>Proveedores que intervienen</h2>
+      <ul>
+        <li>Cloudflare, Inc.: aloja el sitio, procesa el envío del formulario y ejecuta la verificación anti-spam (Turnstile), que puede usar identificadores técnicos del navegador.</li>
+        <li>Resend: servicio de envío de correo electrónico por el que se entrega tu consulta.</li>
+        <li>Google (Gmail): recibe y almacena las consultas en nuestra casilla de correo.</li>
+      </ul>
+      <p>Estos proveedores pueden tratar datos en servidores ubicados fuera de la Argentina.</p>
+
+      <h2>Cuánto tiempo los conservamos</h2>
+      <p>Conservamos las consultas durante dos semanas desde que las recibimos y luego las eliminamos. Si la consulta deriva en la contratación de un servicio, los datos necesarios pasan a regirse por esa relación contractual.</p>
+
+      <h2>Tus derechos</h2>
+      <p>
+        Conforme a la Ley N.º 25.326 de Protección de los Datos Personales, podés ejercer los derechos de acceso, rectificación,
+        actualización y supresión de tus datos escribiendo a <a href={`mailto:${sitio.email}`}>{sitio.email}</a>.
+        El derecho de acceso puede ejercerse en forma gratuita a intervalos no inferiores a seis meses, salvo que acredites un interés legítimo.
+      </p>
+      <p>
+        La Agencia de Acceso a la Información Pública, en su carácter de órgano de control de la Ley N.º 25.326, tiene la atribución
+        de atender las denuncias y reclamos que interpongan quienes resulten afectados en sus derechos por el incumplimiento de las
+        normas vigentes en materia de protección de datos personales.
+      </p>
+
+      <h2>Cookies y analítica</h2>
+      <p>El sitio no utiliza cookies propias ni herramientas de seguimiento publicitario.</p>
+
+      <h2>Cambios en esta política</h2>
+      <p>Publicaremos en esta página cualquier modificación, con su fecha de actualización.</p>
+    </div>
+  </section>
+</Base>
