@@ -1,7 +1,8 @@
 {
   "nombre": "Los Zainos",
-  "rubro": "Colonia de vacaciones y lugar de eventos",
+  "rubro": "Predio | Espacio Recreativo",
   "orden": 1,
   "visible": true,
-  "logo": "/media/marcas/los-zainos.png"
+  "logo": "/media/marcas/los-zainos.png",
+  "url": ""
 }
