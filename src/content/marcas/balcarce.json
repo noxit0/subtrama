@@ -1,6 +1,8 @@
 {
   "nombre": "Balcarce",
-  "rubro": "Venta de muebles y carpintería",
+  "rubro": "Muebles de Autor",
   "orden": 5,
-  "visible": true
+  "visible": true,
+  "logo": "media/marcas/Logo Completo.png",
+  "url": ""
 }
