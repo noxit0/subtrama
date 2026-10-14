@@ -4,6 +4,9 @@
 //   RESEND_API_KEY, TURNSTILE_SECRET_KEY (secretos)
 //   CONTACT_TO_EMAIL, CONTACT_FROM_EMAIL (texto)
 
+import { ASUNTO, confirmacionHtml, confirmacionTexto } from '../../src/lib/correo-confirmacion';
+import { sitio } from '../../src/data/sitio';
+
 interface Env {
   RESEND_API_KEY?: string;
   TURNSTILE_SECRET_KEY?: string;
@@ -118,7 +121,39 @@ export async function onRequestPost({ request, env }: Context): Promise<Response
     return json({ ok: false, error: 'No pudimos enviar la consulta. Escribinos por WhatsApp o por correo.' }, 502);
   }
   if (!envio.ok) {
+    // Registro para diagnóstico en Cloudflare (Functions > Real-time logs). No incluye datos del visitante.
+    console.error('Resend rechazó el envío', envio.status, (await envio.text()).slice(0, 300));
     return json({ ok: false, error: 'No pudimos enviar la consulta. Escribinos por WhatsApp o por correo.' }, 502);
+  }
+
+  // Confirmación automática al visitante. Es de mejor esfuerzo: si falla, la consulta ya fue recibida.
+  // Las respuestas a este correo llegan a la casilla de destino (Reply-To).
+  const datosCorreo = {
+    nombre,
+    marca,
+    paqueteNombre: paquete.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase()),
+    mensaje,
+    baseUrl: new URL(request.url).origin,
+    whatsapp: sitio.whatsapp,
+    correo: sitio.email,
+  };
+  const direccion = env.CONTACT_FROM_EMAIL.match(/<([^>]+)>/)?.[1] ?? env.CONTACT_FROM_EMAIL;
+  try {
+    const confirmacion = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        from: `Subtrama <${direccion}>`,
+        to: [email],
+        reply_to: env.CONTACT_TO_EMAIL,
+        subject: ASUNTO,
+        html: confirmacionHtml(datosCorreo),
+        text: confirmacionTexto(datosCorreo),
+      }),
+    });
+    if (!confirmacion.ok) console.error('Resend rechazó la confirmación', confirmacion.status);
+  } catch {
+    console.error('Falló el envío de la confirmación');
   }
   return json({ ok: true });
 }
