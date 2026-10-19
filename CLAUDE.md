@@ -56,7 +56,8 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - No incluir node_modules/, dist/ ni .astro/ en cambios. No instalar dependencias sin informar el motivo.
 - Los comandos de terminal para el mantenedor deben ser compatibles con Windows. En PowerShell, usar curl.exe en lugar de curl.
 - Los archivos usan fin de línea LF (ver .gitattributes).
-- Voz de marca: primera persona, voseo rioplatense, sin emojis.
+- Voz de marca: primera persona del plural, voseo respetuoso, registro formal, sin emojis (guía de voz 2.0 del 19/10/2026).
+- Precios: no se publican en el sitio. Se informan por propuesta cuando el cliente se contacta. No agregar importes, vigencia ni nota de IVA a páginas ni a /admin.
 
 ## Convenciones de contenido y código
 
@@ -78,16 +79,17 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 
 ## Estado
 
-- Sitio público en https://subtrama.com.ar: 17 páginas (inicio, servicios con 7 de detalle, 4 de paquetes, nosotros, contacto, privacidad, 404). Precios en src/content/paquetes; vigencia en src/content/ajustes/condiciones.json. Voz de empresa (primera persona del plural, voseo) aplicada en todos los textos.
+- Sitio público en https://subtrama.com.ar: 16 páginas (inicio, servicios con 7 de detalle, 3 de paquetes, nosotros, contacto, privacidad, 404). Paquetes Esencial, Impulso (cerrados) y A Medida, en src/content/paquetes, sin precios publicados; condiciones en src/content/ajustes/condiciones.json. Las URL anteriores (base, intermedio, personalizable, completo) redirigen por public/_redirects. Voz de empresa (primera persona del plural, voseo) aplicada en los textos; falta revisarlos contra la guía de voz 2.0.
+- Cloudflare Web Analytics activo (sin cookies) y documentado en la política de privacidad (PR #15 y #16).
 - Formulario de contacto activo en producción con Turnstile y Resend, correo de confirmación HTML y política de privacidad publicada (PR #13 y #14).
 - /admin probado por el mantenedor: orden de secciones de inicio, colecciones y carga de logos funcionan.
 - Auditoría del 2026-10-13: build correcto, sitemap, robots.txt y Open Graph presentes; Lighthouse: rendimiento 99-100, accesibilidad 100, mejores prácticas 100 y SEO 100 (medición local, 5 páginas). No se repitió tras sumar el formulario.
 
 ## Pendientes conocidos
 
-- Analítica (Cloudflare Web Analytics) y búsqueda (Pagefind). Si se suma analítica, actualizar la política de privacidad, que hoy indica que no hay seguimiento.
+- Búsqueda (Pagefind), diferida. Si se suma otra herramienta de medición, actualizar la política de privacidad.
 - Instagram: URL pendiente en src/data/sitio.ts.
-- Precios de cobertura de evento y pieza con urgencia (hoy "A consultar") y brecha de precios entre paquetes cerrados y Personalizable.
+- Revisar los textos del sitio contra la guía de voz 2.0 y confirmar los rubros de Balcarce y Los Zainos.
 - Términos y condiciones: requieren revisión legal.
 - Correo corporativo (Google Workspace): sin contratar; la zona DNS no tiene registros MX de buzones. Al contratarlo, actualizar sitio.ts y CONTACT_TO_EMAIL, y agregar SPF, DKIM y DMARC del dominio raíz.
 - Limpieza de ramas viejas, locales y remotas.
