@@ -11,7 +11,7 @@ incluye:
   - lead: "Guiones."
     text: "Estructura para reels y videos, antes de grabar."
   - lead: "Textos."
-    text: "Copies y descripciones en el tono de tu marca."
+    text: "Descripciones y textos en el tono de tu marca."
   - lead: "Dirección visual."
     text: "Indicaciones para que el material llegue listo para editar."
 ---
