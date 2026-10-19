@@ -1,0 +1,37 @@
+---
+import Card from './Card.astro';
+import type { Paquete } from '../lib/contenido';
+
+interface Props {
+  paquete: Paquete;
+  indice: number;
+  as?: 'h2' | 'h3';
+}
+const { paquete: p, indice, as: Heading = 'h3' } = Astro.props;
+const lista = p.detalle
+  ? [
+      { etiqueta: 'Historias', valor: p.detalle.historias },
+      { etiqueta: 'Jornada de registro', valor: p.detalle.jornada },
+      { etiqueta: 'Informe y reunión', valor: p.detalle.informe },
+    ]
+  : [];
+const dato = p.dato_tarjeta ?? (p.tipo === 'cerrado' ? 'Paquete cerrado' : 'A medida');
+---
+<a class="card-link" href={`/paquetes/${p.slug}/`}>
+  <Card as={Heading} title={p.nombre} tone={indice % 2 === 0 ? 'accent-2' : 'accent'} number={indice + 1}>
+    {p.destacado && <span class="cinta">Recomendado</span>}
+    <p class="card-service">{dato}</p>
+    <p>{p.resumen}</p>
+    {lista.length > 0 && (
+      <ul class="card-lista">
+        {lista.map((i) => <li><strong>{i.etiqueta}:</strong> {i.valor}</li>)}
+      </ul>
+    )}
+    <span class="card-more">Ver detalle</span>
+  </Card>
+</a>
+
+<style>
+  .cinta{position:absolute;top:var(--space-3);right:var(--space-3);padding:2px var(--space-3);border-radius:var(--radius-pill);background:var(--brand-strong);color:var(--text-inverse);font-size:12px;line-height:20px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .card-lista{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-1);font-size:14px;line-height:22px}
+</style>

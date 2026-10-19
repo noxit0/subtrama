@@ -3,5 +3,5 @@
   "rubro": "Heladería",
   "orden": 3,
   "visible": true,
-  "logo": "/media/marcas/bisbela.png"
+  "logo": "/src/assets/marcas/bisbela.png"
 }

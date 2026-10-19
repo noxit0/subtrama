@@ -2,7 +2,8 @@
 nombre: "Impulso"
 orden: 2
 tipo: "cerrado"
-destacado: false
+destacado: true
+dato_tarjeta: "5 piezas por mes"
 resumen: "Más piezas por mes, con informe y reunión cada dos meses."
 para_quien: "Marcas que ya publican y quieren más constancia y un seguimiento más cercano de los resultados."
 detalle:

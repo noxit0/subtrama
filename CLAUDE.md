@@ -18,7 +18,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - src/pages/: páginas del sitio (rutas por archivo): inicio, nosotros, contacto, privacidad, 404, servicios (índice con comparación de paquetes y [slug]) y paquetes ([slug]).
 - src/components/: componentes .astro portados del sistema de diseño de marca.
 - src/layouts/Base.astro: layout base (metadatos, Open Graph, canonical).
-- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON, logos en public/media/marcas) y ajustes (condiciones.json, adicionales.json, inicio.json con el orden de las secciones de la página de inicio). Esquemas en src/content.config.ts.
+- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON; los logos están en src/assets/marcas y Astro los optimiza al publicar) y ajustes (condiciones.json, adicionales.json, inicio.json con el orden de las secciones de la página de inicio, whatsapp.json con el botón flotante, proceso.json con los pasos de Cómo trabajamos, preguntas.json con las preguntas frecuentes de Servicios y contacto.json con los pasos posteriores al envío). Esquemas en src/content.config.ts.
 - src/lib/: lectura del contenido (contenido.ts, servicios.ts), formato de precios y la plantilla del correo de confirmación (correo-confirmacion.ts).
 - functions/api/contacto.ts: Pages Function que recibe el formulario (POST /api/contacto). No es una ruta de Astro: la compila Cloudflare Pages.
 - src/data/: datos fijos (sitio.ts: datos de contacto y objeto formulario con activo y turnstileSiteKey).
@@ -80,6 +80,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 ## Estado
 
 - Sitio público en https://subtrama.com.ar: 16 páginas (inicio, servicios con 7 de detalle, 3 de paquetes, nosotros, contacto, privacidad, 404). Paquetes Esencial, Impulso (cerrados) y A Medida, en src/content/paquetes, sin precios publicados; condiciones en src/content/ajustes/condiciones.json. Las URL anteriores (base, intermedio, personalizable, completo) redirigen por public/_redirects. Voz de empresa (primera persona del plural, voseo) aplicada en los textos; falta revisarlos contra la guía de voz 2.0.
+- Mejoras de experiencia: botón flotante de WhatsApp (número en src/data/sitio.ts, mensaje en whatsapp.json), tarjetas de paquetes con dato, cinta "Recomendado" (campo destacado) y realce al pasar el mouse, pasos de Cómo trabajamos, preguntas frecuentes con datos estructurados y pasos posteriores en Contacto. Todo editable desde /admin.
 - Cloudflare Web Analytics activo (sin cookies) y documentado en la política de privacidad (PR #15 y #16).
 - Formulario de contacto activo en producción con Turnstile y Resend, correo de confirmación HTML y política de privacidad publicada (PR #13 y #14).
 - /admin probado por el mantenedor: orden de secciones de inicio, colecciones y carga de logos funcionan.

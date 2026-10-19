@@ -5,6 +5,7 @@ export interface Paquete {
   nombre: string;
   tipo: 'cerrado' | 'personalizable';
   destacado: boolean;
+  dato_tarjeta?: string;
   resumen: string;
   para_quien: string;
   detalle?: {
@@ -51,4 +52,24 @@ export type SeccionInicio = 'para-quien' | 'paquetes' | 'marcas' | 'como-se-trab
 export async function getSeccionesInicio(): Promise<SeccionInicio[]> {
   const [e] = await getCollection('inicio');
   return e.data.secciones.map((s) => s.tipo);
+}
+
+export async function getWhatsapp() {
+  const [e] = await getCollection('whatsapp');
+  return e.data;
+}
+
+export async function getProceso() {
+  const [e] = await getCollection('proceso');
+  return e.data.pasos;
+}
+
+export async function getPreguntas() {
+  const [e] = await getCollection('preguntas');
+  return e.data.items;
+}
+
+export async function getPasosSiguientes() {
+  const [e] = await getCollection('contacto');
+  return e.data.pasos_siguientes.map((p) => p.texto);
 }

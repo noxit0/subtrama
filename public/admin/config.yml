@@ -65,7 +65,8 @@ collections:
         options:
           - { label: Cerrado, value: cerrado }
           - { label: A medida, value: personalizable }
-      - { name: destacado, label: Destacado, widget: boolean, default: false, required: false }
+      - { name: destacado, label: Recomendado, widget: boolean, default: false, required: false, hint: "Muestra la cinta Recomendado en la tarjeta" }
+      - { name: dato_tarjeta, label: Dato de la tarjeta, widget: string, required: false, hint: "Ejemplo: 4 piezas por mes. Aparece arriba en la tarjeta del paquete" }
       - { name: resumen, label: Resumen, widget: text }
       - { name: para_quien, label: Para quién es, widget: text }
       - name: detalle
@@ -100,14 +101,14 @@ collections:
     identifier_field: nombre
     summary: "{{fields.orden}}. {{nombre}}"
     sortable_fields: [orden, nombre]
-    media_folder: public/media/marcas
-    public_folder: /media/marcas
+    media_folder: src/assets/marcas
+    public_folder: /src/assets/marcas
     fields:
       - { name: nombre, label: Nombre, widget: string }
       - { name: rubro, label: Rubro, widget: string }
       - { name: orden, label: Orden, widget: number, value_type: int, min: 1, step: 1 }
       - { name: visible, label: Mostrar en la web, widget: boolean, default: true }
-      - { name: logo, label: Logo, widget: image, required: false, hint: "PNG con fondo transparente, máximo 640 x 320 px" }
+      - { name: logo, label: Logo, widget: image, required: false, hint: "PNG o SVG con fondo transparente. Se optimiza solo al publicar." }
       - { name: url, label: Enlace (opcional), widget: string, required: false }
 
   - name: ajustes
@@ -133,6 +134,53 @@ collections:
                   - { label: Paquetes, value: paquetes }
                   - { label: Marcas con las que trabajamos, value: marcas }
                   - { label: Cómo se trabaja, value: como-se-trabaja }
+      - name: whatsapp
+        label: Botón de WhatsApp
+        file: src/content/ajustes/whatsapp.json
+        format: json
+        fields:
+          - { name: activo, label: Mostrar el botón flotante, widget: boolean, default: true }
+          - { name: mensaje, label: Mensaje inicial, widget: string, hint: "Texto que ya aparece escrito cuando la persona abre el chat" }
+      - name: proceso
+        label: Cómo trabajamos (pasos del inicio)
+        file: src/content/ajustes/proceso.json
+        format: json
+        fields:
+          - name: pasos
+            label: Pasos
+            label_singular: Paso
+            widget: list
+            summary: "{{fields.titulo}}"
+            hint: "Arrastrá para cambiar el orden. Se recomiendan 4 pasos."
+            fields:
+              - { name: titulo, label: Título, widget: string }
+              - { name: texto, label: Texto, widget: text }
+      - name: preguntas
+        label: Preguntas frecuentes
+        file: src/content/ajustes/preguntas.json
+        format: json
+        fields:
+          - name: items
+            label: Preguntas
+            label_singular: Pregunta
+            widget: list
+            summary: "{{fields.pregunta}}"
+            hint: "Sin preguntas, la sección no se muestra en Servicios."
+            fields:
+              - { name: pregunta, label: Pregunta, widget: string }
+              - { name: respuesta, label: Respuesta, widget: text }
+      - name: contacto
+        label: Contacto (qué pasa después)
+        file: src/content/ajustes/contacto.json
+        format: json
+        fields:
+          - name: pasos_siguientes
+            label: Pasos después de enviar la consulta
+            label_singular: Paso
+            widget: list
+            summary: "{{fields.texto}}"
+            fields:
+              - { name: texto, label: Texto, widget: string }
       - name: condiciones
         label: Condiciones comerciales
         file: src/content/ajustes/condiciones.json

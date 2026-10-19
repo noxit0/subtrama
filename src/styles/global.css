@@ -135,3 +135,28 @@ h1,h2,h3,p,ul{margin:0}
 .not-found{display:grid;gap:var(--space-5);justify-items:start;padding-block:var(--space-9)}
 
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+
+/* Paquetes: realce al pasar el mouse */
+@media (hover:hover) and (prefers-reduced-motion:no-preference){
+  .grid-paquetes .card-link{transition:transform .2s ease,opacity .2s ease,filter .2s ease}
+  .grid-paquetes .card-link:hover,.grid-paquetes .card-link:focus-visible{transform:scale(1.05);position:relative;z-index:1}
+  .grid-paquetes .card-link:hover .st-card,.grid-paquetes .card-link:focus-visible .st-card{box-shadow:0 14px 30px rgba(30,42,35,.22)}
+  .grid-paquetes:has(.card-link:hover) .card-link:not(:hover){opacity:.8}
+}
+
+/* Cómo trabajamos */
+.proceso{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-6) var(--space-5);grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.proceso li{display:block}
+
+/* Preguntas frecuentes */
+.faq{display:grid;gap:var(--space-3);max-width:80ch}
+.faq details{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md,12px);padding:0 var(--space-4)}
+.faq summary{cursor:pointer;padding:var(--space-4) 0;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:var(--space-4)}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:22px;line-height:1;color:var(--accent-strong)}
+.faq details[open] summary::after{content:"\2212"}
+.faq details p{margin:0;padding-bottom:var(--space-4);color:var(--text)}
+
+/* Contacto: qué pasa después */
+.pasos-siguientes{margin-top:var(--space-6);display:grid;gap:var(--space-3)}
+.pasos-siguientes ol{margin:0;padding-left:var(--space-5);display:grid;gap:var(--space-2)}

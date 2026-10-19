@@ -4,8 +4,9 @@ import SectionTitle from '../components/SectionTitle.astro';
 import Button from '../components/Button.astro';
 import Callout from '../components/Callout.astro';
 import { sitio, formulario } from '../data/sitio';
-import { getPaquetes } from '../lib/contenido';
+import { getPaquetes, getPasosSiguientes } from '../lib/contenido';
 const paquetes = await getPaquetes();
+const pasosSiguientes = await getPasosSiguientes();
 const activo = formulario.activo && formulario.turnstileSiteKey !== '';
 
 const canales = [
@@ -75,6 +76,14 @@ const canales = [
             <Callout label="Otros canales">
               <p>Los canales de contacto directo se publican junto con el formulario.</p>
             </Callout>
+          )}
+          {pasosSiguientes.length > 0 && (
+            <div class="pasos-siguientes">
+              <span class="st-eyebrow">Qué pasa después</span>
+              <ol>
+                {pasosSiguientes.map((t) => <li>{t}</li>)}
+              </ol>
+            </div>
           )}
         </div>
       </div>
