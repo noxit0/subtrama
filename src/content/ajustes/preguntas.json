@@ -1,0 +1,12 @@
+{
+  "items": [
+    { "pregunta": "¿Se pueden contratar servicios por separado?", "respuesta": "No. Los servicios se contratan dentro de un paquete: Esencial, Impulso o A Medida." },
+    { "pregunta": "¿Cuál es el plazo mínimo de contratación?", "respuesta": "Tres meses." },
+    { "pregunta": "¿Cómo conozco el valor?", "respuesta": "Se informa en la propuesta, después de la primera reunión." },
+    { "pregunta": "¿Qué es el Kit de Marca?", "respuesta": "La etapa inicial, obligatoria en todos los paquetes. Incluye el análisis situacional, la propuesta estética, los pilares de contenido, las plantillas y la organización de tu perfil. Se desarrolla al menos 15 días antes de comenzar con las piezas." },
+    { "pregunta": "¿Cuánto tiempo tengo para aprobar el calendario?", "respuesta": "72 horas. Lo recibís con 15 días de anticipación; vencido el plazo sin respuesta, se considera aprobado." },
+    { "pregunta": "¿Qué pasa si necesito una pieza fuera del calendario?", "respuesta": "Se cotiza como adicional." },
+    { "pregunta": "¿Cada cuánto recibo informes?", "respuesta": "En Esencial, cada tres meses; en Impulso, cada dos. En A Medida se define en conjunto. La reunión de gestión es mensual en todos los paquetes." },
+    { "pregunta": "¿Cómo se ajusta el valor?", "respuesta": "Según la variación del IPC del INDEC cuando resulta necesario, con aviso previo de quince días." }
+  ]
+}

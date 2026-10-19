@@ -1,14 +1,21 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Card from '../../components/Card.astro';
+import PaqueteCard from '../../components/PaqueteCard.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Button from '../../components/Button.astro';
 import { getServicios } from '../../lib/servicios';
-import { getPaquetes, getCondiciones } from '../../lib/contenido';
+import { getPaquetes, getCondiciones, getPreguntas } from '../../lib/contenido';
 const servicios = await getServicios();
 const paquetes = await getPaquetes();
 const cerrados = paquetes.filter((p) => p.tipo === 'cerrado' && p.detalle);
 const cond = await getCondiciones();
+const preguntas = await getPreguntas();
+const faqJson = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: preguntas.map((q) => ({ '@type': 'Question', name: q.pregunta, acceptedAnswer: { '@type': 'Answer', text: q.respuesta } })),
+});
 const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[] = [
   { label: 'Piezas de feed', valor: (p) => p.detalle!.piezas },
   { label: 'Historias', valor: (p) => p.detalle!.historias },
@@ -27,16 +34,8 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
         <SectionTitle as="h1" title="Servicios" eyebrow="Qué hacemos" />
         <p>Los servicios se contratan en paquetes. Elegí el que se ajuste a tu marca o diseñá uno a tu medida junto con nosotros.</p>
       </div>
-      <div class="grid-cards">
-        {paquetes.map((p, i) => (
-          <a class="card-link" href={`/paquetes/${p.slug}/`}>
-            <Card as="h2" title={p.nombre} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
-              <p class="card-service">{p.tipo === 'cerrado' ? 'Paquete cerrado' : 'A medida'}</p>
-              <p>{p.resumen}</p>
-              <span class="card-more">Ver detalle</span>
-            </Card>
-          </a>
-        ))}
+      <div class="grid-cards grid-paquetes">
+        {paquetes.map((p, i) => <PaqueteCard paquete={p} indice={i} as="h2" />)}
       </div>
     </div>
   </section>
@@ -86,6 +85,25 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
       </div>
     </div>
   </section>
+
+  {preguntas.length > 0 && (
+    <section class="section section-alt">
+      <div class="container">
+        <div class="section-head">
+          <SectionTitle title="Preguntas frecuentes" />
+        </div>
+        <div class="faq">
+          {preguntas.map((q) => (
+            <details>
+              <summary>{q.pregunta}</summary>
+              <p>{q.respuesta}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+      <script type="application/ld+json" set:html={faqJson} />
+    </section>
+  )}
 
   <section class="section">
     <div class="container">

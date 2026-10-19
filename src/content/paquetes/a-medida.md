@@ -3,6 +3,7 @@ nombre: "A Medida"
 orden: 3
 tipo: "personalizable"
 destacado: false
+dato_tarjeta: "Hasta 7 piezas por mes"
 resumen: "Un plan diseñado en conjunto, con los servicios y las cantidades que necesita tu marca."
 para_quien: "Marcas con necesidades puntuales o con un volumen distinto al de los paquetes cerrados."
 incluye:

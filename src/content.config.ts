@@ -21,6 +21,7 @@ const paquetes = defineCollection({
     orden: z.number(),
     tipo: z.enum(['cerrado', 'personalizable']),
     destacado: z.boolean().default(false),
+    dato_tarjeta: z.string().optional(),
     resumen: z.string(),
     para_quien: z.string(),
     detalle: z
@@ -71,4 +72,24 @@ const inicio = defineCollection({
   }),
 });
 
-export const collections = { servicios, paquetes, marcas, condiciones, adicionales, inicio };
+const whatsapp = defineCollection({
+  loader: glob({ pattern: 'whatsapp.json', base: './src/content/ajustes' }),
+  schema: z.object({ activo: z.boolean().default(true), mensaje: z.string() }),
+});
+
+const proceso = defineCollection({
+  loader: glob({ pattern: 'proceso.json', base: './src/content/ajustes' }),
+  schema: z.object({ pasos: z.array(z.object({ titulo: z.string(), texto: z.string() })) }),
+});
+
+const preguntas = defineCollection({
+  loader: glob({ pattern: 'preguntas.json', base: './src/content/ajustes' }),
+  schema: z.object({ items: z.array(z.object({ pregunta: z.string(), respuesta: z.string() })) }),
+});
+
+const contacto = defineCollection({
+  loader: glob({ pattern: 'contacto.json', base: './src/content/ajustes' }),
+  schema: z.object({ pasos_siguientes: z.array(z.object({ texto: z.string() })) }),
+});
+
+export const collections = { servicios, paquetes, marcas, condiciones, adicionales, inicio, whatsapp, proceso, preguntas, contacto };

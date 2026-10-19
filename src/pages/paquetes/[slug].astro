@@ -40,6 +40,7 @@ const adicionales = await getAdicionales();
         <Callout label="Valor y condiciones">
           <p>El valor se informa en la propuesta. Plazo mínimo de contratación: {cond.plazo_minimo}.</p>
           <p>{cond.ajuste}</p>
+          <Button href={`/contacto/?paquete=${paquete.slug}`} variant="accent">Agendar reunión</Button>
         </Callout>
       </div>
     </div>

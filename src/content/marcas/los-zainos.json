@@ -3,6 +3,6 @@
   "rubro": "Predio | Espacio Recreativo",
   "orden": 1,
   "visible": true,
-  "logo": "/media/marcas/los-zainos.png",
+  "logo": "/src/assets/marcas/los-zainos.png",
   "url": ""
 }
