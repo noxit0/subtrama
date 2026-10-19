@@ -4,36 +4,34 @@ import Card from '../../components/Card.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Button from '../../components/Button.astro';
 import { getServicios } from '../../lib/servicios';
-import { getPaquetes, getCondiciones, formatoPrecio } from '../../lib/contenido';
+import { getPaquetes, getCondiciones } from '../../lib/contenido';
 const servicios = await getServicios();
 const paquetes = await getPaquetes();
 const cerrados = paquetes.filter((p) => p.tipo === 'cerrado' && p.detalle);
 const cond = await getCondiciones();
 const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[] = [
-  { label: 'Precio mensual', valor: (p) => (p.precio != null ? formatoPrecio(p.precio) : 'A consultar') },
   { label: 'Piezas de feed', valor: (p) => p.detalle!.piezas },
   { label: 'Historias', valor: (p) => p.detalle!.historias },
   { label: 'Jornada de registro', valor: (p) => p.detalle!.jornada },
   { label: 'Informe y reunión', valor: (p) => p.detalle!.informe },
   { label: 'Calendarización', valor: (p) => p.detalle!.calendarizacion },
-  { label: 'Colaboraciones', valor: (p) => p.detalle!.colaboraciones },
 ];
 ---
 <Base
   title="Servicios"
-  description="Paquetes Base, Intermedio, Completo y Personalizable para gestionar redes y contenido, con el detalle de cada servicio y su precio."
+  description="Paquetes Esencial, Impulso y A Medida para gestionar redes y contenido, con el detalle de cada servicio."
 >
   <section class="section">
     <div class="container">
       <div class="section-head">
         <SectionTitle as="h1" title="Servicios" eyebrow="Qué hacemos" />
-        <p>Los servicios se contratan en paquetes. Elegí el que se ajuste a tu marca o armá uno a tu medida.</p>
+        <p>Los servicios se contratan en paquetes. Elegí el que se ajuste a tu marca o diseñá uno a tu medida junto con nosotros.</p>
       </div>
       <div class="grid-cards">
         {paquetes.map((p, i) => (
           <a class="card-link" href={`/paquetes/${p.slug}/`}>
             <Card as="h2" title={p.nombre} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
-              <p class="card-service">{p.precio != null ? `${formatoPrecio(p.precio)} por mes` : 'A medida'}</p>
+              <p class="card-service">{p.tipo === 'cerrado' ? 'Paquete cerrado' : 'A medida'}</p>
               <p>{p.resumen}</p>
               <span class="card-more">Ver detalle</span>
             </Card>
@@ -47,7 +45,7 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
     <div class="container">
       <div class="section-head">
         <SectionTitle title="Comparación de paquetes" />
-        <p>{cond.nota_impuestos} Vigentes desde el {cond.vigencia_desde}. Plazo mínimo de contratación: {cond.plazo_minimo}.</p>
+        <p>Plazo mínimo de contratación: {cond.plazo_minimo}. El valor se informa en la propuesta.</p>
       </div>
       <div class="st-table-wrap">
         <table class="st-table">
@@ -93,7 +91,7 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
     <div class="container">
       <div class="cta-band">
         <h2>¿Por dónde empezar?</h2>
-        <p>Todos los paquetes arrancan con el análisis situacional y el mes 0. Contanos de tu marca y te decimos cuál conviene.</p>
+        <p>Todos los paquetes comienzan con el Kit de Marca, que incluye el análisis situacional. Contanos qué hacés y dónde estás hoy: te indicamos qué paquete se ajusta mejor.</p>
         <Button href="/contacto/" variant="accent" size="lg">Agendar reunión</Button>
       </div>
     </div>

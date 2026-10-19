@@ -5,7 +5,6 @@ export interface Paquete {
   nombre: string;
   tipo: 'cerrado' | 'personalizable';
   destacado: boolean;
-  precio?: number;
   resumen: string;
   para_quien: string;
   detalle?: {
@@ -14,10 +13,8 @@ export interface Paquete {
     jornada: string;
     informe: string;
     calendarizacion: string;
-    colaboraciones: string;
   };
   incluye: { lead: string; text: string }[];
-  precios_unitarios: { servicio: string; unidad: string; incluye: string; precio?: number }[];
 }
 
 export async function getPaquetes(): Promise<Paquete[]> {
@@ -48,8 +45,6 @@ export async function getAdicionales() {
   return e.data.items;
 }
 
-const nf = new Intl.NumberFormat('es-AR');
-export const formatoPrecio = (n: number) => '$' + nf.format(n);
 
 export type SeccionInicio = 'para-quien' | 'paquetes' | 'marcas' | 'como-se-trabaja';
 

@@ -95,6 +95,7 @@ h1,h2,h3,p,ul{margin:0}
 .st-table a{color:inherit}
 .condiciones{margin-top:var(--space-7);display:grid;gap:var(--space-3);max-width:68ch}
 .condiciones ul{margin:0;padding-left:var(--space-5);display:grid;gap:var(--space-2)}
+.adicionales{margin:0;padding-left:var(--space-5);display:grid;gap:var(--space-2);max-width:68ch}
 .footer-eyebrow-2{margin-top:var(--space-4)}
 
 /* CTA */

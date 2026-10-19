@@ -21,7 +21,6 @@ const paquetes = defineCollection({
     orden: z.number(),
     tipo: z.enum(['cerrado', 'personalizable']),
     destacado: z.boolean().default(false),
-    precio: z.number().optional(),
     resumen: z.string(),
     para_quien: z.string(),
     detalle: z
@@ -31,21 +30,9 @@ const paquetes = defineCollection({
         jornada: z.string(),
         informe: z.string(),
         calendarizacion: z.string(),
-        colaboraciones: z.string(),
       })
       .optional(),
     incluye: z.array(z.object({ lead: z.string(), text: z.string() })),
-    precios_unitarios: z
-      .array(
-        z.object({
-          servicio: z.string(),
-          unidad: z.string(),
-          incluye: z.string(),
-          precio: z.number().optional(),
-        }),
-      )
-      .nullish()
-      .transform((v) => v ?? []),
   }),
 });
 
@@ -64,8 +51,6 @@ const marcas = defineCollection({
 const condiciones = defineCollection({
   loader: glob({ pattern: 'condiciones.json', base: './src/content/ajustes' }),
   schema: z.object({
-    vigencia_desde: z.string(),
-    nota_impuestos: z.string(),
     plazo_minimo: z.string(),
     ajuste: z.string(),
     condiciones: z.array(z.object({ texto: z.string() })),
@@ -75,7 +60,7 @@ const condiciones = defineCollection({
 const adicionales = defineCollection({
   loader: glob({ pattern: 'adicionales.json', base: './src/content/ajustes' }),
   schema: z.object({
-    items: z.array(z.object({ nombre: z.string(), precio: z.number().optional() })),
+    items: z.array(z.object({ nombre: z.string() })),
   }),
 });
 

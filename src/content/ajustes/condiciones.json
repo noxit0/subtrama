@@ -1,8 +1,6 @@
 {
-  "vigencia_desde": "13 de octubre de 2026",
-  "nota_impuestos": "Precios sin IVA.",
   "plazo_minimo": "3 meses",
-  "ajuste": "Ajuste trimestral según la variación acumulada del IPC del INDEC de los tres meses anteriores.",
+  "ajuste": "El valor se ajusta según la variación del IPC del INDEC cuando resulta necesario, con aviso previo de quince días.",
   "condiciones": [
     {
       "texto": "El calendario se entrega con 15 días de anticipación y tenés 72 horas para aprobarlo o pedir cambios. Vencido el plazo sin respuesta, se considera aprobado."

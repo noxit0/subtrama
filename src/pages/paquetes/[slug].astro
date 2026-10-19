@@ -4,8 +4,7 @@ import SectionTitle from '../../components/SectionTitle.astro';
 import FeatureList from '../../components/FeatureList.astro';
 import Callout from '../../components/Callout.astro';
 import Button from '../../components/Button.astro';
-import PriceCard from '../../components/PriceCard.astro';
-import { getPaquetes, getCondiciones, getAdicionales, formatoPrecio } from '../../lib/contenido';
+import { getPaquetes, getCondiciones, getAdicionales } from '../../lib/contenido';
 
 export async function getStaticPaths() {
   const paquetes = await getPaquetes();
@@ -18,8 +17,6 @@ export async function getStaticPaths() {
 const { paquete, anterior, siguiente } = Astro.props;
 const cond = await getCondiciones();
 const adicionales = await getAdicionales();
-const personalizable = paquete.tipo === 'personalizable';
-const precio = (n?: number) => (n != null ? formatoPrecio(n) : 'A consultar');
 ---
 <Base title={`Paquete ${paquete.nombre}`} description={paquete.resumen}>
   <section class="section">
@@ -40,65 +37,23 @@ const precio = (n?: number) => (n != null ? formatoPrecio(n) : 'A consultar');
             <p>{paquete.para_quien}</p>
           </div>
         </div>
-        {personalizable ? (
-          <Callout label="Cómo funciona">
-            <p>Elegís los servicios de la lista, definimos las cantidades juntos y el valor surge de sumar cada uno.</p>
-          </Callout>
-        ) : (
-          <PriceCard plan={paquete.nombre} precio={paquete.precio != null ? formatoPrecio(paquete.precio) : undefined}>
-            <ul class="price-notes">
-              <li>{cond.nota_impuestos}</li>
-              <li>Precios vigentes desde el {cond.vigencia_desde}.</li>
-              <li>Plazo mínimo de contratación: {cond.plazo_minimo}.</li>
-              <li>{cond.ajuste}</li>
-            </ul>
-          </PriceCard>
-        )}
+        <Callout label="Valor y condiciones">
+          <p>El valor se informa en la propuesta. Plazo mínimo de contratación: {cond.plazo_minimo}.</p>
+          <p>{cond.ajuste}</p>
+        </Callout>
       </div>
     </div>
   </section>
-
-  {personalizable && (
-    <section class="section section-alt">
-      <div class="container">
-        <div class="section-head">
-          <SectionTitle title="Precio por servicio" />
-          <p>Valores unitarios en pesos argentinos. {cond.nota_impuestos} Vigentes desde el {cond.vigencia_desde}.</p>
-        </div>
-        <div class="st-table-wrap">
-          <table class="st-table">
-            <caption>Servicios del paquete personalizable</caption>
-            <thead>
-              <tr><th scope="col">Servicio</th><th scope="col">Unidad</th><th scope="col">Qué incluye</th><th scope="col" class="st-num">Precio</th></tr>
-            </thead>
-            <tbody>
-              {paquete.precios_unitarios.map((u) => (
-                <tr><th scope="row">{u.servicio}</th><td>{u.unidad}</td><td>{u.incluye}</td><td class="st-num">{precio(u.precio)}</td></tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  )}
 
   <section class="section">
     <div class="container">
       <div class="section-head">
         <SectionTitle title="Adicionales" />
-        <p>Si necesitás algo fuera del paquete, se suma con su propio valor.</p>
+        <p>Si necesitás algo fuera del paquete, se suma como adicional y se cotiza en la propuesta.</p>
       </div>
-      <div class="st-table-wrap">
-        <table class="st-table">
-          <caption>Adicionales</caption>
-          <thead><tr><th scope="col">Adicional</th><th scope="col" class="st-num">Precio</th></tr></thead>
-          <tbody>
-            {adicionales.map((a) => (
-              <tr><th scope="row">{a.nombre}</th><td class="st-num">{precio(a.precio)}</td></tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <ul class="adicionales">
+        {adicionales.map((a) => <li>{a.nombre}</li>)}
+      </ul>
       <div class="condiciones">
         <span class="st-eyebrow">Condiciones</span>
         <ul>
@@ -116,7 +71,7 @@ const precio = (n?: number) => (n != null ? formatoPrecio(n) : 'A consultar');
     <div class="container">
       <div class="cta-band">
         <h2>Hablemos de tu marca</h2>
-        <p>Contanos qué hacés y qué necesitás. Armamos el plan a partir de ahí.</p>
+        <p>Contanos qué hacés y qué necesitás. Elaboramos el plan a partir de ahí.</p>
         <Button href={`/contacto/?paquete=${paquete.slug}`} variant="accent" size="lg">Agendar reunión</Button>
       </div>
     </div>
