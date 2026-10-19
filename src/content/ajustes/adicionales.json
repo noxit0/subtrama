@@ -1,30 +1,11 @@
 {
   "items": [
-    {
-      "nombre": "Jornada de registro extra, completa",
-      "precio": 84800
-    },
-    {
-      "nombre": "Jornada de registro extra, media jornada",
-      "precio": 42400
-    },
-    {
-      "nombre": "Pieza de feed fuera de paquete, reel o video",
-      "precio": 116600
-    },
-    {
-      "nombre": "Pieza de feed fuera de paquete, imagen estática",
-      "precio": 31800
-    },
-    {
-      "nombre": "Informe fuera de la frecuencia del paquete",
-      "precio": 26500
-    },
-    {
-      "nombre": "Cobertura de evento"
-    },
-    {
-      "nombre": "Pieza con urgencia, fuera del calendario aprobado"
-    }
+    { "nombre": "Jornada de registro extra, completa" },
+    { "nombre": "Jornada de registro extra, media jornada" },
+    { "nombre": "Pieza de feed fuera de paquete, video" },
+    { "nombre": "Pieza de feed fuera de paquete, estática" },
+    { "nombre": "Informe fuera de la frecuencia del paquete" },
+    { "nombre": "Cobertura de evento" },
+    { "nombre": "Pieza con urgencia, fuera del calendario aprobado" }
   ]
 }

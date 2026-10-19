@@ -3,6 +3,6 @@
   "rubro": "Muebles de Autor",
   "orden": 5,
   "visible": true,
-  "logo": "public/media/marcas/Logo Web.png",
+  "logo": "/media/marcas/balcarce.png",
   "url": ""
 }

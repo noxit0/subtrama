@@ -5,11 +5,10 @@ import Card from '../components/Card.astro';
 import Lead from '../components/Lead.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import Callout from '../components/Callout.astro';
-import { getPaquetes, getCondiciones, getSeccionesInicio, formatoPrecio } from '../lib/contenido';
+import { getPaquetes, getSeccionesInicio } from '../lib/contenido';
 import Marcas from '../components/Marcas.astro';
 import HeroVisual from '../components/HeroVisual.astro';
 const paquetes = await getPaquetes();
-const cond = await getCondiciones();
 const secciones = await getSeccionesInicio();
 ---
 <Base
@@ -63,20 +62,20 @@ const secciones = await getSeccionesInicio();
           <div class="container">
             <div class="section-head">
               <SectionTitle title="Paquetes" />
-              <p>Tres paquetes cerrados y uno a medida. Elegí según cuánto contenido necesitás publicar por mes.</p>
+              <p>Dos paquetes cerrados y uno a medida. Elegí según cuánto contenido necesitás publicar por mes.</p>
             </div>
             <div class="grid-cards">
               {paquetes.map((p, i) => (
                 <a class="card-link" href={`/paquetes/${p.slug}/`}>
                   <Card title={p.nombre} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
-                    <h3 class="card-service">{p.precio != null ? `${formatoPrecio(p.precio)} por mes` : 'A medida'}</h3>
+                    <h3 class="card-service">{p.tipo === 'cerrado' ? 'Paquete cerrado' : 'A medida'}</h3>
                     <p>{p.resumen}</p>
                     <span class="card-more">Ver detalle</span>
                   </Card>
                 </a>
               ))}
             </div>
-            <p class="tabla-nota">{cond.nota_impuestos} Vigentes desde el {cond.vigencia_desde}. <a href="/servicios/">Ver la comparación y los servicios</a>.</p>
+            <p class="tabla-nota">El valor se informa en la propuesta. <a href="/servicios/">Ver la comparación y los servicios</a>.</p>
           </div>
         </Fragment>
       )}
