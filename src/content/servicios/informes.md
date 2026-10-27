@@ -2,6 +2,7 @@
 titulo: "Informes"
 etiqueta: "Informes"
 orden: 7
+etapa: "gestion"
 resumen: "Qué pasó con tu contenido y qué hacemos con eso."
 intro: "Con la frecuencia de tu paquete repasamos los números con vos. No mostramos todo: mostramos lo que ordena qué producir después."
 entrega: "Un informe con la frecuencia de tu paquete y una reunión para repasarlo."

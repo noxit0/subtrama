@@ -1,0 +1,65 @@
+---
+// Muestra de un informe bimestral con datos ficticios. Reproduce la estructura del informe real
+// (métricas con variación y valor anterior, lectura del período y próximos pasos) sin datos de clientes.
+// Bases menores a 100 se comparan en valor absoluto, como en el informe real.
+const metricas = [
+  { nombre: 'Vistas', valor: '48.300', variacion: '+9,4 %', anterior: '44.150' },
+  { nombre: 'Cuentas alcanzadas', valor: '12.480', variacion: '-4,1 %', anterior: '13.020' },
+  { nombre: 'Interacciones', valor: '1.940', variacion: '+11,2 %', anterior: '1.745' },
+  { nombre: 'Seguidores al cierre', valor: '3.215', variacion: '+2,8 %', anterior: '3.128' },
+  { nombre: 'Guardados', valor: '64', variacion: '+13', anterior: '51' },
+  { nombre: 'Publicaciones', valor: '10', variacion: '+2', anterior: '8' },
+];
+---
+<figure class="informe">
+  <div class="informe-head">
+    <span class="informe-rotulo">Ejemplo con datos ficticios</span>
+    <p class="informe-titulo">Informe de métricas</p>
+    <p class="informe-meta">Marca de ejemplo · Instagram · Bimestral</p>
+  </div>
+  <ul class="informe-metricas">
+    {metricas.map((m) => (
+      <li class="metrica">
+        <span class="metrica-nombre">{m.nombre}</span>
+        <span class="metrica-valor">{m.valor}</span>
+        <span class="metrica-var">{m.variacion}</span>
+        <span class="metrica-ant">Anterior: {m.anterior}</span>
+      </li>
+    ))}
+  </ul>
+  <div class="informe-textos">
+    <div>
+      <p class="informe-sub">Lectura del período</p>
+      <p>Las vistas crecieron 9,4 % y las interacciones 11,2 % respecto del bimestre anterior. Las cuentas alcanzadas bajaron 4,1 %: el contenido llegó más a quienes ya siguen la cuenta.</p>
+    </div>
+    <div>
+      <p class="informe-sub">Próximos pasos</p>
+      <ul>
+        <li>Sumar llamadas a la acción que fomenten guardados.</li>
+        <li>Probar publicaciones en colaboración para llegar a cuentas nuevas.</li>
+      </ul>
+    </div>
+  </div>
+  <figcaption>Cada informe usa los datos reales de tu cuenta y compara con el período anterior.</figcaption>
+</figure>
+
+<style>
+  .informe{margin:var(--space-8) 0 0;padding:var(--space-6);border-radius:var(--radius-lg);background:var(--surface-alt);display:grid;gap:var(--space-6)}
+  .informe-head{display:grid;gap:var(--space-2);justify-items:start}
+  .informe-head p{margin:0}
+  .informe-rotulo{padding:2px var(--space-3);border-radius:var(--radius-pill);background:var(--brand-strong);color:var(--text-inverse);font-size:12px;line-height:20px;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .informe-titulo{font-family:var(--font-display);font-size:clamp(32px,5vw,49px);line-height:1;text-transform:uppercase;color:var(--brand-strong)}
+  .informe-meta{color:var(--text-muted)}
+  .informe-metricas{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-6) var(--space-4);grid-template-columns:repeat(3,minmax(0,1fr))}
+  @media (max-width:560px){.informe{padding:var(--space-5) var(--space-4)}.informe-metricas{grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--space-6) var(--space-3)}.metrica{padding-inline:var(--space-3)}.metrica-valor{font-size:30px;line-height:36px}}
+  .metrica{position:relative;display:grid;padding:var(--space-6) var(--space-4) var(--space-4);border-radius:var(--radius-md);background:var(--surface)}
+  .metrica-nombre{position:absolute;top:0;left:var(--space-4);right:var(--space-4);transform:translateY(-50%);padding:2px var(--space-2);border-radius:var(--radius-sm);background:var(--accent-2);color:var(--on-accent);font-size:11px;line-height:16px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+  .metrica-valor{font-family:var(--font-display);font-size:40px;line-height:44px}
+  .metrica-var{font-weight:700;font-size:14px}
+  .metrica-ant{font-size:12px;color:var(--text-muted)}
+  .informe-textos{display:grid;gap:var(--space-5);grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+  .informe-textos p,.informe-textos ul{margin:0}
+  .informe-textos ul{padding-left:var(--space-5);display:grid;gap:var(--space-1)}
+  .informe-sub{font-weight:700;margin-bottom:var(--space-2)!important;color:var(--brand-strong)}
+  figcaption{font-size:14px;color:var(--text-muted)}
+</style>

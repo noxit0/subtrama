@@ -144,6 +144,13 @@ h1,h2,h3,p,ul{margin:0}
   .grid-paquetes:has(.card-link:hover) .card-link:not(:hover){opacity:.8}
 }
 
+/* Paquetes: carrusel horizontal en celular. Se ve el borde de la tarjeta siguiente para indicar que hay más. */
+@media (max-width:699px){
+  .grid-paquetes{display:flex;gap:var(--space-4);overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:calc(-1 * var(--space-5));padding:var(--space-4) var(--space-5);scroll-padding-inline:var(--space-5);scrollbar-width:none}
+  .grid-paquetes::-webkit-scrollbar{display:none}
+  .grid-paquetes>.card-link{flex:0 0 85%;scroll-snap-align:start}
+}
+
 /* Cómo trabajamos */
 .proceso{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-6) var(--space-5);grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
 .proceso li{display:block}

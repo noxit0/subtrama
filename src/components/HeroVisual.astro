@@ -18,13 +18,34 @@
         </span>
       </div>
 
-      <svg class="hv-post" viewBox="0 0 244 244" focusable="false">
-        <rect width="244" height="244" fill="#77897F" />
-        <circle cx="170" cy="78" r="38" fill="#F8B271" />
-        <path d="M-10 150 Q 40 110 92 150 T 196 150 T 300 150" fill="none" stroke="#FFF5E9" stroke-width="9" stroke-linecap="round" />
-        <path d="M-10 182 Q 40 142 92 182 T 196 182 T 300 182" fill="none" stroke="#CC8D73" stroke-width="9" stroke-linecap="round" />
-        <path d="M-10 214 Q 40 174 92 214 T 196 214 T 300 214" fill="none" stroke="#FFF5E9" stroke-width="9" stroke-linecap="round" />
-      </svg>
+      <div class="hv-post">
+        <svg class="hv-pz hv-pz-1" viewBox="0 0 244 244" focusable="false">
+          <rect width="244" height="244" fill="#77897F" />
+          <circle cx="170" cy="78" r="38" fill="#F8B271" />
+          <path d="M-10 150 Q 40 110 92 150 T 196 150 T 300 150" fill="none" stroke="#FFF5E9" stroke-width="9" stroke-linecap="round" />
+          <path d="M-10 182 Q 40 142 92 182 T 196 182 T 300 182" fill="none" stroke="#CC8D73" stroke-width="9" stroke-linecap="round" />
+          <path d="M-10 214 Q 40 174 92 214 T 196 214 T 300 214" fill="none" stroke="#FFF5E9" stroke-width="9" stroke-linecap="round" />
+        </svg>
+        <svg class="hv-pz hv-pz-2" viewBox="0 0 244 244" focusable="false">
+          <rect width="244" height="244" fill="#CC8D73" />
+          <circle cx="206" cy="38" r="56" fill="none" stroke="#FFF5E9" stroke-width="3" />
+          <circle cx="206" cy="38" r="80" fill="none" stroke="#8E5A44" stroke-width="3" />
+          <text x="24" y="132" font-family="Anton, Impact, sans-serif" font-size="52" fill="#272524">HECHO</text>
+          <text x="24" y="188" font-family="Anton, Impact, sans-serif" font-size="52" fill="#272524">A MANO</text>
+          <rect x="24" y="204" width="64" height="8" rx="4" fill="#272524" />
+        </svg>
+        <svg class="hv-pz hv-pz-3" viewBox="0 0 244 244" focusable="false">
+          <rect width="244" height="244" fill="#48574E" />
+          <rect x="0" y="176" width="244" height="68" fill="#334139" />
+          <path d="M84 176 V 112 Q 84 92 104 92 H 140 Q 160 92 160 112 V 176 Z" fill="#F8B271" />
+          <rect x="96" y="74" width="52" height="20" rx="6" fill="#CC8D73" />
+          <circle cx="122" cy="134" r="22" fill="#FFF5E9" />
+          <path d="M115 122 V 146 L 135 134 Z" fill="#48574E" />
+          <rect x="14" y="14" width="42" height="20" rx="10" fill="#FFF5E9" />
+          <text x="35" y="28" text-anchor="middle" font-family="Montserrat, sans-serif" font-size="11" font-weight="700" fill="#272524">0:15</text>
+        </svg>
+      </div>
+      <div class="hv-dots"><span class="hv-dot-1"></span><span class="hv-dot-2"></span><span class="hv-dot-3"></span></div>
 
       <div class="hv-actions">
         <span class="hv-heart">
@@ -70,7 +91,15 @@
   .hv-follow-a{background:#48574E;color:#FFF5E9;animation:hv-follow-a var(--t) infinite}
   .hv-follow-b{background:#EBE4D8;color:#272524;animation:hv-follow-b var(--t) infinite}
 
-  .hv-post{position:absolute;top:78px;left:0;width:100%;height:244px;display:block}
+  /* Tres piezas genéricas que rotan: cada una se ve durante un ciclo del "me gusta". */
+  .hv-post{position:absolute;top:78px;left:0;width:100%;height:244px}
+  .hv-pz{position:absolute;inset:0;width:100%;height:100%;display:block;animation:hv-rota calc(var(--t) * 3) infinite}
+  .hv-pz-2{animation-delay:calc(var(--t) * -2)}
+  .hv-pz-3{animation-delay:calc(var(--t) * -1)}
+  .hv-dots{position:absolute;top:341px;left:58%;transform:translateX(-50%);display:flex;gap:4px}
+  .hv-dots span{width:6px;height:6px;border-radius:50%;background:#D5D0C8;animation:hv-punto calc(var(--t) * 3) infinite}
+  .hv-dots .hv-dot-2{animation-delay:calc(var(--t) * -2)}
+  .hv-dots .hv-dot-3{animation-delay:calc(var(--t) * -1)}
 
   .hv-actions{position:absolute;top:330px;left:0;right:0;height:28px;display:flex;align-items:center;gap:14px;padding-inline:14px}
   .hv-ico,.hv-heart,.hv-heart svg{width:24px;height:24px;display:block}
@@ -118,6 +147,8 @@
   @keyframes hv-off{0%,26%{opacity:1}27%,95%{opacity:0}100%{opacity:1}}
   @keyframes hv-on{0%,26%{opacity:0}27%,95%{opacity:1}100%{opacity:0}}
   @keyframes hv-follow-a{0%,52%{opacity:1}53%,95%{opacity:0}100%{opacity:1}}
+  @keyframes hv-rota{0%,30%{opacity:1}33.4%,97%{opacity:0}100%{opacity:1}}
+  @keyframes hv-punto{0%,32%{background:#48574E}33.4%,99%{background:#D5D0C8}100%{background:#48574E}}
   @keyframes hv-follow-b{0%,52%{opacity:0}53%,95%{opacity:1}100%{opacity:0}}
   @keyframes hv-notif{
     0%,60%{opacity:0;transform:translateY(-70px)}
@@ -131,5 +162,7 @@
     .hv *{animation:none !important}
     .hv-heart-off,.hv-likes-a,.hv-follow-a,.hv-cursor{opacity:0}
     .hv-heart-on,.hv-likes-b,.hv-follow-b,.hv-notif{opacity:1;transform:none}
+    .hv-pz-2,.hv-pz-3{opacity:0}
+    .hv-dots .hv-dot-1{background:#48574E}
   }
 </style>

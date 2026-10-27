@@ -32,6 +32,14 @@ collections:
       - { name: titulo, label: Título, widget: string }
       - { name: etiqueta, label: Etiqueta, widget: string, hint: "Nombre corto que aparece en las tarjetas" }
       - { name: orden, label: Orden, widget: number, value_type: int, min: 1, step: 1 }
+      - name: etapa
+        label: Etapa del proceso
+        widget: select
+        hint: "Agrupa el servicio en la página de Servicios"
+        options:
+          - { label: Diagnóstico, value: diagnostico }
+          - { label: Producción, value: produccion }
+          - { label: Gestión, value: gestion }
       - { name: resumen, label: Resumen, widget: string, hint: "Una línea que describe el servicio" }
       - { name: intro, label: Introducción, widget: text }
       - { name: entrega, label: Qué recibís, widget: text }
@@ -76,6 +84,7 @@ collections:
           - { name: videos, label: Videos por mes, widget: number, value_type: int, min: 0, step: 1 }
           - { name: estaticas, label: Estáticas por mes, widget: number, value_type: int, min: 0, step: 1 }
           - { name: hasta, label: Máximo de piezas, widget: number, value_type: int, min: 1, step: 1, required: false, hint: "Solo paquetes a medida. Los cuadrados que faltan hasta el máximo se muestran punteados" }
+      - { name: informe_meses, label: Informe cada (meses), widget: number, value_type: int, min: 1, step: 1, required: false, hint: "Solo paquetes cerrados. Dibuja la línea de tiempo de informes en la comparación de Servicios" }
       - { name: resumen, label: Resumen, widget: text }
       - { name: para_quien, label: Para quién es, widget: text }
       - name: detalle

@@ -4,6 +4,7 @@ orden: 1
 tipo: "cerrado"
 destacado: false
 dato_tarjeta: "4 piezas por mes"
+informe_meses: 3
 grilla:
   videos: 1
   estaticas: 3

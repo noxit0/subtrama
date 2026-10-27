@@ -7,6 +7,7 @@ export interface Paquete {
   destacado: boolean;
   dato_tarjeta?: string;
   grilla?: { videos: number; estaticas: number; hasta?: number };
+  informe_meses?: number;
   resumen: string;
   para_quien: string;
   detalle?: {

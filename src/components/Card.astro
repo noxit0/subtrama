@@ -4,7 +4,7 @@ interface Props {
   tone?: 'accent' | 'accent-2' | 'highlight' | 'accent-strong' | 'brand' | 'surface';
   number?: number;
   class?: string;
-  as?: 'h2' | 'h3';
+  as?: 'h2' | 'h3' | 'h4';
 }
 const { title, tone = 'accent', number, class: className, as: Heading = 'h3' } = Astro.props;
 const classes = ['st-card', `st-card-${tone}`, title && 'st-card-titled', number != null && 'st-card-numbered', className]
