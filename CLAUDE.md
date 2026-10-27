@@ -80,7 +80,8 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 ## Estado
 
 - Sitio público en https://subtrama.com.ar: 16 páginas (inicio, servicios con 7 de detalle, 3 de paquetes, nosotros, contacto, privacidad, 404). Paquetes Esencial, Impulso (cerrados) y A Medida, en src/content/paquetes, sin precios publicados; condiciones en src/content/ajustes/condiciones.json. Las URL anteriores (base, intermedio, personalizable, completo) redirigen por public/_redirects. Voz de empresa (primera persona del plural, voseo) aplicada en los textos; falta revisarlos contra la guía de voz 2.0.
-- Mejoras de experiencia: botón flotante de WhatsApp (número en src/data/sitio.ts, mensaje en whatsapp.json), tarjetas de paquetes con dato, cinta "Recomendado" (campo destacado) y realce al pasar el mouse, pasos de Cómo trabajamos, preguntas frecuentes con datos estructurados y pasos posteriores en Contacto. Todo editable desde /admin.
+- Mejoras de experiencia: botón flotante de WhatsApp (número en src/data/sitio.ts, mensaje en whatsapp.json), cinta "Recomendado" (campo destacado) y realce al pasar el mouse, pasos de Cómo trabajamos, preguntas frecuentes con datos estructurados y pasos posteriores en Contacto. Todo editable desde /admin.
+- Diseño de paquetes y servicios (rama cambio-paquetes-diseño): tarjetas de paquetes con grilla de piezas del mes (campo grilla: videos, estaticas, hasta) y carrusel horizontal en celular; comparación en Servicios con línea de tiempo de informes (campo informe_meses) y filas que cambian resaltadas; servicios agrupados en tres etapas del proceso (campo etapa; nombres y textos de las etapas en ETAPAS de src/lib/servicios.ts), sin numeración.
 - Cloudflare Web Analytics activo (sin cookies) y documentado en la política de privacidad (PR #15 y #16).
 - Formulario de contacto activo en producción con Turnstile y Resend, correo de confirmación HTML y política de privacidad publicada (PR #13 y #14).
 - /admin probado por el mantenedor: orden de secciones de inicio, colecciones y carga de logos funcionan.
@@ -88,12 +89,15 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 
 ## Pendientes conocidos
 
-- Búsqueda (Pagefind), diferida. Si se suma otra herramienta de medición, actualizar la política de privacidad.
-- Instagram: URL pendiente en src/data/sitio.ts.
-- Revisar los textos del sitio contra la guía de voz 2.0 y confirmar los rubros de Balcarce y Los Zainos.
+- Si se suma una herramienta de medición, actualizar la política de privacidad. La búsqueda (Pagefind) se descartó por ahora: el sitio es chico.
+- Instagram: perfil en desarrollo; URL pendiente en src/data/sitio.ts.
+- Guía de voz 2.0 (E:\Claude\Subtrama\Branding\01-Fundamentos\guia-de-voz.md): textos revisados el 27/10/2026. La política de privacidad conserva oraciones largas por ser texto legal.
 - Términos y condiciones: requieren revisión legal.
-- Correo corporativo (Google Workspace): sin contratar; la zona DNS no tiene registros MX de buzones. Al contratarlo, actualizar sitio.ts y CONTACT_TO_EMAIL, y agregar SPF, DKIM y DMARC del dominio raíz.
+- Correo corporativo: administracion@subtrama.com.ar (Google Workspace) es la casilla pública en sitio.ts; subtrama.digital@gmail.com reenvía a ella. El dominio raíz tiene MX de Google, SPF y DMARC (p=none). Falta: cambiar CONTACT_TO_EMAIL en Cloudflare Pages y activar DKIM en Google Workspace (no hay registro google._domainkey).
 - Limpieza de ramas viejas, locales y remotas.
+- Repetir Lighthouse (no se midió tras sumar el formulario ni el rediseño de paquetes).
+- A la espera de material del mantenedor: casos de clientes (antes y después, piezas y resultados, con permiso), fotos de la jornada de registro (para Nosotros y una galería) y testimonios.
+- Hero del inicio: el teléfono rota tres piezas genéricas con la paleta de marca, sin nombres de marcas (src/components/HeroVisual.astro). El informe de ejemplo, con datos ficticios, está en src/components/InformeEjemplo.astro y se muestra en /servicios/informes/.
 - Método propio de Subtrama (tarea secundaria). No nombrar métodos de terceros.
 - Portal de clientes: requiere backend; sin decidir.
 

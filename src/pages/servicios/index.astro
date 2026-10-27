@@ -4,7 +4,7 @@ import Card from '../../components/Card.astro';
 import PaqueteCard from '../../components/PaqueteCard.astro';
 import SectionTitle from '../../components/SectionTitle.astro';
 import Button from '../../components/Button.astro';
-import { getServicios } from '../../lib/servicios';
+import { getServicios, ETAPAS } from '../../lib/servicios';
 import { getPaquetes, getCondiciones, getPreguntas } from '../../lib/contenido';
 const servicios = await getServicios();
 const paquetes = await getPaquetes();
@@ -23,10 +23,15 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
   { label: 'Informe y reunión', valor: (p) => p.detalle!.informe },
   { label: 'Calendarización', valor: (p) => p.detalle!.calendarizacion },
 ];
+// Una fila "cambia" cuando no todos los paquetes tienen el mismo valor. Las iguales se atenúan.
+const cambia = (f: (typeof filas)[number]) => new Set(cerrados.map(f.valor)).size > 1;
+// Línea de tiempo de informes: seis meses, con marca en los meses que llevan informe.
+const MESES = 6;
+const conInforme = cerrados.filter((p) => p.informe_meses);
 ---
 <Base
   title="Servicios"
-  description="Paquetes Esencial, Impulso y A Medida para gestionar redes y contenido, con el detalle de cada servicio."
+  description="Paquetes Esencial, Impulso y A Medida para ordenar, publicar y medir tu contenido en redes, con el detalle de cada servicio."
 >
   <section class="section">
     <div class="container">
@@ -46,6 +51,28 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
         <SectionTitle title="Comparación de paquetes" />
         <p>Plazo mínimo de contratación: {cond.plazo_minimo}. El valor se informa en la propuesta.</p>
       </div>
+      {conInforme.length > 0 && (
+        <div class="informes">
+          <p class="informes-titulo">Informes en los primeros {MESES} meses</p>
+          {conInforme.map((p) => (
+            <div class="informes-fila">
+              <span class="informes-nombre">{p.nombre}</span>
+              <ol class="informes-meses">
+                {Array.from({ length: MESES }, (_, i) => i + 1).map((m) => {
+                  const hay = m % p.informe_meses! === 0;
+                  return (
+                    <li class:list={['mes', { 'mes-informe': hay }]}>
+                      <span class="mes-num">Mes {m}</span>
+                      {hay ? <span class="mes-marca">Informe</span> : <span class="sr-only">sin informe</span>}
+                    </li>
+                  );
+                })}
+              </ol>
+            </div>
+          ))}
+        </div>
+      )}
+      <p class="tabla-leyenda">Resaltamos las filas que cambian entre paquetes.</p>
       <div class="st-table-wrap">
         <table class="st-table">
           <caption>Paquetes cerrados</caption>
@@ -57,7 +84,7 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
           </thead>
           <tbody>
             {filas.map((f) => (
-              <tr><th scope="row">{f.label}</th>{cerrados.map((p) => <td>{f.valor(p)}</td>)}</tr>
+              <tr class={cambia(f) ? 'fila-cambia' : 'fila-igual'}><th scope="row">{f.label}</th>{cerrados.map((p) => <td>{f.valor(p)}</td>)}</tr>
             ))}
           </tbody>
         </table>
@@ -69,20 +96,31 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <SectionTitle title="Qué incluyen los servicios" />
-        <p>Cada paquete combina estos servicios. Acá está el detalle de cada uno.</p>
+        <SectionTitle title="Nuestro proceso" />
+        <p>Cada paquete recorre tres etapas. Estos son los servicios que forman cada una.</p>
       </div>
-      <div class="grid-cards">
-        {servicios.map((s, i) => (
-          <a class="card-link" href={`/servicios/${s.slug}/`}>
-            <Card title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'} number={i + 1}>
-              <p class="card-service">{s.titulo}</p>
-              <p>{s.resumen}</p>
-              <span class="card-more">Ver detalle</span>
-            </Card>
-          </a>
+      <ol class="etapas">
+        {ETAPAS.map((e, i) => (
+          <li class="etapa">
+            <div class="etapa-head">
+              <span class="st-eyebrow">Etapa {i + 1}</span>
+              <h3 class="etapa-nombre">{e.nombre}</h3>
+              <p>{e.resumen}</p>
+            </div>
+            <div class="etapa-servicios">
+              {servicios.filter((s) => s.etapa === e.id).map((s) => (
+                <a class="card-link" href={`/servicios/${s.slug}/`}>
+                  <Card as="h4" title={s.etiqueta} tone={i % 2 === 0 ? 'accent-2' : 'accent'}>
+                    <p class="card-service">{s.titulo}</p>
+                    <p>{s.resumen}</p>
+                    <span class="card-more">Ver detalle</span>
+                  </Card>
+                </a>
+              ))}
+            </div>
+          </li>
         ))}
-      </div>
+      </ol>
     </div>
   </section>
 
@@ -115,3 +153,25 @@ const filas: { label: string; valor: (p: (typeof cerrados)[number]) => string }[
     </div>
   </section>
 </Base>
+
+<style>
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .informes{display:grid;gap:var(--space-3);margin-bottom:var(--space-6);padding:var(--space-5);border-radius:var(--radius-md);background:var(--surface);border:1px solid var(--border)}
+  .informes-titulo{margin:0;font-size:12px;line-height:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent-strong)}
+  .informes-fila{display:grid;gap:var(--space-2);grid-template-columns:110px minmax(0,1fr);align-items:center}
+  .informes-nombre{font-weight:700}
+  .informes-meses{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--space-1)}
+  .mes{display:grid;gap:2px;justify-items:center;padding:var(--space-2) var(--space-1);border-radius:var(--radius-sm);background:var(--surface-alt);font-size:12px;line-height:16px;color:var(--text-muted)}
+  .mes-informe{background:var(--brand-strong);color:var(--text-inverse)}
+  .mes-marca{font-weight:700;font-size:11px}
+  @media (max-width:560px){.informes-fila{grid-template-columns:1fr}.informes-meses{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  .tabla-leyenda{margin:0 0 var(--space-3);font-size:14px;line-height:22px}
+  .fila-cambia td{background:var(--durazno-100);font-weight:700}
+  .fila-igual td{color:var(--text-muted)}
+  .etapas{list-style:none;margin:0;padding:0;display:grid;gap:var(--space-7) var(--space-5);grid-template-columns:repeat(auto-fit,minmax(260px,1fr));align-items:start}
+  .etapa{display:grid;gap:var(--space-5);padding-top:var(--space-4);border-top:var(--space-2) solid var(--brand)}
+  .etapa-head{display:grid;gap:var(--space-2)}
+  .etapa-head p{margin:0}
+  .etapa-nombre{margin:0;font-family:var(--font-display);font-weight:400;font-size:36px;line-height:40px;text-transform:uppercase;color:var(--brand-strong)}
+  .etapa-servicios{display:grid;gap:var(--space-6)}
+</style>

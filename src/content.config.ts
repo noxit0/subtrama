@@ -7,6 +7,7 @@ const servicios = defineCollection({
     titulo: z.string(),
     etiqueta: z.string(),
     orden: z.number(),
+    etapa: z.enum(['diagnostico', 'produccion', 'gestion']),
     resumen: z.string(),
     intro: z.string(),
     entrega: z.string(),
@@ -29,6 +30,7 @@ const paquetes = defineCollection({
         hasta: z.number().int().min(1).optional(),
       })
       .optional(),
+    informe_meses: z.number().int().min(1).optional(),
     resumen: z.string(),
     para_quien: z.string(),
     detalle: z

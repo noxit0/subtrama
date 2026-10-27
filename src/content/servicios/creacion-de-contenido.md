@@ -2,6 +2,7 @@
 titulo: "Creación de contenido"
 etiqueta: "Creación"
 orden: 3
+etapa: "produccion"
 resumen: "Ideas, guiones y textos pensados para tus pilares."
 intro: "Cada pieza responde a un objetivo y a una duda concreta de quien te sigue. Partimos de tu material y de tu forma de trabajar para que el contenido suene a vos."
 entrega: "Piezas planificadas y redactadas, listas para pasar a edición."

@@ -4,7 +4,8 @@ import SectionTitle from '../../components/SectionTitle.astro';
 import FeatureList from '../../components/FeatureList.astro';
 import Callout from '../../components/Callout.astro';
 import Button from '../../components/Button.astro';
-import { getServicios } from '../../lib/servicios';
+import InformeEjemplo from '../../components/InformeEjemplo.astro';
+import { getServicios, ETAPAS } from '../../lib/servicios';
 
 export async function getStaticPaths() {
   const servicios = await getServicios();
@@ -12,21 +13,21 @@ export async function getStaticPaths() {
     params: { slug: servicio.slug },
     props: {
       servicio,
-      numero: i + 1,
       anterior: servicios[i - 1],
       siguiente: servicios[i + 1],
     },
   }));
 }
 
-const { servicio, numero, anterior, siguiente } = Astro.props;
+const { servicio, anterior, siguiente } = Astro.props;
+const etapa = ETAPAS.find((e) => e.id === servicio.etapa)!;
 ---
 <Base title={servicio.titulo} description={servicio.resumen}>
   <section class="section">
     <div class="container">
       <p class="breadcrumb"><a href="/servicios/">Servicios</a></p>
       <div class="section-head">
-        <SectionTitle as="h1" number={numero} title={servicio.titulo} />
+        <SectionTitle as="h1" eyebrow={`Etapa ${ETAPAS.indexOf(etapa) + 1}: ${etapa.nombre}`} title={servicio.titulo} />
         <p class="servicio-intro">{servicio.intro}</p>
       </div>
       <div class="servicio-layout">
@@ -38,6 +39,7 @@ const { servicio, numero, anterior, siguiente } = Astro.props;
           <p>{servicio.entrega}</p>
         </Callout>
       </div>
+      {servicio.slug === 'informes' && <InformeEjemplo />}
       <div class="servicio-nav">
         {anterior ? <Button href={`/servicios/${anterior.slug}/`} variant="secondary">← {anterior.titulo}</Button> : <span />}
         {siguiente ? <Button href={`/servicios/${siguiente.slug}/`} variant="secondary">{siguiente.titulo} →</Button> : <span />}
