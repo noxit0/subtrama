@@ -1,8 +1,7 @@
 {
   "secciones": [
     { "tipo": "para-quien" },
-    { "tipo": "paquetes" },
-    { "tipo": "marcas" },
-    { "tipo": "como-se-trabaja" }
+    { "tipo": "como-se-trabaja" },
+    { "tipo": "paquetes" }
   ]
 }

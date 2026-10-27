@@ -18,7 +18,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - src/pages/: páginas del sitio (rutas por archivo): inicio, nosotros, contacto, privacidad, 404, servicios (índice con comparación de paquetes y [slug]) y paquetes ([slug]).
 - src/components/: componentes .astro portados del sistema de diseño de marca.
 - src/layouts/Base.astro: layout base (metadatos, Open Graph, canonical).
-- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON; los logos están en src/assets/marcas y Astro los optimiza al publicar) y ajustes (condiciones.json, adicionales.json, inicio.json con el orden de las secciones de la página de inicio, whatsapp.json con el botón flotante, proceso.json con los pasos de Cómo trabajamos, preguntas.json con las preguntas frecuentes de Servicios y contacto.json con los pasos posteriores al envío). Esquemas en src/content.config.ts.
+- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON; los logos están en src/assets/marcas y Astro los optimiza al publicar) y ajustes (condiciones.json, adicionales.json, inicio.json con el orden de las secciones de la página de inicio (para-quien, que incluye el carrusel de marcas; como-se-trabaja y paquetes; el valor viejo "marcas" se acepta y se convierte en para-quien), whatsapp.json con el botón flotante, proceso.json con los pasos de Cómo trabajamos, preguntas.json con las preguntas frecuentes de Servicios y contacto.json con los pasos posteriores al envío). Esquemas en src/content.config.ts.
 - src/lib/: lectura del contenido (contenido.ts, servicios.ts), formato de precios y la plantilla del correo de confirmación (correo-confirmacion.ts).
 - functions/api/contacto.ts: Pages Function que recibe el formulario (POST /api/contacto). No es una ruta de Astro: la compila Cloudflare Pages.
 - src/data/: datos fijos (sitio.ts: datos de contacto y objeto formulario con activo y turnstileSiteKey).
@@ -35,8 +35,8 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Resend: dominio verificado mail.subtrama.com.ar (subdominio, para aislar la reputación del dominio raíz). Los registros DKIM y los dos CNAME (send.mail y rsend.mail) deben estar en DNS only (sin proxy) en Cloudflare. El remitente no tiene buzón; las respuestas van por Reply-To.
 - La función solo acepta orígenes https://subtrama.com.ar y *.subtrama.pages.dev. Si cambia el dominio, actualizar ORIGENES_PERMITIDOS.
 - El asunto y el título del correo de confirmación son el mismo texto (constante ASUNTO en src/lib/correo-confirmacion.ts).
-- Política de privacidad en src/pages/privacidad.astro (Ley 25.326, responsable Subtrama, conservación de dos semanas). Un cambio en los datos que se piden o en los proveedores exige actualizarla. Las consultas se eliminan de Gmail pasadas las dos semanas.
-- Si se cambia la casilla de destino (por ejemplo al contratar Google Workspace), actualizar CONTACT_TO_EMAIL y sitio.ts.
+- Política de privacidad en src/pages/privacidad.astro (Ley 25.326, responsable Subtrama, conservación de dos semanas). Un cambio en los datos que se piden o en los proveedores exige actualizarla. Las consultas se eliminan de la casilla (administracion@subtrama.com.ar, Google Workspace) pasadas las dos semanas.
+- Casilla de destino y pública: administracion@subtrama.com.ar, en CONTACT_TO_EMAIL y en sitio.ts. Si cambia, actualizar los dos y la política de privacidad si cambia el proveedor.
 
 ## Comandos
 
@@ -85,7 +85,8 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Cloudflare Web Analytics activo (sin cookies) y documentado en la política de privacidad (PR #15 y #16).
 - Formulario de contacto activo en producción con Turnstile y Resend, correo de confirmación HTML y política de privacidad publicada (PR #13 y #14).
 - /admin probado por el mantenedor: orden de secciones de inicio, colecciones y carga de logos funcionan.
-- Auditoría del 2026-10-13: build correcto, sitemap, robots.txt y Open Graph presentes; Lighthouse: rendimiento 99-100, accesibilidad 100, mejores prácticas 100 y SEO 100 (medición local, 5 páginas). No se repitió tras sumar el formulario.
+- Lighthouse del 2026-10-27 sobre el sitio publicado (inicio, servicios, informes, Impulso y contacto): en escritorio, 100 en las cuatro categorías; en celular, rendimiento 97 a 100 y 100 en el resto. Se midió con npx lighthouse y Chrome local (la API anónima de PageSpeed suele agotar su cupo diario).
+- Inicio: Para quién trabajamos incluye el carrusel de marcas; las tarjetas de principios (Diagnóstico, Explicación, Alcance) se quitaron por repetir los valores de Nosotros. Orden por defecto: Para quién, Cómo trabajamos, Paquetes.
 
 ## Pendientes conocidos
 
@@ -93,9 +94,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Instagram: perfil en desarrollo; URL pendiente en src/data/sitio.ts.
 - Guía de voz 2.0 (E:\Claude\Subtrama\Branding\01-Fundamentos\guia-de-voz.md): textos revisados el 27/10/2026. La política de privacidad conserva oraciones largas por ser texto legal.
 - Términos y condiciones: requieren revisión legal.
-- Correo corporativo: administracion@subtrama.com.ar (Google Workspace) es la casilla pública en sitio.ts; subtrama.digital@gmail.com reenvía a ella. El dominio raíz tiene MX de Google, SPF y DMARC (p=none). Falta: cambiar CONTACT_TO_EMAIL en Cloudflare Pages y activar DKIM en Google Workspace (no hay registro google._domainkey).
-- Limpieza de ramas viejas, locales y remotas.
-- Repetir Lighthouse (no se midió tras sumar el formulario ni el rediseño de paquetes).
+- Correo corporativo: administracion@subtrama.com.ar (Google Workspace), con MX de Google, SPF, DKIM (google._domainkey) y DMARC; subtrama.digital@gmail.com reenvía a ella. Pendiente: pasar DMARC de p=none a p=quarantine tras unas semanas sin problemas.
 - A la espera de material del mantenedor: casos de clientes (antes y después, piezas y resultados, con permiso), fotos de la jornada de registro (para Nosotros y una galería) y testimonios.
 - Hero del inicio: el teléfono rota tres piezas genéricas con la paleta de marca, sin nombres de marcas (src/components/HeroVisual.astro). El informe de ejemplo, con datos ficticios, está en src/components/InformeEjemplo.astro y se muestra en /servicios/informes/.
 - Método propio de Subtrama (tarea secundaria). No nombrar métodos de terceros.

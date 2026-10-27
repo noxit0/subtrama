@@ -110,7 +110,7 @@ collections:
   - name: marcas
     label: Marcas
     label_singular: Marca
-    description: Marcas que se muestran en el inicio. Sin logo, se muestra el nombre en texto.
+    description: Marcas que se muestran en la sección Para quién trabajamos del inicio. Sin logo, se muestra el nombre en texto. Si ninguna está visible, la sección muestra solo el texto.
     folder: src/content/marcas
     extension: json
     format: json
@@ -148,10 +148,9 @@ collections:
                 label: Sección
                 widget: select
                 options:
-                  - { label: Para quién trabajamos, value: para-quien }
+                  - { label: Para quién trabajamos (con las marcas), value: para-quien }
+                  - { label: Cómo trabajamos, value: como-se-trabaja }
                   - { label: Paquetes, value: paquetes }
-                  - { label: Marcas con las que trabajamos, value: marcas }
-                  - { label: Cómo se trabaja, value: como-se-trabaja }
       - name: whatsapp
         label: Botón de WhatsApp
         file: src/content/ajustes/whatsapp.json

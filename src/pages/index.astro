@@ -2,15 +2,15 @@
 import Base from '../layouts/Base.astro';
 import Button from '../components/Button.astro';
 import Card from '../components/Card.astro';
-import Lead from '../components/Lead.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import PaqueteCard from '../components/PaqueteCard.astro';
-import { getPaquetes, getSeccionesInicio, getProceso } from '../lib/contenido';
+import { getPaquetes, getSeccionesInicio, getProceso, getMarcas } from '../lib/contenido';
 import Marcas from '../components/Marcas.astro';
 import HeroVisual from '../components/HeroVisual.astro';
 const paquetes = await getPaquetes();
 const secciones = await getSeccionesInicio();
 const proceso = await getProceso();
+const marcas = await getMarcas();
 ---
 <Base
   title="Subtrama | Espacio de marketing digital"
@@ -44,17 +44,7 @@ const proceso = await getProceso();
                 Trabajamos con marcas que tienen oficio e historia: talleres, estudios y proyectos de autor. Las ayudamos a mostrarlo con constancia y criterio.
               </p>
             </div>
-            <div class="grid-cards">
-              <Card title="Diagnóstico" tone="surface">
-                <Lead lead="Comenzamos por los datos.">Nombramos el problema antes de proponer una solución.</Lead>
-              </Card>
-              <Card title="Explicación" tone="surface">
-                <Lead lead="Cada recomendación tiene su porqué.">La decisión final es tuya.</Lead>
-              </Card>
-              <Card title="Alcance" tone="surface">
-                <Lead lead="Lo que hacemos queda claro desde el principio.">Sin promesas difusas ni letra chica.</Lead>
-              </Card>
-            </div>
+            {marcas.length > 0 && <Marcas />}
           </div>
         </Fragment>
       )}
@@ -69,17 +59,6 @@ const proceso = await getProceso();
               {paquetes.map((p, i) => <PaqueteCard paquete={p} indice={i} as="h3" />)}
             </div>
             <p class="tabla-nota">El valor se informa en la propuesta. <a href="/servicios/">Ver la comparación y los servicios</a>.</p>
-          </div>
-        </Fragment>
-      )}
-      {tipo === 'marcas' && (
-        <Fragment>
-          <div class="container">
-            <div class="section-head">
-              <SectionTitle title="Marcas con las que trabajamos" />
-              <p>Proyectos con oficio e historia que ya cuentan su mundo en redes con nosotros.</p>
-            </div>
-            <Marcas />
           </div>
         </Fragment>
       )}
