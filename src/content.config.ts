@@ -77,7 +77,8 @@ const adicionales = defineCollection({
 const inicio = defineCollection({
   loader: glob({ pattern: 'inicio.json', base: './src/content/ajustes' }),
   schema: z.object({
-    secciones: z.array(z.object({ tipo: z.enum(['para-quien', 'paquetes', 'marcas', 'como-se-trabaja']) })),
+    // "marcas" se conserva solo por compatibilidad: getSeccionesInicio la convierte en "para-quien".
+    secciones: z.array(z.object({ tipo: z.enum(['para-quien', 'paquetes', 'como-se-trabaja', 'marcas']) })),
   }),
 });
 

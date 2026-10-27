@@ -49,11 +49,14 @@ export async function getAdicionales() {
 }
 
 
-export type SeccionInicio = 'para-quien' | 'paquetes' | 'marcas' | 'como-se-trabaja';
+export type SeccionInicio = 'para-quien' | 'paquetes' | 'como-se-trabaja';
 
+// "marcas" era una sección propia; desde octubre de 2026 las marcas van dentro de "para-quien".
+// Se acepta el valor viejo para no romper un inicio.json anterior: se convierte y se quitan repetidas.
 export async function getSeccionesInicio(): Promise<SeccionInicio[]> {
   const [e] = await getCollection('inicio');
-  return e.data.secciones.map((s) => s.tipo);
+  const tipos = e.data.secciones.map((s) => (s.tipo === 'marcas' ? 'para-quien' : s.tipo));
+  return [...new Set(tipos)];
 }
 
 export async function getWhatsapp() {
