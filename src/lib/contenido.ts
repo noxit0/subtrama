@@ -6,6 +6,7 @@ export interface Paquete {
   tipo: 'cerrado' | 'personalizable';
   destacado: boolean;
   dato_tarjeta?: string;
+  grilla?: { videos: number; estaticas: number; hasta?: number };
   resumen: string;
   para_quien: string;
   detalle?: {

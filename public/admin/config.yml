@@ -66,7 +66,16 @@ collections:
           - { label: Cerrado, value: cerrado }
           - { label: A medida, value: personalizable }
       - { name: destacado, label: Recomendado, widget: boolean, default: false, required: false, hint: "Muestra la cinta Recomendado en la tarjeta" }
-      - { name: dato_tarjeta, label: Dato de la tarjeta, widget: string, required: false, hint: "Ejemplo: 4 piezas por mes. Aparece arriba en la tarjeta del paquete" }
+      - { name: dato_tarjeta, label: Dato de la tarjeta, widget: string, required: false, hint: "Ejemplo: 4 piezas por mes. Se muestra solo si el paquete no tiene grilla de piezas" }
+      - name: grilla
+        label: Grilla de piezas
+        widget: object
+        required: false
+        hint: "Dibuja el mes en la tarjeta: un cuadrado por pieza de feed"
+        fields:
+          - { name: videos, label: Videos por mes, widget: number, value_type: int, min: 0, step: 1 }
+          - { name: estaticas, label: Estáticas por mes, widget: number, value_type: int, min: 0, step: 1 }
+          - { name: hasta, label: Máximo de piezas, widget: number, value_type: int, min: 1, step: 1, required: false, hint: "Solo paquetes a medida. Los cuadrados que faltan hasta el máximo se muestran punteados" }
       - { name: resumen, label: Resumen, widget: text }
       - { name: para_quien, label: Para quién es, widget: text }
       - name: detalle
