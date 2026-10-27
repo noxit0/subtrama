@@ -4,6 +4,9 @@ orden: 1
 tipo: "cerrado"
 destacado: false
 dato_tarjeta: "4 piezas por mes"
+grilla:
+  videos: 1
+  estaticas: 3
 resumen: "Presencia constante con lo necesario: contenido planificado, una jornada de registro por mes e informe cada tres meses."
 para_quien: "Marcas que comienzan a ordenar su comunicación o que necesitan sostener presencia con un volumen acotado."
 detalle:

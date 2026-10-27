@@ -4,6 +4,10 @@ orden: 3
 tipo: "personalizable"
 destacado: false
 dato_tarjeta: "Hasta 7 piezas por mes"
+grilla:
+  videos: 2
+  estaticas: 3
+  hasta: 7
 resumen: "Un plan diseñado en conjunto, con los servicios y las cantidades que necesita tu marca."
 para_quien: "Marcas con necesidades puntuales o con un volumen distinto al de los paquetes cerrados."
 incluye:

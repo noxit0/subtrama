@@ -22,6 +22,13 @@ const paquetes = defineCollection({
     tipo: z.enum(['cerrado', 'personalizable']),
     destacado: z.boolean().default(false),
     dato_tarjeta: z.string().optional(),
+    grilla: z
+      .object({
+        videos: z.number().int().min(0),
+        estaticas: z.number().int().min(0),
+        hasta: z.number().int().min(1).optional(),
+      })
+      .optional(),
     resumen: z.string(),
     para_quien: z.string(),
     detalle: z
