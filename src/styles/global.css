@@ -55,7 +55,7 @@ h1,h2,h3,p,ul{margin:0}
 :root{--eyebrow:var(--terracota-700)}
 [data-theme="dark"]{--eyebrow:var(--accent-strong)}
 .section-alt{background:var(--surface-alt)}
-.section-alt .st-sectitle-title{color:var(--brand-strong)}
+.section-alt .st-sectitle-title{color:var(--brand-deep)}
 .section-head{display:grid;gap:var(--space-4);margin-bottom:var(--space-7);max-width:70ch}
 .section-head p{font-size:18px;line-height:28px}
 
