@@ -1,8 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import SectionTitle from '../components/SectionTitle.astro';
-import Card from '../components/Card.astro';
-import Lead from '../components/Lead.astro';
 import Button from '../components/Button.astro';
 ---
 <Base
@@ -17,17 +15,22 @@ import Button from '../components/Button.astro';
           Subtrama es un espacio de marketing digital. Ordenamos, publicamos y medimos el contenido en redes de marcas con oficio e historia. Somos un equipo reducido con atención directa: trabajás siempre con las mismas personas, sin intermediarios.
         </p>
       </div>
-      <div class="grid-cards">
-        <Card as="h2" title="Concreta" tone="accent-2">
-          <Lead lead="Diagnosticamos con datos.">Nombramos el problema en lugar de rodearlo.</Lead>
-        </Card>
-        <Card as="h2" title="Transparente" tone="accent-2">
-          <Lead lead="Explicamos el porqué de cada recomendación.">Vos decidís qué hacer con ella.</Lead>
-        </Card>
-        <Card as="h2" title="Con alcance claro" tone="accent-2">
-          <Lead lead="Definimos qué hacemos y qué no.">Así las expectativas quedan alineadas desde el inicio.</Lead>
-        </Card>
-      </div>
+      <!-- Principios numerados, con el mismo lenguaje que "Cómo trabajamos" en la página de inicio. -->
+      <ol class="proceso principios">
+        {[
+          { titulo: 'Concreta', texto: 'Diagnosticamos con datos. Nombramos el problema en lugar de rodearlo.' },
+          { titulo: 'Transparente', texto: 'Explicamos el porqué de cada recomendación. Vos decidís qué hacer con ella.' },
+          { titulo: 'Con alcance claro', texto: 'Definimos qué hacemos y qué no. Así las expectativas quedan alineadas desde el inicio.' },
+        ].map((p, i) => (
+          <li class="revelar">
+            <span class="proceso-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div class="proceso-cuerpo">
+              <h2>{p.titulo}</h2>
+              <p>{p.texto}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
   <section class="section">
