@@ -86,8 +86,8 @@ h1,h2,h3,p,ul{margin:0}
    en pantallas angostas, una línea fina sobre el borde izquierdo. */
 .hilo-wrap{position:relative}
 .hilo-svg{position:absolute;left:0;top:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible;display:none}
-.hilo-svg path{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
-.hilo-movil{position:absolute;left:8px;top:0;bottom:0;width:3px;border-radius:2px;background:var(--accent);z-index:2;pointer-events:none;transform-origin:top;opacity:.85}
+.hilo-svg path{fill:none;stroke:var(--accent);stroke-width:2;stroke-opacity:.75;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.hilo-movil{position:absolute;left:8px;top:0;bottom:0;width:1.5px;border-radius:1px;background:var(--accent);z-index:2;pointer-events:none;transform-origin:top;opacity:.6}
 @media (min-width:1240px){.hilo-svg.listo{display:block}.hilo-movil{display:none}}
 
 /* Entrada del hero: el título palabra por palabra, después el texto y los botones. */
