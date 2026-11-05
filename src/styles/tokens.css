@@ -21,6 +21,11 @@
   --on-brand: #FFF5E9;
   --on-accent: #272524;
   --focus: #48574E;
+  --brand-deep: #334139;
+  --on-brand-deep: #FFF5E9;
+  --on-brand-deep-muted: #E6EDE9;
+  --eyebrow-on-deep: #E6B09A;
+  --focus-on-deep: #E6B09A;
   --salvia-50: #F3F8F5;
   --salvia-100: #E6EDE9;
   --salvia-200: #D0DAD5;
@@ -88,6 +93,7 @@
   --highlight-text: #FBD08C;
   --on-brand: #1C1A18;
   --focus: #B4C1BA;
+  --brand-deep: #1E2A23;
   color-scheme: dark;
 }
 :root {
@@ -112,6 +118,7 @@
   --font-display: Anton, "League Gothic", "Arial Narrow", sans-serif;
   --font-sans: Montserrat, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
+.display-2xl{font-family:var(--font-display);font-size:clamp(56px,8vw,120px);line-height:.95;font-weight:400;text-transform:uppercase;text-wrap:balance}
 .display-xl{font-family:var(--font-display);font-size:76px;line-height:72px;font-weight:400;text-transform:uppercase}
 .display-lg{font-family:var(--font-display);font-size:61px;line-height:58px;font-weight:400;text-transform:uppercase}
 .display-md{font-family:var(--font-display);font-size:49px;line-height:48px;font-weight:400;text-transform:uppercase}
