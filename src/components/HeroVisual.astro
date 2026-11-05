@@ -10,6 +10,12 @@
     <path pathLength="1" d="M20 426 C 280 420 440 264 598 264 C 760 264 920 420 1176 428" />
     <path pathLength="1" d="M364 438 C 460 398 530 386 598 386 C 700 386 820 440 988 508" />
   </svg>
+  <!-- Interacciones que suben alrededor del teléfono, como en una cuenta con movimiento. -->
+  <span class="hv-sube hv-sube-1" style="--d:0s"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false"><path d="M12 20.5s-7.5-4.8-9.6-9.5A5.4 5.4 0 0 1 12 6.4a5.4 5.4 0 0 1 9.6 4.6C19.5 15.7 12 20.5 12 20.5z" fill="#CC8D73" stroke="#8E5A44" stroke-width="1.6" stroke-linejoin="round" /></svg></span>
+  <span class="hv-sube hv-sube-2" style="--d:1.2s"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" fill="none" stroke="#8E5A44" stroke-width="1.8" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.2 7.5L3 20.5l1.6-5.5A8.5 8.5 0 1 1 21 11.5z" /></svg></span>
+  <span class="hv-sube hv-sube-3 hv-sube-pill" style="--d:2.4s"><svg viewBox="0 0 24 24" width="18" height="18" focusable="false" fill="none" stroke="#8E5A44" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="8" r="4" /><path d="M2 21c0-4 3-6 7-6s7 2 7 6M19 8v6M16 11h6" /></svg>Nuevo seguidor</span>
+  <span class="hv-sube hv-sube-4" style="--d:3.6s"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" fill="none" stroke="#8E5A44" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8M15 7h6v6" /></svg></span>
+  <span class="hv-sube hv-sube-5" style="--d:4.8s"><svg viewBox="0 0 24 24" width="22" height="22" focusable="false" fill="none" stroke="#8E5A44" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18l-6-4-6 4z" /></svg></span>
   <div class="hv-phone">
     <div class="hv-screen">
       <div class="hv-notch"></div>
@@ -82,12 +88,22 @@
 <style>
   .hv{position:relative;display:grid;place-items:center;min-height:540px;--t:4.5s}
   /* Ondas del isotipo detrás del teléfono: el trazo se dibuja una vez al cargar. */
-  .hv-ondas{position:absolute;z-index:0;width:140%;max-width:none;left:-30%;bottom:-6%;opacity:.4;overflow:visible}
-  .hv-ondas path{fill:none;stroke:var(--accent);stroke-width:30;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:hv-dibujar 2.4s ease-out forwards}
+  .hv-ondas{position:absolute;z-index:0;width:125%;max-width:none;left:-12%;bottom:4%;opacity:.55;overflow:visible}
+  .hv-ondas path{fill:none;stroke:var(--accent);stroke-width:26;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:hv-dibujar 2.4s ease-out forwards}
   .hv-ondas path:nth-child(2){animation-delay:.25s}
   .hv-ondas path:nth-child(3){animation-delay:.5s}
   .hv-ondas path:nth-child(4){animation-delay:.75s}
   @keyframes hv-dibujar{to{stroke-dashoffset:0}}
+
+  .hv-sube{position:absolute;z-index:2;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--bg);border:1px solid var(--border);opacity:0;animation:hv-sube 6s ease-out infinite;animation-delay:var(--d)}
+  .hv-sube-pill{width:auto;height:44px;padding-inline:14px;border-radius:var(--radius-pill);display:flex;gap:8px;font-size:12px;font-weight:700;color:var(--brand-deep);white-space:nowrap}
+  .hv-sube-1{left:calc(50% - 210px);top:70%}
+  .hv-sube-2{left:calc(50% + 160px);top:58%}
+  .hv-sube-3{left:calc(50% + 120px);top:80%}
+  .hv-sube-4{left:calc(50% - 226px);top:42%}
+  .hv-sube-5{left:calc(50% + 170px);top:30%}
+  @keyframes hv-sube{0%{opacity:0;transform:translateY(30px) scale(.8)}15%{opacity:1;transform:none}70%{opacity:1}100%{opacity:0;transform:translateY(-170px) scale(.95)}}
+  @media (max-width:520px){.hv-sube-4,.hv-sube-5{display:none}.hv-sube-1{left:4%}.hv-sube-2,.hv-sube-3{left:auto;right:4%}}
   .hv-phone{position:relative;z-index:1;width:264px;height:540px;padding:10px;border-radius:40px;background:#1E2A23;box-shadow:0 24px 48px rgba(30,42,35,.28)}
   .hv-screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:30px;background:#FFFFFF;color:#272524}
   .hv-notch{position:absolute;top:8px;left:50%;width:70px;height:18px;margin-left:-35px;border-radius:12px;background:#1E2A23;z-index:2}
@@ -170,6 +186,7 @@
   @media (prefers-reduced-motion:reduce){
     .hv *{animation:none !important}
     .hv-ondas path{stroke-dashoffset:0}
+    .hv-sube{display:none}
     .hv-heart-off,.hv-likes-a,.hv-follow-a,.hv-cursor{opacity:0}
     .hv-heart-on,.hv-likes-b,.hv-follow-b,.hv-notif{opacity:1;transform:none}
     .hv-pz-2,.hv-pz-3{opacity:0}

@@ -75,9 +75,43 @@ h1,h2,h3,p,ul{margin:0}
 }
 
 /* Manifiesto */
-.manifiesto{padding-block:var(--space-9)}
-.manifiesto-texto{margin:0;font-family:var(--font-display);text-transform:uppercase;color:var(--brand-deep);font-size:clamp(44px,7vw,104px);line-height:1;text-align:center;text-wrap:balance}
-.manifiesto-destacado{color:var(--accent-display)}
+.manifiesto{padding-block:var(--space-9);min-height:min(90vh,820px);display:grid;align-items:center}
+.manifiesto-texto{margin:0;font-family:var(--font-display);text-transform:uppercase;font-size:clamp(44px,7vw,104px);line-height:1;text-align:center;text-wrap:balance}
+.mw{color:var(--brand-deep)}
+.mw-dest{color:var(--accent-display)}
+.manifiesto-onda{display:block;width:min(440px,70%);height:auto;margin:var(--space-3) auto 0}
+.manifiesto-onda path{fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+
+/* Hilo conductor de la home: en pantallas con margen lateral, una curva que se dibuja con el scroll;
+   en pantallas angostas, una línea fina sobre el borde izquierdo. */
+.hilo-wrap{position:relative}
+.hilo-svg{position:absolute;left:0;top:0;width:100%;height:100%;z-index:2;pointer-events:none;overflow:visible;display:none}
+.hilo-svg path{fill:none;stroke:var(--accent);stroke-width:6;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
+.hilo-movil{position:absolute;left:8px;top:0;bottom:0;width:3px;border-radius:2px;background:var(--accent);z-index:2;pointer-events:none;transform-origin:top;opacity:.85}
+@media (min-width:1240px){.hilo-svg.listo{display:block}.hilo-movil{display:none}}
+
+/* Entrada del hero: el título palabra por palabra, después el texto y los botones. */
+.hero-palabra{display:inline-block}
+@keyframes hero-entra{from{opacity:0;transform:translateY(.45em)}to{opacity:1;transform:none}}
+@keyframes hero-aparece{from{opacity:0}to{opacity:1}}
+@keyframes trazo{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes mw-claro{from{color:var(--salvia-200)}to{color:var(--brand-deep)}}
+@keyframes mw-dest{from{color:var(--salvia-200)}to{color:var(--accent-display)}}
+@media (prefers-reduced-motion:no-preference){
+  .hero-palabra{animation:hero-entra .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 90ms)}
+  .hero-fade{animation:hero-aparece .8s ease-out both;animation-delay:var(--d)}
+}
+@supports (animation-timeline: view()){
+  @media (prefers-reduced-motion:no-preference){
+    .manifiesto{view-timeline:--manif block}
+    .mw{animation:mw-claro linear both;animation-timeline:--manif;animation-range:cover calc(22% + var(--i) * 2.4%) cover calc(27% + var(--i) * 2.4%)}
+    .mw-dest{animation-name:mw-dest}
+    .manifiesto-onda path{animation:trazo linear both;animation-timeline:--manif;animation-range:cover 55% cover 68%}
+    .hilo-svg path{animation:trazo linear both;animation-timeline:scroll()}
+    .hilo-movil{animation:crece linear both;animation-timeline:scroll()}
+  }
+}
 
 /* Grillas */
 .grid-cards{display:grid;gap:var(--space-6) var(--space-5);grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}

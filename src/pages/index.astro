@@ -15,19 +15,28 @@ const manifiesto = await getManifiesto();
 const conFondo = secciones.filter((t) => t !== 'manifiesto');
 const esAlt = (tipo: string) => tipo !== 'manifiesto' && conFondo.indexOf(tipo as never) % 2 === 0;
 const dosDigitos = (n: number) => String(n).padStart(2, '0');
+// Palabras separadas para animarlas una por una (entrada del título y manifiesto).
+const titulo = 'Vos creás tu mundo. Nosotros lo contamos en redes.'.split(' ');
+const manifiestoPalabras = manifiesto ? manifiesto.texto.trim().split(/\s+/) : [];
+const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim().split(/\s+/) : [];
 ---
 <Base
   title="Subtrama | Espacio de marketing digital"
   description="Ordenamos, publicamos y medimos el contenido en redes de marcas con oficio e historia. Vos creás tu mundo, nosotros lo contamos en redes."
 >
+  <div class="hilo-wrap">
+  <svg class="hilo-svg" aria-hidden="true" focusable="false"><path pathLength="1" d="" /></svg>
+  <span class="hilo-movil" aria-hidden="true"></span>
   <section class="hero">
     <div class="hero-copy surface-deep">
-      <span class="st-eyebrow">Espacio de marketing digital</span>
-      <h1 class="display">Vos creás tu mundo. Nosotros lo contamos en redes.</h1>
-      <p class="hero-lead">
+      <span class="st-eyebrow hero-fade" style="--d:0s">Espacio de marketing digital</span>
+      <h1 class="display">
+        {titulo.map((p, n) => <><span class="hero-palabra" style={`--i:${n}`}>{p}</span>{n < titulo.length - 1 && ' '}</>)}
+      </h1>
+      <p class="hero-lead hero-fade" style="--d:1s">
         Somos Subtrama. Ordenamos tu contenido y lo publicamos con estrategia, para que tu marca se cuente sola.
       </p>
-      <div class="hero-actions">
+      <div class="hero-actions hero-fade" style="--d:1.2s">
         <Button href="/contacto/" size="lg">Agendar reunión</Button>
         <Button href="/servicios/" size="lg" variant="inverse">Ver paquetes</Button>
       </div>
@@ -40,9 +49,15 @@ const dosDigitos = (n: number) => String(n).padStart(2, '0');
     <section class:list={['section', { 'section-alt': esAlt(tipo), manifiesto: tipo === 'manifiesto' }]}>
       {tipo === 'manifiesto' && manifiesto && (
         <div class="container">
-          <p class="manifiesto-texto revelar">
-            {manifiesto.texto}{manifiesto.destacado && <> <span class="manifiesto-destacado">{manifiesto.destacado}</span>.</>}
+          <p class="manifiesto-texto">
+            {manifiestoPalabras.map((p, n) => <><span class="mw" style={`--i:${n}`}>{p}</span>{' '}</>)}
+            {manifiestoDestacadas.map((p, n) => (
+              <><span class="mw mw-dest" style={`--i:${manifiestoPalabras.length + n + 1}`}>{p}{n === manifiestoDestacadas.length - 1 && '.'}</span>{n < manifiestoDestacadas.length - 1 && ' '}</>
+            ))}
           </p>
+          {manifiestoDestacadas.length > 0 && (
+            <svg class="manifiesto-onda" viewBox="0 0 440 40" aria-hidden="true" focusable="false"><path pathLength="1" d="M8 20 C 80 2 140 2 220 20 S 360 38 432 20" /></svg>
+          )}
         </div>
       )}
       {tipo === 'para-quien' && (
@@ -104,4 +119,69 @@ const dosDigitos = (n: number) => String(n).padStart(2, '0');
       </div>
     </div>
   </section>
+  </div>
 </Base>
+
+<script>
+  // Hilo conductor: arma una curva continua (Catmull-Rom) que baja por los márgenes y cruza
+  // entre secciones por la zona de padding, sin pasar sobre el texto. Se recalcula al cambiar el tamaño.
+  // El dibujo progresivo con el scroll es CSS (animation-timeline); sin soporte, el hilo se ve completo.
+  const wrap = document.querySelector<HTMLElement>('.hilo-wrap');
+  const svg = wrap?.querySelector<SVGSVGElement>('.hilo-svg');
+  const path = svg?.querySelector('path');
+
+  function curva(pts: number[][]) {
+    const p = [pts[0], ...pts, pts[pts.length - 1]];
+    let d = `M${p[1][0].toFixed(0)} ${p[1][1].toFixed(0)}`;
+    for (let i = 1; i < p.length - 2; i++) {
+      const [a, b, c, e] = [p[i - 1], p[i], p[i + 1], p[i + 2]];
+      const c1 = [b[0] + (c[0] - a[0]) / 6, b[1] + (c[1] - a[1]) / 6];
+      const c2 = [c[0] - (e[0] - b[0]) / 6, c[1] - (e[1] - b[1]) / 6];
+      d += ` C${c1[0].toFixed(0)} ${c1[1].toFixed(0)} ${c2[0].toFixed(0)} ${c2[1].toFixed(0)} ${c[0].toFixed(0)} ${c[1].toFixed(0)}`;
+    }
+    return d;
+  }
+
+  function construir() {
+    if (!wrap || !svg || !path) return;
+    const W = wrap.clientWidth;
+    const H = wrap.scrollHeight;
+    const contenedor = wrap.querySelector('.container');
+    const ancho = contenedor ? contenedor.getBoundingClientRect().width : 1120;
+    const margen = (W - ancho) / 2;
+    if (margen < 60) { svg.classList.remove('listo'); return; }
+    const base = wrap.getBoundingClientRect().top;
+    const secciones = Array.from(wrap.querySelectorAll<HTMLElement>(':scope > section')).map((s) => {
+      const r = s.getBoundingClientRect();
+      return { t: r.top - base, b: r.bottom - base };
+    });
+    const visual = wrap.querySelector<HTMLElement>('.hero-visual')?.getBoundingClientRect();
+    if (!visual || secciones.length < 2) return;
+    const xs = [margen / 2, W - margen / 2];
+    const pts: number[][] = [[visual.left + visual.width / 2, visual.bottom - base - 40]];
+    let lado = 1;
+    const banda = 50;
+    for (let i = 1; i < secciones.length; i++) {
+      const { t, b } = secciones[i];
+      const x = xs[lado];
+      const onda = lado ? -14 : 14;
+      pts.push([x, t + banda], [x + onda, (t + b) / 2]);
+      if (i === secciones.length - 1) {
+        pts.push([x, b - banda - 40], [W / 2, b - 30]);
+      } else {
+        pts.push([x, b - banda], [W / 2, b]);
+        lado = 1 - lado;
+      }
+    }
+    svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    path.setAttribute('d', curva(pts));
+    svg.classList.add('listo');
+  }
+
+  let espera: number | undefined;
+  const programar = () => { clearTimeout(espera); espera = window.setTimeout(construir, 150); };
+  construir();
+  document.fonts?.ready.then(construir);
+  window.addEventListener('load', construir);
+  window.addEventListener('resize', programar);
+</script>

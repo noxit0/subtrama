@@ -13,8 +13,11 @@ const href = sitio.whatsapp ? `${sitio.whatsapp}?text=${encodeURIComponent(mensa
 )}
 
 <style>
-  .wa-flotante{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:50;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;box-shadow:0 6px 16px rgba(0,0,0,.25)}
-  .wa-flotante:hover{background:#1ebe5b}
-  .wa-flotante:focus-visible{outline:3px solid var(--brand-strong);outline-offset:3px}
+  /* Colores de marca: salvia profunda con el ícono en crema; terracota al pasar el mouse. Un único pulso al cargar. */
+  .wa-flotante{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:50;display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--brand-deep);color:var(--on-brand-deep);border:2px solid var(--bg);box-shadow:0 6px 16px rgba(30,42,35,.28);transition:background-color .15s,color .15s}
+  .wa-flotante:hover{background:var(--accent);color:var(--on-accent)}
+  .wa-flotante:focus-visible{outline:3px solid var(--accent-strong);outline-offset:3px}
+  @keyframes wa-pulso{from{box-shadow:0 0 0 0 rgba(204,141,115,.6),0 6px 16px rgba(30,42,35,.28)}to{box-shadow:0 0 0 18px rgba(204,141,115,0),0 6px 16px rgba(30,42,35,.28)}}
+  @media (prefers-reduced-motion:no-preference){.wa-flotante{animation:wa-pulso 1.4s ease-out 1.5s 1}}
   @media print{.wa-flotante{display:none}}
 </style>
