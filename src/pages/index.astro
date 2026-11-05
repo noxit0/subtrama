@@ -1,89 +1,100 @@
 ---
 import Base from '../layouts/Base.astro';
 import Button from '../components/Button.astro';
-import Card from '../components/Card.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import PaqueteCard from '../components/PaqueteCard.astro';
-import { getPaquetes, getSeccionesInicio, getProceso, getMarcas } from '../lib/contenido';
+import { getPaquetes, getSeccionesInicio, getProceso, getMarcas, getManifiesto } from '../lib/contenido';
 import Marcas from '../components/Marcas.astro';
 import HeroVisual from '../components/HeroVisual.astro';
 const paquetes = await getPaquetes();
 const secciones = await getSeccionesInicio();
 const proceso = await getProceso();
 const marcas = await getMarcas();
+const manifiesto = await getManifiesto();
+// El manifiesto va sobre el fondo base; el resto de las secciones alterna fondo arena y base.
+const conFondo = secciones.filter((t) => t !== 'manifiesto');
+const esAlt = (tipo: string) => tipo !== 'manifiesto' && conFondo.indexOf(tipo as never) % 2 === 0;
+const dosDigitos = (n: number) => String(n).padStart(2, '0');
 ---
 <Base
   title="Subtrama | Espacio de marketing digital"
   description="Ordenamos, publicamos y medimos el contenido en redes de marcas con oficio e historia. Vos creás tu mundo, nosotros lo contamos en redes."
 >
   <section class="hero">
-    <div class="container hero-inner">
-      <div class="hero-copy">
-        <span class="st-eyebrow">Espacio de marketing digital</span>
-        <h1 class="display">Vos creás tu mundo. Nosotros lo contamos en redes.</h1>
-        <p class="hero-lead">
-          Somos Subtrama. Ordenamos tu contenido y lo publicamos con estrategia, para que tu marca se cuente sola.
-        </p>
-        <div class="hero-actions">
-          <Button href="/contacto/" size="lg">Agendar reunión</Button>
-          <Button href="/servicios/" size="lg" variant="secondary">Ver paquetes</Button>
-        </div>
+    <div class="hero-copy surface-deep">
+      <span class="st-eyebrow">Espacio de marketing digital</span>
+      <h1 class="display">Vos creás tu mundo. Nosotros lo contamos en redes.</h1>
+      <p class="hero-lead">
+        Somos Subtrama. Ordenamos tu contenido y lo publicamos con estrategia, para que tu marca se cuente sola.
+      </p>
+      <div class="hero-actions">
+        <Button href="/contacto/" size="lg">Agendar reunión</Button>
+        <Button href="/servicios/" size="lg" variant="inverse">Ver paquetes</Button>
       </div>
+    </div>
+    <div class="hero-visual">
       <HeroVisual />
     </div>
   </section>
-
-  {secciones.map((tipo, i) => (
-    <section class={`section${i % 2 === 0 ? ' section-alt' : ''}`}>
+  {secciones.map((tipo) => (
+    <section class:list={['section', { 'section-alt': esAlt(tipo), manifiesto: tipo === 'manifiesto' }]}>
+      {tipo === 'manifiesto' && manifiesto && (
+        <div class="container">
+          <p class="manifiesto-texto revelar">
+            {manifiesto.texto}{manifiesto.destacado && <> <span class="manifiesto-destacado">{manifiesto.destacado}</span>.</>}
+          </p>
+        </div>
+      )}
       {tipo === 'para-quien' && (
-        <Fragment>
-          <div class="container">
-            <div class="section-head">
-              <SectionTitle title="Para quién trabajamos" />
-              <p>
-                Trabajamos con marcas que tienen oficio e historia: talleres, estudios y proyectos de autor. Las ayudamos a mostrarlo con constancia y criterio.
-              </p>
-            </div>
-            {marcas.length > 0 && <Marcas />}
+        <div class="container">
+          <div class="section-head">
+            <SectionTitle title="Para quién trabajamos" />
+            <p>
+              Trabajamos con marcas que tienen oficio e historia: talleres, estudios y proyectos de autor. Las ayudamos a mostrarlo con constancia y criterio.
+            </p>
           </div>
-        </Fragment>
+          {marcas.length > 0 && <Marcas />}
+        </div>
       )}
       {tipo === 'paquetes' && (
-        <Fragment>
-          <div class="container">
-            <div class="section-head">
-              <SectionTitle title="Paquetes" />
-              <p>Dos paquetes cerrados y uno a medida. Elegí según cuánto contenido necesitás publicar por mes.</p>
-            </div>
-            <div class="grid-cards grid-paquetes">
-              {paquetes.map((p, i) => <PaqueteCard paquete={p} indice={i} as="h3" />)}
-            </div>
-            <p class="tabla-nota">El valor se informa en la propuesta. <a href="/servicios/">Ver la comparación y los servicios</a>.</p>
+        <div class="container">
+          <div class="section-head">
+            <SectionTitle title="Paquetes" />
+            <p>Dos paquetes cerrados y uno a medida. Elegí según cuánto contenido necesitás publicar por mes.</p>
           </div>
-        </Fragment>
+          <div class="grid-cards grid-paquetes">
+            {paquetes.map((p, i) => <PaqueteCard paquete={p} indice={i} as="h3" />)}
+          </div>
+          <p class="tabla-nota">El valor se informa en la propuesta. <a href="/servicios/">Ver la comparación y los servicios</a>.</p>
+        </div>
       )}
       {tipo === 'como-se-trabaja' && (
-        <Fragment>
-          <div class="container">
-            <div class="section-head">
-              <SectionTitle title="Cómo trabajamos" />
-              <p>Cada mes acordamos el calendario, publicamos y te mostramos qué pasó con cada pieza.</p>
-            </div>
-            <ol class="proceso">
-              {proceso.map((paso, i) => (
-                <li>
-                  <Card as="h3" title={paso.titulo} tone="surface" number={i + 1}>
-                    <p>{paso.texto}</p>
-                  </Card>
-                </li>
-              ))}
-            </ol>
+        <div class="container proceso-wrap">
+          <div class="section-head proceso-head">
+            <SectionTitle title="Cómo trabajamos" />
+            <p>Cada mes acordamos el calendario, publicamos y te mostramos qué pasó con cada pieza.</p>
           </div>
-        </Fragment>
+          <ol class="proceso">
+            {proceso.map((paso, i) => (
+              <li class="revelar">
+                <span class="proceso-num" aria-hidden="true">{dosDigitos(i + 1)}</span>
+                <div class="proceso-cuerpo">
+                  <h3>{paso.titulo}</h3>
+                  <p>{paso.texto}</p>
+                  {paso.enlace_texto && paso.enlace_url && (
+                    <a class="proceso-enlace" href={paso.enlace_url}>
+                      {paso.enlace_texto}
+                      <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       )}
     </section>
   ))}
-
   <section class="section">
     <div class="container">
       <div class="cta-band">
