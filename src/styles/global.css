@@ -19,7 +19,7 @@ h1,h2,h3,p,ul{margin:0}
 .brand-link{display:block;line-height:0}
 .brand-link img{height:36px;width:auto}
 .main-nav>ul{list-style:none;padding:0;display:flex;align-items:center;gap:var(--space-5)}
-.main-nav a:not(.st-btn){font-weight:600;font-size:15px;color:var(--text);text-decoration:none;padding:var(--space-1) 0;border-bottom:2px solid transparent}
+.main-nav a:not(.st-btn){font-weight:500;font-size:15px;color:var(--text);text-decoration:none;padding:var(--space-1) 0;border-bottom:2px solid transparent}
 .main-nav a:not(.st-btn):hover,.main-nav a[aria-current="page"]{border-bottom-color:var(--accent)}
 .nav-toggle summary{display:none;list-style:none}
 .nav-toggle summary::-webkit-details-marker{display:none}
@@ -96,22 +96,26 @@ h1,h2,h3,p,ul{margin:0}
 @keyframes hero-aparece{from{opacity:0}to{opacity:1}}
 @keyframes trazo{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
-@keyframes mw-claro{from{color:var(--salvia-200)}to{color:var(--brand-deep)}}
-@keyframes mw-dest{from{color:var(--salvia-200)}to{color:var(--accent-display)}}
 @media (prefers-reduced-motion:no-preference){
   .hero-palabra{animation:hero-entra .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 90ms)}
   .hero-fade{animation:hero-aparece .8s ease-out both;animation-delay:var(--d)}
+  .intro-w{animation:hero-entra .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 90ms)}
+  .intro-onda path{animation:trazo .8s ease-out both;animation-delay:calc(var(--n) * 90ms + .3s)}
 }
-@supports (animation-timeline: view()){
-  @media (prefers-reduced-motion:no-preference){
-    .manifiesto{view-timeline:--manif block}
-    .mw{animation:mw-claro linear both;animation-timeline:--manif;animation-range:cover calc(22% + var(--i) * 2.4%) cover calc(27% + var(--i) * 2.4%)}
-    .mw-dest{animation-name:mw-dest}
-    .manifiesto-onda path{animation:trazo linear both;animation-timeline:--manif;animation-range:cover 55% cover 68%}
-    .hilo-svg path{animation:trazo linear both;animation-timeline:scroll()}
-    .hilo-movil{animation:crece linear both;animation-timeline:scroll()}
-  }
-}
+/* Mientras se ve la entrada, la animación del hero espera para arrancar al mostrarse la página. */
+.intro-activa{overflow:hidden}
+.intro-activa .hero-palabra,.intro-activa .hero-fade{animation-play-state:paused}
+/* Las animaciones ligadas al scroll (hilo y aparición de pasos) están en index.astro, en un estilo
+   en línea: el minificador de CSS une animation y animation-timeline en una regla que el navegador descarta. */
+
+/* Entrada: la frase de marca en pantalla completa hasta que la persona interactúa (mínimo 1,4 s, máximo 3,4 s). */
+.intro{position:fixed;inset:0;z-index:100;background:var(--brand-deep);display:grid;place-items:center;align-content:center;gap:var(--space-4);padding:var(--space-5);transition:transform .8s cubic-bezier(.7,0,.2,1)}
+.intro-sale{transform:translateY(-100%)}
+.intro-frase{margin:0;max-width:1100px;font-family:var(--font-display);text-transform:uppercase;color:var(--on-brand-deep);font-size:clamp(40px,7vw,104px);line-height:1;text-align:center;text-wrap:balance}
+.intro-w{display:inline-block}
+.intro-dest{color:var(--terracota-300)}
+.intro-onda{width:min(440px,70%);height:auto}
+.intro-onda path{fill:none;stroke:var(--accent);stroke-width:7;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:0}
 
 /* Grillas */
 .grid-cards{display:grid;gap:var(--space-6) var(--space-5);grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
@@ -119,7 +123,7 @@ h1,h2,h3,p,ul{margin:0}
 .card-link .st-card{height:100%}
 .card-link:hover .st-card{outline:2px solid var(--brand-strong);outline-offset:2px}
 .card-service{font-size:20px;line-height:28px;font-weight:700}
-.card-more{font-weight:700;color:inherit;text-decoration:underline;text-underline-offset:3px}
+.card-more{font-weight:600;color:inherit;text-decoration:underline;text-underline-offset:3px}
 
 /* Servicio */
 .breadcrumb{font-size:14px;margin-bottom:var(--space-5)}
@@ -211,16 +215,11 @@ h1,h2,h3,p,ul{margin:0}
 
 /* Aparición al hacer scroll: solo con soporte de animation-timeline y sin pedido de movimiento reducido. */
 @keyframes revelar{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
-@supports (animation-timeline: view()){
-  @media (prefers-reduced-motion:no-preference){
-    .revelar{animation:revelar linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
-  }
-}
 
 /* Preguntas frecuentes */
 .faq{display:grid;gap:var(--space-3);max-width:80ch}
 .faq details{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md,12px);padding:0 var(--space-4)}
-.faq summary{cursor:pointer;padding:var(--space-4) 0;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:var(--space-4)}
+.faq summary{cursor:pointer;padding:var(--space-4) 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:var(--space-4)}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-size:22px;line-height:1;color:var(--accent-strong)}
 .faq details[open] summary::after{content:"\2212"}

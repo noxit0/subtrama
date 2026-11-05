@@ -24,6 +24,37 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
   title="Subtrama | Espacio de marketing digital"
   description="Ordenamos, publicamos y medimos el contenido en redes de marcas con oficio e historia. Vos creás tu mundo, nosotros lo contamos en redes."
 >
+  {manifiesto && (
+    <div class="intro" id="intro" aria-hidden="true">
+      <p class="intro-frase">
+        {manifiestoPalabras.map((p, n) => <><span class="intro-w" style={`--i:${n}`}>{p}</span>{' '}</>)}
+        {manifiestoDestacadas.map((p, n) => (
+          <><span class="intro-w intro-dest" style={`--i:${manifiestoPalabras.length + n + 1}`}>{p}{n === manifiestoDestacadas.length - 1 && '.'}</span>{n < manifiestoDestacadas.length - 1 && ' '}</>
+        ))}
+      </p>
+      <svg class="intro-onda" style={`--n:${manifiestoPalabras.length + manifiestoDestacadas.length}`} viewBox="0 0 440 40" focusable="false"><path pathLength="1" d="M8 20 C 80 2 140 2 220 20 S 360 38 432 20" /></svg>
+    </div>
+  )}
+  <noscript><style>.intro{display:none}</style></noscript>
+  <script is:inline>
+    (function () {
+      var i = document.getElementById('intro');
+      if (!i) return;
+      try {
+        if (sessionStorage.getItem('intro-visto') || matchMedia('(prefers-reduced-motion: reduce)').matches) { i.remove(); return; }
+      } catch (e) {}
+      document.documentElement.classList.add('intro-activa');
+    })();
+  </script>
+  <style is:inline>
+    @supports (animation-timeline: view()) {
+      @media (prefers-reduced-motion: no-preference) {
+        .hilo-svg path { animation-name: trazo; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); }
+        .hilo-movil { animation-name: crece; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); }
+        .revelar { animation-name: revelar; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
+      }
+    }
+  </style>
   <div class="hilo-wrap">
   <svg class="hilo-svg" aria-hidden="true" focusable="false"><path pathLength="1" d="" /></svg>
   <span class="hilo-movil" aria-hidden="true"></span>
@@ -176,6 +207,29 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     path.setAttribute('d', curva(pts));
     svg.classList.add('listo');
+  }
+
+  // Entrada: se cierra con la primera interacción (respetando un mínimo para que la frase se lea)
+  // o sola a los 3,4 s. Se muestra una vez por sesión.
+  const intro = document.getElementById('intro');
+  if (intro && document.documentElement.classList.contains('intro-activa')) {
+    const inicio = performance.now();
+    let cerrada = false;
+    const cerrar = () => {
+      if (cerrada) return;
+      cerrada = true;
+      const resto = Math.max(0, 1400 - (performance.now() - inicio));
+      window.setTimeout(() => {
+        intro.classList.add('intro-sale');
+        document.documentElement.classList.remove('intro-activa');
+        try { sessionStorage.setItem('intro-visto', '1'); } catch (e) {}
+        window.setTimeout(() => { intro.remove(); construir(); }, 900);
+      }, resto);
+    };
+    ['pointermove', 'pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((t) =>
+      window.addEventListener(t, cerrar, { once: true, passive: true }),
+    );
+    window.setTimeout(cerrar, 3400);
   }
 
   let espera: number | undefined;
