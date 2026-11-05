@@ -1,7 +1,20 @@
 {
   "secciones": [
-    { "tipo": "para-quien" },
-    { "tipo": "como-se-trabaja" },
-    { "tipo": "paquetes" }
-  ]
+    {
+      "tipo": "manifiesto"
+    },
+    {
+      "tipo": "para-quien"
+    },
+    {
+      "tipo": "como-se-trabaja"
+    },
+    {
+      "tipo": "paquetes"
+    }
+  ],
+  "manifiesto": {
+    "texto": "Lo que se ve es tu marca. Lo que la sostiene,",
+    "destacado": "la subtrama"
+  }
 }

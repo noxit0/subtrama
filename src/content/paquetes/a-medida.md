@@ -10,6 +10,12 @@ grilla:
   hasta: 7
 resumen: "Un plan diseñado en conjunto, con los servicios y las cantidades que necesita tu marca."
 para_quien: "Marcas con necesidades puntuales o con un volumen distinto al de los paquetes cerrados."
+detalle:
+  piezas: "De 5 a 7 por mes (hasta 3 videos y 4 estáticas)"
+  historias: "Hasta 2 fijas y 2 con material por semana"
+  jornada: "Hasta 1 completa y 1 media por mes"
+  informe: "Hasta mensual"
+  calendarizacion: "Sí"
 incluye:
   - lead: "Servicios a elección."
     text: "Se combinan piezas, historias, jornadas de registro, informes y colaboraciones según la necesidad de tu marca."

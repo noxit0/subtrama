@@ -148,9 +148,18 @@ collections:
                 label: Sección
                 widget: select
                 options:
+                  - { label: Manifiesto (frase de marca), value: manifiesto }
                   - { label: Para quién trabajamos (con las marcas), value: para-quien }
                   - { label: Cómo trabajamos, value: como-se-trabaja }
                   - { label: Paquetes, value: paquetes }
+          - name: manifiesto
+            label: Manifiesto
+            widget: object
+            required: false
+            hint: "Frase de marca en tipografía grande. La parte destacada va al final, en terracota."
+            fields:
+              - { name: texto, label: Texto, widget: string }
+              - { name: destacado, label: Parte final destacada, widget: string, required: false }
       - name: whatsapp
         label: Botón de WhatsApp
         file: src/content/ajustes/whatsapp.json
@@ -172,6 +181,8 @@ collections:
             fields:
               - { name: titulo, label: Título, widget: string }
               - { name: texto, label: Texto, widget: text }
+              - { name: enlace_texto, label: Texto del enlace (opcional), widget: string, required: false }
+              - { name: enlace_url, label: Dirección del enlace (opcional), widget: string, required: false, hint: "Ejemplo: /servicios/informes/" }
       - name: preguntas
         label: Preguntas frecuentes
         file: src/content/ajustes/preguntas.json

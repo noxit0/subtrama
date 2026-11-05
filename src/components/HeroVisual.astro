@@ -1,10 +1,15 @@
 ---
 // Animación decorativa de inicio: un teléfono con una publicación que recibe un "me gusta",
-// un nuevo seguidor y una notificación de alcance. Solo CSS, sin imágenes ni JavaScript.
+// un nuevo seguidor y una notificación de alcance, sobre las ondas del isotipo que se dibujan al cargar.
+// Solo CSS, sin imágenes ni JavaScript.
 ---
 <div class="hv" aria-hidden="true">
-  <div class="hv-blob hv-blob-1"></div>
-  <div class="hv-blob hv-blob-2"></div>
+  <svg class="hv-ondas" viewBox="0 0 1200 528" focusable="false">
+    <path pathLength="1" d="M165 158 C 400 80 480 22 598 22 C 720 22 800 80 1040 160" />
+    <path pathLength="1" d="M92 298 C 330 255 450 142 598 142 C 750 142 880 255 1120 300" />
+    <path pathLength="1" d="M20 426 C 280 420 440 264 598 264 C 760 264 920 420 1176 428" />
+    <path pathLength="1" d="M364 438 C 460 398 530 386 598 386 C 700 386 820 440 988 508" />
+  </svg>
   <div class="hv-phone">
     <div class="hv-screen">
       <div class="hv-notch"></div>
@@ -76,9 +81,13 @@
 
 <style>
   .hv{position:relative;display:grid;place-items:center;min-height:540px;--t:4.5s}
-  .hv-blob{position:absolute;border-radius:50%;z-index:0}
-  .hv-blob-1{width:320px;height:320px;background:var(--terracota-100);top:30px;right:6%}
-  .hv-blob-2{width:180px;height:180px;background:var(--salvia-200);bottom:20px;left:8%}
+  /* Ondas del isotipo detrás del teléfono: el trazo se dibuja una vez al cargar. */
+  .hv-ondas{position:absolute;z-index:0;width:140%;max-width:none;left:-30%;bottom:-6%;opacity:.4;overflow:visible}
+  .hv-ondas path{fill:none;stroke:var(--accent);stroke-width:30;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;animation:hv-dibujar 2.4s ease-out forwards}
+  .hv-ondas path:nth-child(2){animation-delay:.25s}
+  .hv-ondas path:nth-child(3){animation-delay:.5s}
+  .hv-ondas path:nth-child(4){animation-delay:.75s}
+  @keyframes hv-dibujar{to{stroke-dashoffset:0}}
   .hv-phone{position:relative;z-index:1;width:264px;height:540px;padding:10px;border-radius:40px;background:#1E2A23;box-shadow:0 24px 48px rgba(30,42,35,.28)}
   .hv-screen{position:relative;width:100%;height:100%;overflow:hidden;border-radius:30px;background:#FFFFFF;color:#272524}
   .hv-notch{position:absolute;top:8px;left:50%;width:70px;height:18px;margin-left:-35px;border-radius:12px;background:#1E2A23;z-index:2}
@@ -160,6 +169,7 @@
   @media (max-width:899px){.hv{min-height:0;padding-block:var(--space-4)}}
   @media (prefers-reduced-motion:reduce){
     .hv *{animation:none !important}
+    .hv-ondas path{stroke-dashoffset:0}
     .hv-heart-off,.hv-likes-a,.hv-follow-a,.hv-cursor{opacity:0}
     .hv-heart-on,.hv-likes-b,.hv-follow-b,.hv-notif{opacity:1;transform:none}
     .hv-pz-2,.hv-pz-3{opacity:0}

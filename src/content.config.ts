@@ -78,7 +78,9 @@ const inicio = defineCollection({
   loader: glob({ pattern: 'inicio.json', base: './src/content/ajustes' }),
   schema: z.object({
     // "marcas" se conserva solo por compatibilidad: getSeccionesInicio la convierte en "para-quien".
-    secciones: z.array(z.object({ tipo: z.enum(['para-quien', 'paquetes', 'como-se-trabaja', 'marcas']) })),
+    secciones: z.array(z.object({ tipo: z.enum(['manifiesto', 'para-quien', 'paquetes', 'como-se-trabaja', 'marcas']) })),
+    // Frase de marca de la sección Manifiesto: el texto y, opcional, la parte final destacada en terracota.
+    manifiesto: z.object({ texto: z.string(), destacado: z.string().optional() }).optional(),
   }),
 });
 
@@ -89,7 +91,16 @@ const whatsapp = defineCollection({
 
 const proceso = defineCollection({
   loader: glob({ pattern: 'proceso.json', base: './src/content/ajustes' }),
-  schema: z.object({ pasos: z.array(z.object({ titulo: z.string(), texto: z.string() })) }),
+  schema: z.object({
+    pasos: z.array(
+      z.object({
+        titulo: z.string(),
+        texto: z.string(),
+        enlace_texto: z.string().optional(),
+        enlace_url: z.string().optional(),
+      }),
+    ),
+  }),
 });
 
 const preguntas = defineCollection({
