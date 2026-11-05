@@ -12,4 +12,6 @@ Comandos:
 
 El contenido se edita desde /admin (Sveltia CMS). El formulario de contacto es una Pages Function en functions/api/contacto.ts.
 
+El diseño sigue el sistema de marca de Subtrama: tokens en src/styles/tokens.css y componentes en src/components. Reglas de uso de color, tipografía y movimiento en CLAUDE.md.
+
 La documentación de trabajo (estructura, formulario, reglas y pendientes) está en CLAUDE.md.

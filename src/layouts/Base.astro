@@ -35,8 +35,21 @@ const ogImage = new URL('/og.png', Astro.site).href;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="generator" content={Astro.generator} />
+    <!-- Animaciones ligadas al scroll: van en línea y con propiedades separadas porque el minificador
+         de CSS une animation y animation-timeline en una regla que el navegador descarta. -->
+    <style is:inline>
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          .hilo-svg path { animation-name: trazo; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); }
+          .hilo-movil { animation-name: crece; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); }
+          .revelar { animation-name: revelar; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
+        }
+      }
+    </style>
   </head>
   <body>
     <a class="skip-link" href="#contenido">Saltar al contenido</a>

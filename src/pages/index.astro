@@ -46,15 +46,6 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
       document.documentElement.classList.add('intro-activa');
     })();
   </script>
-  <style is:inline>
-    @supports (animation-timeline: view()) {
-      @media (prefers-reduced-motion: no-preference) {
-        .hilo-svg path { animation-name: trazo; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); }
-        .hilo-movil { animation-name: crece; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); }
-        .revelar { animation-name: revelar; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
-      }
-    }
-  </style>
   <div class="hilo-wrap">
   <svg class="hilo-svg" aria-hidden="true" focusable="false"><path pathLength="1" d="" /></svg>
   <span class="hilo-movil" aria-hidden="true"></span>

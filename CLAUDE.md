@@ -18,7 +18,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - src/pages/: páginas del sitio (rutas por archivo): inicio, nosotros, contacto, privacidad, 404, servicios (índice con comparación de paquetes y [slug]) y paquetes ([slug]).
 - src/components/: componentes .astro portados del sistema de diseño de marca.
 - src/layouts/Base.astro: layout base (metadatos, Open Graph, canonical).
-- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON; los logos están en src/assets/marcas y Astro los optimiza al publicar) y ajustes (condiciones.json, adicionales.json, inicio.json con el orden de las secciones de la página de inicio (para-quien, que incluye el carrusel de marcas; como-se-trabaja y paquetes; el valor viejo "marcas" se acepta y se convierte en para-quien), whatsapp.json con el botón flotante, proceso.json con los pasos de Cómo trabajamos, preguntas.json con las preguntas frecuentes de Servicios y contacto.json con los pasos posteriores al envío). Esquemas en src/content.config.ts.
+- src/content/: colecciones de contenido editables desde /admin: servicios, paquetes, marcas (JSON; los logos están en src/assets/marcas y Astro los optimiza al publicar) y ajustes (condiciones.json, adicionales.json, inicio.json con el orden de las secciones de la página de inicio (para-quien, que incluye el carrusel de marcas; como-se-trabaja; paquetes; manifiesto, opcional; el valor viejo "marcas" se acepta y se convierte en para-quien) y el objeto manifiesto (texto y parte destacada) que usa la pantalla de entrada, whatsapp.json con el botón flotante, proceso.json con los pasos de Cómo trabajamos (con enlace opcional por paso), preguntas.json con las preguntas frecuentes de Servicios y contacto.json con los pasos posteriores al envío). Esquemas en src/content.config.ts.
 - src/lib/: lectura del contenido (contenido.ts, servicios.ts), formato de precios y la plantilla del correo de confirmación (correo-confirmacion.ts).
 - functions/api/contacto.ts: Pages Function que recibe el formulario (POST /api/contacto). No es una ruta de Astro: la compila Cloudflare Pages.
 - src/data/: datos fijos (sitio.ts: datos de contacto y objeto formulario con activo y turnstileSiteKey).
@@ -64,6 +64,8 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Páginas en src/pages/ con lang="es" en el elemento html.
 - Cada página define title y meta description.
 - Estilos: preferir CSS con alcance de componente de Astro. Mantener el sitio estático y sin JavaScript innecesario.
+- Branding: usar los roles de tokens.css. Salvia profunda (--brand-deep, clase .surface-deep) para bandas, hero, pie y tarjeta destacada; terracota solo para acciones (botón primary); texto y fondos crema y arena. No usar los tonos durazno, mostaza ni terracota de Card y Pill en páginas nuevas. Fuente: E:\Claude\Subtrama\Branding (guía de aplicación visual y tokens.json).
+- Animaciones ligadas al scroll (animation-timeline): van en el estilo en línea de src/layouts/Base.astro, con propiedades separadas (animation-name, animation-duration: auto, animation-timeline). En los CSS que procesa Astro, el minificador une animation y animation-timeline en una regla que el navegador descarta. Toda animación respeta prefers-reduced-motion.
 - Imágenes en public/ o src/assets/, con atributo alt.
 - Si cambian las URL de páginas existentes, registrar redirecciones 301 en public/_redirects.
 
@@ -87,8 +89,12 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - /admin probado por el mantenedor: orden de secciones de inicio, colecciones y carga de logos funcionan.
 - Lighthouse del 2026-10-27 sobre el sitio publicado (inicio, servicios, informes, Impulso y contacto): en escritorio, 100 en las cuatro categorías; en celular, rendimiento 97 a 100 y 100 en el resto. Se midió con npx lighthouse y Chrome local (la API anónima de PageSpeed suele agotar su cupo diario).
 - Inicio: Para quién trabajamos incluye el carrusel de marcas; las tarjetas de principios (Diagnóstico, Explicación, Alcance) se quitaron por repetir los valores de Nosotros. Orden por defecto: Para quién, Cómo trabajamos, Paquetes.
+- Rediseño de marca (noviembre de 2026, PR #29 a #32 y fase 4): wordmark en salvia fuerte #48574E (logo original sin cambios de forma); rol --brand-deep #334139; botón primary en terracota; hero dividido; pantalla de entrada con la frase de marca (una vez por sesión, se cierra con la primera interacción, mínimo 1,4 s y máximo 3,4 s); hilo conductor que se dibuja con el scroll (curva calculada en index.astro; línea fina en pantallas de menos de 1240 px); interacciones que suben alrededor del teléfono del hero; tarjetas de paquetes con filas comparables; WhatsApp en colores de marca; pie y bandas de cierre en salvia profunda; Servicios, Nosotros y detalles con el mismo lenguaje; og.png de 1200 × 630. Plan de diseño en Claude Docs ("Subtrama · Plan de diseño web").
 
 ## Pendientes conocidos
+
+- Medir Lighthouse después del rediseño (pantalla de entrada y animaciones) y actualizar el registro de Estado.
+- Nosotros: sumar fotos de la jornada de registro cuando haya material.
 
 - Si se suma una herramienta de medición, actualizar la política de privacidad. La búsqueda (Pagefind) se descartó por ahora: el sitio es chico.
 - Instagram: perfil en desarrollo; URL pendiente en src/data/sitio.ts.
@@ -96,7 +102,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Términos y condiciones: requieren revisión legal.
 - Correo corporativo: administracion@subtrama.com.ar (Google Workspace), con MX de Google, SPF, DKIM (google._domainkey) y DMARC; subtrama.digital@gmail.com reenvía a ella. Pendiente: pasar DMARC de p=none a p=quarantine tras unas semanas sin problemas.
 - A la espera de material del mantenedor: casos de clientes (antes y después, piezas y resultados, con permiso), fotos de la jornada de registro (para Nosotros y una galería) y testimonios.
-- Hero del inicio: el teléfono rota tres piezas genéricas con la paleta de marca, sin nombres de marcas (src/components/HeroVisual.astro). El informe de ejemplo, con datos ficticios, está en src/components/InformeEjemplo.astro y se muestra en /servicios/informes/.
+- Hero del inicio: el teléfono rota tres piezas genéricas con la paleta de marca, sin nombres de marcas, sobre las ondas del isotipo y con interacciones que suben (src/components/HeroVisual.astro). El informe de ejemplo, con datos ficticios, está en src/components/InformeEjemplo.astro y se muestra en /servicios/informes/.
 - Método propio de Subtrama (tarea secundaria). No nombrar métodos de terceros.
 - Portal de clientes: requiere backend; sin decidir.
 

@@ -156,7 +156,7 @@ collections:
             label: Manifiesto
             widget: object
             required: false
-            hint: "Frase de marca en tipografía grande. La parte destacada va al final, en terracota."
+            hint: "Frase de la pantalla de entrada de la página de inicio (y de la sección Manifiesto, si se agrega a la lista). La parte destacada va al final, en terracota."
             fields:
               - { name: texto, label: Texto, widget: string }
               - { name: destacado, label: Parte final destacada, widget: string, required: false }
