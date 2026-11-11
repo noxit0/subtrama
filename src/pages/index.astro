@@ -201,7 +201,7 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
   }
 
   // Entrada: se cierra con la primera interacción (respetando un mínimo para que la frase se lea)
-  // o sola a los 3,4 s. Se muestra una vez por sesión.
+  // o sola a los 4,5 s. Se muestra una vez por sesión.
   const intro = document.getElementById('intro');
   if (intro && document.documentElement.classList.contains('intro-activa')) {
     const inicio = performance.now();
@@ -209,7 +209,7 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
     const cerrar = () => {
       if (cerrada) return;
       cerrada = true;
-      const resto = Math.max(0, 1400 - (performance.now() - inicio));
+      const resto = Math.max(0, 4000 -(performance.now() - inicio));
       window.setTimeout(() => {
         intro.classList.add('intro-sale');
         document.documentElement.classList.remove('intro-activa');
@@ -220,7 +220,7 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
     ['pointermove', 'pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((t) =>
       window.addEventListener(t, cerrar, { once: true, passive: true }),
     );
-    window.setTimeout(cerrar, 3400);
+    window.setTimeout(cerrar, 4500);
   }
 
   let espera: number | undefined;
