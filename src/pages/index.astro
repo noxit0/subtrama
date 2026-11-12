@@ -19,20 +19,35 @@ const dosDigitos = (n: number) => String(n).padStart(2, '0');
 const titulo = 'Vos creás tu mundo. Nosotros lo contamos en redes.'.split(' ');
 const manifiestoPalabras = manifiesto ? manifiesto.texto.trim().split(/\s+/) : [];
 const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim().split(/\s+/) : [];
+// Ritmo de la pantalla de entrada, calcado de la frase dicha en voz alta: una palabra cada PASO
+// segundos y una PAUSA extra tras cada coma o punto (y antes de la parte destacada).
+const PASO = 0.3;
+const PAUSA = 0.5;
+const SOSTEN = 0.8; // tiempo que se queda la frase completa antes de salir
+const entrada: { p: string; d: number; dest: boolean }[] = [];
+let t = 0;
+[...manifiestoPalabras.map((p) => ({ p, dest: false })), ...manifiestoDestacadas.map((p) => ({ p, dest: true }))].forEach((w, n, todas) => {
+  entrada.push({ ...w, d: Number(t.toFixed(2)) });
+  const siguienteDest = todas[n + 1]?.dest && !w.dest;
+  t += PASO + (/[.,;:]$/.test(w.p) || siguienteDest ? PAUSA : 0);
+});
+const ultimaDemora = entrada.length ? entrada[entrada.length - 1].d : 0;
+const ondaDemora = Number((ultimaDemora + 0.3).toFixed(2));
+// La onda dura 1 s; después la frase queda completa SOSTEN segundos. Ese es el mínimo antes de salir.
+const introMin = Math.round((ondaDemora + 1 + SOSTEN) * 1000);
 ---
 <Base
   title="Subtrama | Community manager y gestión de redes en Olavarría"
   description="Community manager en Olavarría y la región. Ordenamos, publicamos y medimos el contenido en redes de comercios, talleres, industrias, pymes y profesionales."
 >
   {manifiesto && (
-    <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro" id="intro" aria-hidden="true" data-min={introMin} data-max={introMin + 500}>
       <p class="intro-frase">
-        {manifiestoPalabras.map((p, n) => <><span class="intro-w" style={`--i:${n}`}>{p}</span>{' '}</>)}
-        {manifiestoDestacadas.map((p, n) => (
-          <><span class="intro-w intro-dest" style={`--i:${manifiestoPalabras.length + n + 1}`}>{p}{n === manifiestoDestacadas.length - 1 && '.'}</span>{n < manifiestoDestacadas.length - 1 && ' '}</>
+        {entrada.map((w, n) => (
+          <><span class={w.dest ? 'intro-w intro-dest' : 'intro-w'} style={`--d:${w.d}s`}>{w.p}{w.dest && n === entrada.length - 1 && '.'}</span>{n < entrada.length - 1 && ' '}</>
         ))}
       </p>
-      <svg class="intro-onda" style={`--n:${manifiestoPalabras.length + manifiestoDestacadas.length}`} viewBox="0 0 440 40" focusable="false"><path pathLength="1" d="M8 20 C 80 2 140 2 220 20 S 360 38 432 20" /></svg>
+      <svg class="intro-onda" style={`--d:${ondaDemora}s`} viewBox="0 0 440 40" focusable="false"><path pathLength="1" d="M8 20 C 80 2 140 2 220 20 S 360 38 432 20" /></svg>
     </div>
   )}
   <noscript><style>.intro{display:none}</style></noscript>
@@ -201,15 +216,18 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
   }
 
   // Entrada: se cierra con la primera interacción (respetando un mínimo para que la frase se lea)
-  // o sola a los 4,5 s. Se muestra una vez por sesión.
+  // o sola pasado el máximo. Los tiempos (data-min, data-max) se calculan arriba a partir del ritmo
+  // de la frase. Se muestra una vez por sesión.
   const intro = document.getElementById('intro');
   if (intro && document.documentElement.classList.contains('intro-activa')) {
+    const minimo = Number(intro.dataset.min) || 4000;
+    const maximo = Number(intro.dataset.max) || 4500;
     const inicio = performance.now();
     let cerrada = false;
     const cerrar = () => {
       if (cerrada) return;
       cerrada = true;
-      const resto = Math.max(0, 4000 -(performance.now() - inicio));
+      const resto = Math.max(0, minimo - (performance.now() - inicio));
       window.setTimeout(() => {
         intro.classList.add('intro-sale');
         document.documentElement.classList.remove('intro-activa');
@@ -220,7 +238,7 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
     ['pointermove', 'pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((t) =>
       window.addEventListener(t, cerrar, { once: true, passive: true }),
     );
-    window.setTimeout(cerrar, 4500);
+    window.setTimeout(cerrar, maximo);
   }
 
   let espera: number | undefined;
