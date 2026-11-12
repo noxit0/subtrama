@@ -5,6 +5,7 @@ import FeatureList from '../../components/FeatureList.astro';
 import Callout from '../../components/Callout.astro';
 import Button from '../../components/Button.astro';
 import { getPaquetes, getCondiciones, getAdicionales } from '../../lib/contenido';
+import { migas, recortar } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const paquetes = await getPaquetes();
@@ -18,7 +19,17 @@ const { paquete, anterior, siguiente } = Astro.props;
 const cond = await getCondiciones();
 const adicionales = await getAdicionales();
 ---
-<Base title={`Paquete ${paquete.nombre}`} description={paquete.resumen}>
+<Base
+  title={`Paquete ${paquete.nombre} de gestión de contenido en redes`}
+  description={recortar(paquete.resumen)}
+  datos={[
+    migas(Astro.site!, [
+      { nombre: 'Inicio', ruta: '/' },
+      { nombre: 'Servicios', ruta: '/servicios/' },
+      { nombre: `Paquete ${paquete.nombre}`, ruta: `/paquetes/${paquete.slug}/` },
+    ]),
+  ]}
+>
   <section class="section">
     <div class="container">
       <p class="breadcrumb"><a href="/servicios/">Servicios</a></p>

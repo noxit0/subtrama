@@ -4,6 +4,7 @@ import SectionTitle from '../components/SectionTitle.astro';
 import Button from '../components/Button.astro';
 import Callout from '../components/Callout.astro';
 import { sitio, formulario } from '../data/sitio';
+import { migas } from '../lib/seo';
 import { getPaquetes, getPasosSiguientes } from '../lib/contenido';
 const paquetes = await getPaquetes();
 const pasosSiguientes = await getPasosSiguientes();
@@ -15,7 +16,11 @@ const canales = [
   sitio.instagram && { label: 'Instagram', valor: 'Ver el perfil', href: sitio.instagram },
 ].filter(Boolean) as { label: string; valor: string; href: string }[];
 ---
-<Base title="Contacto" description="Contanos qué hacés y dónde estás hoy. Agendá una reunión con Subtrama.">
+<Base
+  title="Contacto y reunión inicial"
+  description="Contanos qué hacés y dónde está hoy tu marca. Agendá una reunión con Subtrama y te respondemos con una propuesta a medida."
+  datos={[migas(Astro.site!, [{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Contacto', ruta: '/contacto/' }])]}
+>
   <section class="section">
     <div class="container">
       <div class="section-head">

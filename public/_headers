@@ -1,0 +1,5 @@
+# Las direcciones *.pages.dev (producción y vistas previas) no se indexan: el sitio vive en subtrama.com.ar.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
