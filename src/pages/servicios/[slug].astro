@@ -6,6 +6,7 @@ import Callout from '../../components/Callout.astro';
 import Button from '../../components/Button.astro';
 import InformeEjemplo from '../../components/InformeEjemplo.astro';
 import { getServicios, ETAPAS } from '../../lib/servicios';
+import { migas, servicioLd, recortar } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const servicios = await getServicios();
@@ -21,8 +22,20 @@ export async function getStaticPaths() {
 
 const { servicio, anterior, siguiente } = Astro.props;
 const etapa = ETAPAS.find((e) => e.id === servicio.etapa)!;
+const descripcion = recortar(`${servicio.resumen} ${servicio.entrega}`);
 ---
-<Base title={servicio.titulo} description={servicio.resumen}>
+<Base
+  title={`${servicio.titulo} para redes sociales`}
+  description={descripcion}
+  datos={[
+    migas(Astro.site!, [
+      { nombre: 'Inicio', ruta: '/' },
+      { nombre: 'Servicios', ruta: '/servicios/' },
+      { nombre: servicio.titulo, ruta: `/servicios/${servicio.slug}/` },
+    ]),
+    servicioLd(Astro.site!, { nombre: servicio.titulo, descripcion, ruta: `/servicios/${servicio.slug}/`, tipo: 'Marketing digital y redes sociales' }),
+  ]}
+>
   <section class="section">
     <div class="container">
       <p class="breadcrumb"><a href="/servicios/">Servicios</a></p>

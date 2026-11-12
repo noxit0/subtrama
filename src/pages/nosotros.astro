@@ -2,10 +2,12 @@
 import Base from '../layouts/Base.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import Button from '../components/Button.astro';
+import { migas } from '../lib/seo';
 ---
 <Base
-  title="Nosotros"
-  description="Subtrama es un espacio de marketing digital. Ordenamos, publicamos y medimos el contenido en redes de marcas con oficio e historia."
+  title="Nosotros, espacio de marketing digital"
+  description="Subtrama es un espacio de marketing digital en Olavarría y la región. Ordenamos, publicamos y medimos el contenido en redes de marcas con oficio e historia."
+  datos={[migas(Astro.site!, [{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Nosotros', ruta: '/nosotros/' }])]}
 >
   <section class="section">
     <div class="container">
