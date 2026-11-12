@@ -75,6 +75,7 @@ export function servicioLd(site: URL, d: { nombre: string; descripcion: string; 
     url: new URL(d.ruta, site).href,
     ...(d.tipo ? { serviceType: d.tipo } : {}),
     provider: { '@id': `${site.origin}/#organizacion` },
+    audience: { '@type': 'Audience', audienceType: 'Comercios, talleres, industrias, pymes y profesionales' },
     areaServed: AREA,
   };
 }

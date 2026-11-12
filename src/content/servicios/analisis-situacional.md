@@ -4,7 +4,7 @@ etiqueta: "Análisis"
 orden: 1
 etapa: "diagnostico"
 resumen: "Un diagnóstico de tu marca con datos, antes de publicar."
-intro: "Antes de proponer nada, miramos dónde está tu marca hoy: qué comunica, a quién le habla y qué respuesta recibe. El análisis nombra el problema con datos y no con supuestos."
+intro: "Antes de proponer nada, miramos dónde está tu marca hoy en redes sociales: qué comunica, a quién le habla y qué respuesta recibe. El análisis nombra el problema con datos y no con supuestos."
 entrega: "Un diagnóstico escrito con sus recomendaciones, para revisar juntos."
 incluye:
   - lead: "Perfil y audiencia."

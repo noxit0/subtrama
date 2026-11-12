@@ -4,7 +4,7 @@ etiqueta: "Edición"
 orden: 4
 etapa: "produccion"
 resumen: "Video, sonido y diseño con la identidad de tu marca."
-intro: "Con el material en bruto elaboramos la pieza final: ritmo, sonido y diseño para lo que tu marca quiere decir."
+intro: "Con el material en bruto elaboramos la pieza final para tus redes sociales: ritmo, sonido y diseño para lo que tu marca quiere decir, en el formato que pide cada red."
 entrega: "Piezas finales en los formatos que pide cada red."
 incluye:
   - lead: "Video y reels."

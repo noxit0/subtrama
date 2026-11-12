@@ -21,8 +21,8 @@ const manifiestoPalabras = manifiesto ? manifiesto.texto.trim().split(/\s+/) : [
 const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim().split(/\s+/) : [];
 ---
 <Base
-  title="Subtrama | Gestión de contenido y redes sociales para marcas"
-  description="Espacio de marketing digital. Ordenamos, publicamos y medimos el contenido en redes de marcas con oficio e historia. Vos creás tu mundo, nosotros lo contamos."
+  title="Subtrama | Community manager y gestión de redes en Olavarría"
+  description="Community manager en Olavarría y la región. Ordenamos, publicamos y medimos el contenido en redes de comercios, talleres, industrias, pymes y profesionales."
 >
   {manifiesto && (
     <div class="intro" id="intro" aria-hidden="true">
@@ -51,12 +51,12 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
   <span class="hilo-movil" aria-hidden="true"></span>
   <section class="hero">
     <div class="hero-copy surface-deep">
-      <span class="st-eyebrow hero-fade" style="--d:0s">Espacio de marketing digital</span>
+      <span class="st-eyebrow hero-fade" style="--d:0s">Community manager en Olavarría y la región</span>
       <h1 class="display">
         {titulo.map((p, n) => <><span class="hero-palabra" style={`--i:${n}`}>{p}</span>{n < titulo.length - 1 && ' '}</>)}
       </h1>
       <p class="hero-lead hero-fade" style="--d:1s">
-        Somos Subtrama. Ordenamos tu contenido y lo publicamos con estrategia, para que tu marca se cuente sola.
+        Somos Subtrama, un espacio de marketing digital. Ordenamos el contenido de tu marca y lo publicamos con estrategia, para que se cuente sola.
       </p>
       <div class="hero-actions hero-fade" style="--d:1.2s">
         <Button href="/contacto/" size="lg">Agendar reunión</Button>
@@ -87,7 +87,7 @@ const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim()
           <div class="section-head">
             <SectionTitle title="Para quién trabajamos" />
             <p>
-              Trabajamos con marcas que tienen oficio e historia: talleres, estudios y proyectos de autor. Las ayudamos a mostrarlo con constancia y criterio.
+              Somos el community manager de comercios, talleres, industrias, pymes y profesionales de Olavarría y la región: marcas con oficio e historia. Las ayudamos a mostrarlo en redes con constancia y criterio.
             </p>
           </div>
           {marcas.length > 0 && <Marcas />}
