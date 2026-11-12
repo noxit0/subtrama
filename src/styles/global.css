@@ -99,8 +99,8 @@ h1,h2,h3,p,ul{margin:0}
 @media (prefers-reduced-motion:no-preference){
   .hero-palabra{animation:hero-entra .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 90ms)}
   .hero-fade{animation:hero-aparece .8s ease-out both;animation-delay:var(--d)}
-  .intro-w{animation:hero-entra .7s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d)}
-  .intro-onda path{animation:trazo 1s ease-out both;animation-delay:var(--d)}
+  .intro-w{animation:hero-entra .6s cubic-bezier(.2,.7,.2,1) both;animation-delay:var(--d)}
+  .intro-onda path{animation:trazo .8s ease-out both;animation-delay:var(--d)}
 }
 /* Mientras se ve la entrada, la animación del hero espera para arrancar al mostrarse la página. */
 .intro-activa{overflow:hidden}

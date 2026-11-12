@@ -21,9 +21,9 @@ const manifiestoPalabras = manifiesto ? manifiesto.texto.trim().split(/\s+/) : [
 const manifiestoDestacadas = manifiesto?.destacado ? manifiesto.destacado.trim().split(/\s+/) : [];
 // Ritmo de la pantalla de entrada, calcado de la frase dicha en voz alta: una palabra cada PASO
 // segundos y una PAUSA extra tras cada coma o punto (y antes de la parte destacada).
-const PASO = 0.3;
-const PAUSA = 0.5;
-const SOSTEN = 0.8; // tiempo que se queda la frase completa antes de salir
+const PASO = 0.28;
+const PAUSA = 0.4;
+const SOSTEN = 0.5; // tiempo que se queda la frase completa antes de salir
 const entrada: { p: string; d: number; dest: boolean }[] = [];
 let t = 0;
 [...manifiestoPalabras.map((p) => ({ p, dest: false })), ...manifiestoDestacadas.map((p) => ({ p, dest: true }))].forEach((w, n, todas) => {
@@ -32,9 +32,9 @@ let t = 0;
   t += PASO + (/[.,;:]$/.test(w.p) || siguienteDest ? PAUSA : 0);
 });
 const ultimaDemora = entrada.length ? entrada[entrada.length - 1].d : 0;
-const ondaDemora = Number((ultimaDemora + 0.3).toFixed(2));
-// La onda dura 1 s; después la frase queda completa SOSTEN segundos. Ese es el mínimo antes de salir.
-const introMin = Math.round((ondaDemora + 1 + SOSTEN) * 1000);
+const ondaDemora = Number((ultimaDemora + 0.2).toFixed(2));
+// La onda dura 0,8 s; después la frase queda completa SOSTEN segundos. Ese es el mínimo antes de salir.
+const introMin = Math.round((ondaDemora + 0.8 + SOSTEN) * 1000);
 ---
 <Base
   title="Subtrama | Community manager y gestión de redes en Olavarría"
