@@ -4,7 +4,7 @@ etiqueta: "Calendario"
 orden: 5
 etapa: "gestion"
 resumen: "Un calendario anticipado que aprobás antes de publicar."
-intro: "Armamos con anticipación el calendario de contenido para tus redes: qué se publica, cuándo y en qué formato. Vos lo revisás y lo aprobás antes de que salga."
+intro: "Elaboramos con anticipación el calendario de contenido para tus redes: qué se publica, cuándo y en qué formato. Vos lo revisás y lo aprobás antes de que salga."
 entrega: "Un calendario mensual claro, aprobado antes de la primera publicación."
 incluye:
   - lead: "Calendario del mes."
