@@ -31,15 +31,15 @@ const MESES = 6;
 const conInforme = cerrados.filter((p) => p.informe_meses);
 ---
 <Base
-  title="Servicios de contenido y redes sociales"
-  description="Paquetes Esencial, Impulso y A Medida para ordenar, publicar y medir tu contenido en redes, con el detalle de cada servicio."
+  title="Servicios de community manager en redes"
+  description="Paquetes de community manager Esencial, Impulso y A Medida para ordenar, publicar y medir tu contenido en redes, con el detalle de cada servicio."
   datos={[migas(Astro.site!, [{ nombre: 'Inicio', ruta: '/' }, { nombre: 'Servicios', ruta: '/servicios/' }])]}
 >
   <section class="section">
     <div class="container">
       <div class="section-head">
         <SectionTitle as="h1" title="Servicios" eyebrow="Qué hacemos" />
-        <p>Los servicios se contratan en paquetes. Elegí el que se ajuste a tu marca o diseñá uno a tu medida junto con nosotros.</p>
+        <p>Los servicios de community manager se contratan en paquetes. Elegí el que se ajuste a tu marca o diseñá uno a tu medida junto con nosotros.</p>
       </div>
       <div class="grid-cards grid-paquetes">
         {paquetes.map((p, i) => <PaqueteCard paquete={p} indice={i} as="h2" />)}
