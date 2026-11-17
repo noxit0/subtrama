@@ -64,6 +64,13 @@ const introMin = Math.round((ondaDemora + 0.8 + SOSTEN) * 1000);
   <div class="hilo-wrap">
   <svg class="hilo-svg" aria-hidden="true" focusable="false"><path pathLength="1" d="" /></svg>
   <span class="hilo-movil" aria-hidden="true"></span>
+  <span class="pajaro" aria-hidden="true">
+    <svg class="pajaro-svg" viewBox="0 0 48 40" focusable="false">
+      <path class="pajaro-ala" d="M21 24C16 16 18 8 27 4" />
+      <path class="pajaro-cuerpo" d="M4 30C12 32 20 28 26 24C31 20 34 16 38 17" />
+      <path class="pajaro-pico" d="M38 17L45 19" />
+    </svg>
+  </span>
   <section class="hero">
     <div class="hero-copy surface-deep">
       <span class="st-eyebrow hero-fade" style="--d:0s">Community manager en Olavarría y la región</span>
@@ -166,6 +173,24 @@ const introMin = Math.round((ondaDemora + 0.8 + SOSTEN) * 1000);
   const wrap = document.querySelector<HTMLElement>('.hilo-wrap');
   const svg = wrap?.querySelector<SVGSVGElement>('.hilo-svg');
   const path = svg?.querySelector('path');
+  const pajaro = wrap?.querySelector<HTMLElement>('.pajaro');
+
+  // El pájaro recorre la misma ruta que el hilo (CSS, ligado al scroll). Acá solo se le entrega la ruta.
+  function rutaPajaro(d: string) {
+    if (!pajaro) return;
+    pajaro.style.setProperty('offset-path', `path("${d}")`);
+    pajaro.classList.add('listo');
+  }
+
+  // Vuela mientras se desplaza la página y se posa cuando el scroll se detiene.
+  if (pajaro && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let reposo: number | undefined;
+    window.addEventListener('scroll', () => {
+      pajaro.classList.add('vuela');
+      clearTimeout(reposo);
+      reposo = window.setTimeout(() => pajaro.classList.remove('vuela'), 200);
+    }, { passive: true });
+  }
 
   function curva(pts: number[][]) {
     const p = [pts[0], ...pts, pts[pts.length - 1]];
@@ -186,7 +211,7 @@ const introMin = Math.round((ondaDemora + 0.8 + SOSTEN) * 1000);
     const contenedor = wrap.querySelector('.container');
     const ancho = contenedor ? contenedor.getBoundingClientRect().width : 1120;
     const margen = (W - ancho) / 2;
-    if (margen < 60) { svg.classList.remove('listo'); return; }
+    if (margen < 60) { svg.classList.remove('listo'); rutaPajaro(`M9 0L9 ${H}`); return; }
     const base = wrap.getBoundingClientRect().top;
     const secciones = Array.from(wrap.querySelectorAll<HTMLElement>(':scope > section')).map((s) => {
       const r = s.getBoundingClientRect();
@@ -211,7 +236,9 @@ const introMin = Math.round((ondaDemora + 0.8 + SOSTEN) * 1000);
       }
     }
     svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
-    path.setAttribute('d', curva(pts));
+    const d = curva(pts);
+    path.setAttribute('d', d);
+    rutaPajaro(d);
     svg.classList.add('listo');
   }
 

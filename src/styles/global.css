@@ -96,6 +96,25 @@ h1,h2,h3,p,ul{margin:0}
 @keyframes hero-aparece{from{opacity:0}to{opacity:1}}
 @keyframes trazo{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
 @keyframes crece{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes pajaro-vuelo{from{offset-distance:0%}to{offset-distance:100%}}
+@keyframes pajaro-aparece{from{opacity:0}to{opacity:1}}
+@keyframes pajaro-aletea{from{transform:rotate(-35deg)}to{transform:rotate(30deg)}}
+@keyframes pajaro-pliega{from{transform:rotate(15deg)}to{transform:rotate(-70deg)}}
+
+/* Pájaro del hilo: abstracto, hecho con trazos. Sin animación (o sin soporte) queda posado al final del hilo.
+   El movimiento ligado al scroll va en el estilo en línea de Base.astro. */
+.pajaro{position:absolute;left:0;top:0;width:24px;height:20px;z-index:3;pointer-events:none;display:none;offset-distance:100%;offset-rotate:0deg;offset-anchor:50% 80%}
+@supports (offset-path:path("M0 0")){.pajaro.listo{display:block}}
+.pajaro-svg{display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--brand-strong);stroke-width:3.4;stroke-linecap:round;stroke-linejoin:round}
+.pajaro-pico{stroke:var(--accent)}
+.pajaro-ala{transform-box:view-box;transform-origin:21px 24px;transform:rotate(-70deg)}
+@media (min-width:1240px){.pajaro{width:34px;height:28px}}
+@media (prefers-reduced-motion:no-preference){
+  .pajaro-svg{transition:transform .3s ease}
+  .pajaro.vuela .pajaro-svg{transform:rotate(10deg)}
+  .pajaro-ala{animation:pajaro-pliega .4s ease-out}
+  .pajaro.vuela .pajaro-ala{animation:pajaro-aletea .36s ease-in-out infinite alternate}
+}
 @media (prefers-reduced-motion:no-preference){
   .hero-palabra{animation:hero-entra .8s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i) * 90ms)}
   .hero-fade{animation:hero-aparece .8s ease-out both;animation-delay:var(--d)}
