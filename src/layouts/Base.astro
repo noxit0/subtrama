@@ -55,6 +55,7 @@ const ogImage = new URL('/og.png', Astro.site).href;
         @media (prefers-reduced-motion: no-preference) {
           .hilo-svg path { animation-name: trazo; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); }
           .hilo-movil { animation-name: crece; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); }
+          .pajaro { animation-name: pajaro-vuelo, pajaro-aparece; animation-duration: auto, auto; animation-timing-function: linear, linear; animation-fill-mode: both, both; animation-timeline: scroll(root), scroll(root); animation-range: normal normal, normal 4%; }
           .revelar { animation-name: revelar; animation-duration: auto; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: view(); animation-range: entry 0% cover 25%; }
         }
       }
