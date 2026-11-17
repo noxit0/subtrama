@@ -106,6 +106,7 @@ Idioma de trabajo y de contenido: español (Argentina). Tono profesional y direc
 - Hero del inicio: el teléfono rota tres piezas genéricas con la paleta de marca, sin nombres de marcas, sobre las ondas del isotipo y con interacciones que suben (src/components/HeroVisual.astro). El informe de ejemplo, con datos ficticios, está en src/components/InformeEjemplo.astro y se muestra en /servicios/informes/.
 - Método propio de Subtrama (tarea secundaria). No nombrar métodos de terceros.
 - Portal de clientes: requiere backend; sin decidir.
+- Chatbot con IA (idea de 17/11/2026, sin decidir y posterior a los pendientes actuales): función /api/chat en Pages Functions con Turnstile y límite de mensajes; motor a elegir entre Claude Haiku 5.5 (API de Anthropic) y Workers AI; Cloudflare AI Gateway para caché, límite de solicitudes y tope de gasto; base de conocimiento desde informacion-de-web.md; sin informar precios y con voz de empresa (voseo); aviso visible de que es una IA; derivación a Agendar reunión o WhatsApp; actualizar la política de privacidad con revisión legal; definir objetivo (preguntas frecuentes, captar consultas o ambas) y presupuesto mensual máximo.
 
 ## Registro
 
